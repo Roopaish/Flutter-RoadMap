@@ -369,6 +369,27 @@
 
     // ListView() to arrange Widgets in Row or Column but is Scrollable
     // Container() is like box-model of css
+
+    // RaisedButton(), FlatButton(), OutlineButton() are deprecated but can be used
+    // New Buttons are pre-styled but can be overwritten
+
+    // RaisedButton() to ElevatedButton()
+    ElevatedButton(
+      style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Colors.purple), // text and icon
+        backgroundColor: MaterialStateProperty.all(Colors.red),
+      ),
+
+      // Alternative style Property
+      style: ElevatedButton.styleFrom(
+          primary: Colors.red, // bg
+          onPrimary: Colors.white, // foreground
+        ),
+
+      onPressed: null,
+      child: Text("Elevated Btn"),
+    ),
+
   ```
 
   **[⬆ Back to Index](#Index)**

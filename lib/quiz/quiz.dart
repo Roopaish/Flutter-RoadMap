@@ -33,6 +33,13 @@ class _QuizState extends State<Quiz> {
   var _qsnIndex = 0;
   var _totalScore = 0;
 
+  void _resetQuiz() {
+    setState(() {
+      _qsnIndex = 0;
+      _totalScore = 0;
+    });
+  }
+
   void _ansQsn(int score) {
     _totalScore += score;
     setState(() {
@@ -51,7 +58,7 @@ class _QuizState extends State<Quiz> {
                 qsnIndex: _qsnIndex,
                 qsns: _qsns,
               )
-            : Result(_totalScore),
+            : Result(_totalScore,_resetQuiz),
       ),
     );
   }
