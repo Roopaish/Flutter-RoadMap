@@ -15,7 +15,7 @@
 - [Files and Folder Structure
   ](#Files-and-Folder-Structure)
 - [Dart Basics](#Dart-Basics)
-- [Analyze main.dart](#Analyze-main.dart)
+- [Analyze main.dart](#Analyze-maindart)
 
 ## Notes
 
@@ -82,7 +82,7 @@
 
     var p1 = Person(); // Instantiate an object
     p1.name; // Access the object data
-    
+
     // Constructor
     class Person{
       String name;
@@ -106,6 +106,25 @@
 
     // Arrow function(only if one statement is available)
     void main() => runApp(MyApp());
+
+    // Execute function immediately
+    onPressed: fxn()
+    // Execute function only on certain event
+    onPressed: fxn,
+
+    // Anonymous function (execute only on certain event)
+    onPressed: ()=>print("ans chosen!"),
+    onPressed: (){
+      // for other than one line statement
+      print("ans chosen");
+    },
+
+    // Anonymous Function (execute immediately)
+    onPressed: (){
+      // for other than one line statement
+      print("ans chosen");
+    }(),
+
   ```
 
 - ### Analyze main.dart
@@ -133,8 +152,64 @@
       // MaterialApp is root widget
       return MaterialApp(
         home: Text("Hello"),
+        body: Scaffold(),
       );
     }
   }
 
   ```
+
+- ### Widgets
+
+  ```dart
+    // Widgets are classes with Constructor that takes named parameters
+    // Widgets(), this is object of Widget Class
+    // Press 'ctrl+space' inside () brackets of Widget to get the list of named parameters
+    // Always add comma after each parameter to make the code pretty
+
+    // Root Widget
+    MaterialApp(
+      // Scaffold is the base Styling Widget (backgroundColor, appBar , navigationBar)
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Ultimate Flutter App',
+          ),
+        ),
+        body: Text("Body, You can add any Widget here!"),
+      ),
+    )
+
+    // Layout and Control Widgets(Invisible)
+    Row(), Column(), ListView(), Container(), ...
+
+    // Output and Input Widgets(Visible)
+    RaisedButton(), Text(), Card(), ... // Also Container() with some styling
+
+    // Row() to arrange Widgets in Row
+    Row(
+      mainAxisAlignment: MainAxisAlignment.center, // horizontal axis
+      crossAxisAlignment: CrossAxisAlignment.center, // vertical axis
+      children: [
+        Text("Row1"),
+        Text("Row2"),
+        Text("Row3"),
+      ],
+    ),
+
+    // Column() to arrange Widgets in Column
+    Column(
+      mainAxisAlignment: MainAxisAlignment.center, // vertical axis
+      crossAxisAlignment: CrossAxisAlignment.center, // horizontal axis
+      children: [
+        Text("Column1"),
+        Text("Column2"),
+        Text("Column3"),
+      ],
+    ),
+
+    // ListView() to arrange Widgets in Row or Column but is Scrollable
+    // Container() is like box-model of css
+  ```
+
+- ### Making Quiz App
