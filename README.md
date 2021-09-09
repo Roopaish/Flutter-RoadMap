@@ -375,6 +375,8 @@
 
     // RaisedButton() to ElevatedButton()
     ElevatedButton(
+      onPressed: null,
+      child: Text("Elevated Btn"),
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.all(Colors.purple), // text and icon
         backgroundColor: MaterialStateProperty.all(Colors.red),
@@ -382,13 +384,39 @@
 
       // Alternative style Property
       style: ElevatedButton.styleFrom(
-          primary: Colors.red, // bg
-          onPrimary: Colors.white, // foreground
+          primary: Colors.red, // bg (for elevated btn bg is primary thing)
+          onPrimary: Colors.white, // foreground (what should be on primary)
         ),
-
-      onPressed: null,
-      child: Text("Elevated Btn"),
     ),
+
+  // FlatButton() to TextButton()
+  TextButton(
+    onPressed: null,
+    child: Text("Text Btn"),
+    style: ButtonStyle(
+        foregroundColor: MaterialStateProperty.all(Colors.purple), // text and icon
+    )
+
+    // Alternative style property
+    style: TextButton.styleFrom(
+      primary: Colors.orange, // text (primary thing is text in TextButton)
+    ),
+  ),
+
+  // OutlineButton() to OutlinedButton()
+  OutlinedButton{
+    onPressed: null,
+    child: Text("Outlined Btn"),
+    style: BorderStyle(),
+
+    // Alternative style property
+    style: OutlinedButton.styleFrom(
+      primary: Colors.red // text
+      side: BorderSide(
+        color: Colors.black, // borderColor
+      ),
+    ),
+  }
 
   ```
 
