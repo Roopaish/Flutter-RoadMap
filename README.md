@@ -142,13 +142,17 @@
 
   // MyApp inherits StatelessWidget provided by Flutter or material.dart
   class MyApp extends StatelessWidget {
-    @override // optional,  annotation used to mark an instance member as overriding an inherited class member
+    // Define Class properties like variables and functions/methods in here
 
+    @override // optional,  annotation used to mark an instance member as overriding an inherited class member
 
     // build method to return a Widget(class)
     // takes a required argument of type BuildContext
     // to handle location of widget in widget tree
     Widget build(BuildContext context) {
+      // Define variables and functions that needs to reset and build when rebuilding the interface
+
+
       // MaterialApp is root widget
       return MaterialApp(
         home: Text("Hello"),
@@ -156,7 +160,6 @@
       );
     }
   }
-
   ```
 
 - ### Widgets
@@ -212,4 +215,33 @@
     // Container() is like box-model of css
   ```
 
-- ### Making Quiz App
+- ### Stateless vs Stateful Widget
+
+  > In both, data can change externally and build method is called or the UI re-renders when data change
+
+  | StatelessWidget                          | StatefulWidget                                          |
+  | ---------------------------------------- | ------------------------------------------------------- |
+  | Input Data -> Widget -> Renders UI       | Input Data -> Widget & Internal State -> Renders UI     |
+  | Gets re-rendered when input data changes | Gets re-rendered when input data or local State changes |
+
+  ```dart
+    // StatefulWidget (combination of 2 classes)
+
+    class Quiz extends StatefulWidget {
+      @override
+      // Setup connection to State class *
+      _QuizState createState() => _QuizState();
+    }
+
+    // State is generic class
+    // It is persistent and is attached to above StatefulWidget
+    // Stores the state
+    // State<Quiz> tells flutter that below State class belongs to Quiz class *
+    class _QuizState extends State<Quiz> {
+      setState((){
+        // Write code that changes the UI
+      });
+      @override
+      Widget build(BuildContext context) {}
+    }
+  ```

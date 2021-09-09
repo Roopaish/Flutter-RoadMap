@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 
-class Quiz extends StatelessWidget {
+class Quiz extends StatefulWidget {
+  @override
+  _QuizState createState() => _QuizState();
+}
+
+class _QuizState extends State<Quiz> {
+  var qsnIndex = 0;
+
   void ansQsn() {
+    setState(() {
+      qsnIndex++;
+    });
     print("ans pressed");
   }
 
   @override
   Widget build(BuildContext context) {
     // List of String (questions)
-    var questions = [
+    var qsns = [
       "What\'s you favourite color?",
       "What's your favourite animal?"
     ];
@@ -22,7 +32,9 @@ class Quiz extends StatelessWidget {
           ),
           body: Column(
             children: [
-              Text("Question"),
+              Text(
+                qsns[qsnIndex],
+              ),
               ElevatedButton(
                 onPressed: ansQsn,
                 child: Text("ans 1"),
