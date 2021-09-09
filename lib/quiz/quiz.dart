@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'question.dart';
+
 class Quiz extends StatefulWidget {
   @override
   _QuizState createState() => _QuizState();
 }
 
 class _QuizState extends State<Quiz> {
-  var qsnIndex = 0;
+  var _qsnIndex = 0;
 
   void ansQsn() {
     setState(() {
-      qsnIndex++;
+      _qsnIndex++;
     });
     print("ans pressed");
   }
@@ -27,13 +29,13 @@ class _QuizState extends State<Quiz> {
       home: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Ultimate Flutter App',
+              'Quiz App',
             ),
           ),
           body: Column(
             children: [
-              Text(
-                qsns[qsnIndex],
+              Question(
+                qsns[_qsnIndex],
               ),
               ElevatedButton(
                 onPressed: ansQsn,

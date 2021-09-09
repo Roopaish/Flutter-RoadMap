@@ -97,6 +97,9 @@
 
       // Alternative
       Person({this.name,@required this.age});
+
+      // Alternative(positioned argument)
+      Person(this.name,@required this.age)
     }
 
     // Position doesn't matter in named parameter
@@ -124,6 +127,13 @@
       // for other than one line statement
       print("ans chosen");
     }(),
+
+    // Private Properties(leading underscore to class or variable)
+    // So we can't access them from other file
+    class _Quiz{
+      // Its a private class
+    }
+    var _qsnIndex = 0;
 
   ```
 
@@ -240,6 +250,7 @@
     class _QuizState extends State<Quiz> {
       setState((){
         // Write code that changes the UI
+        // Calls build again but update only changed Widget
       });
       @override
       Widget build(BuildContext context) {}
