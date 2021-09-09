@@ -17,6 +17,7 @@ class QuizPanel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Question(
           qsns[qsnIndex]['qsn'] as String,

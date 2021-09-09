@@ -13,10 +13,11 @@ class Answer extends StatelessWidget {
       margin: EdgeInsets.all(10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Colors.purple,
+          primary: Colors.blueGrey[200],
+          onPrimary: Colors.blue[900],
           padding: EdgeInsets.symmetric(vertical: 20),
           textStyle: TextStyle(
-            fontSize: 20,
+            fontSize: 16,
             fontWeight: FontWeight.w400,
           ),
         ),

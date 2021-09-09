@@ -22,22 +22,31 @@ class Result extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            resultPhrase,
+            resultPhrase.toUpperCase(),
             style: TextStyle(
               fontSize: 24,
-              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey,
             ),
             textAlign: TextAlign.center,
+          ),
+          SizedBox(
+            height: 40,
           ),
           TextButton(
             onPressed: () => resetHandler(),
             child: Text(
               'Restart Quiz',
+              style: TextStyle(
+                fontSize: 20,
+              ),
             ),
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.blue),
+              foregroundColor: MaterialStateProperty.all(Colors.indigo[800]),
             ),
           ),
         ],
