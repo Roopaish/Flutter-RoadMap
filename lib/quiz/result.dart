@@ -7,13 +7,14 @@ class Result extends StatelessWidget {
   Result(this.totalScore, this.resetHandler);
 
   String get resultPhrase {
-    String resultText;
-    if (totalScore <= 8) {
-      resultText = 'You are ...strange?';
-    } else if (totalScore <= 12) {
-      resultText = "Pretty likable!";
+    final percent = totalScore * 5;
+    String resultText = "You scored $percent%. ";
+    if (percent <= 50) {
+      resultText += 'That was good!';
+    } else if (percent <= 80) {
+      resultText += "Pretty awesome!";
     } else {
-      resultText = "You're innocent!";
+      resultText += "You rock!";
     }
     return resultText;
   }

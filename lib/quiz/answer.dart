@@ -9,13 +9,14 @@ class Answer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(minWidth: 100, maxWidth: 300),
       width: double.infinity,
       margin: EdgeInsets.all(10),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           primary: Colors.blueGrey[200],
           onPrimary: Colors.blue[900],
-          padding: EdgeInsets.symmetric(vertical: 20),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
           textStyle: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w400,
@@ -24,7 +25,10 @@ class Answer extends StatelessWidget {
         onPressed: () {
           ansHandler();
         },
-        child: Text(ansText),
+        child: Text(
+          ansText,
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }

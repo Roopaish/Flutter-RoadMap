@@ -22,8 +22,11 @@ class QuizPanel extends StatelessWidget {
         Question(
           qsns[qsnIndex]['qsn'] as String,
         ),
-        ...(qsns[qsnIndex]['ans'] as List<Map<String, Object>>).map((ans) {
-          return Answer(() => ansQsn(ans['score']), ans['text'] as String);
+        SizedBox(
+          height: 40,
+        ),
+        ...(qsns[qsnIndex]['choices'] as List).map((choice) {
+          return Answer(() => ansQsn(qsns[qsnIndex]['ans'], choice), choice);
         }).toList()
       ],
     );

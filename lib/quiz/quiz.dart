@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'quizpanel.dart';
 import 'result.dart';
+import 'data.dart';
 
 class Quiz extends StatefulWidget {
   @override
@@ -9,27 +10,6 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  // List of String (questions)
-  final _qsns = [
-    {
-      'qsn': "What is your favorite animal?",
-      'ans': [
-        {'text': 'Dog', 'score': 1},
-        {'text': 'Cat', 'score': 5},
-        {'text': 'Penguin', 'score': 10},
-      ],
-    },
-    {
-      'qsn': "What is your favorite color?",
-      'ans': [
-        {'text': 'Black', 'score': 5},
-        {'text': 'Red', 'score': 2},
-        {'text': 'Orange', 'score': 5},
-        {'text': 'White', 'score': 8},
-      ],
-    },
-  ];
-
   var _qsnIndex = 0;
   var _totalScore = 0;
 
@@ -40,8 +20,10 @@ class _QuizState extends State<Quiz> {
     });
   }
 
-  void _ansQsn(int score) {
-    _totalScore += score;
+  void _ansQsn(String ans, String chosenAns) {
+    if (ans == chosenAns) {
+      _totalScore += 1;
+    }
     setState(() {
       _qsnIndex++;
     });
@@ -51,14 +33,14 @@ class _QuizState extends State<Quiz> {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        constraints: BoxConstraints(minWidth: 100, maxWidth: 300),
-        child: _qsnIndex < _qsns.length
+        constraints: BoxConstraints(minWidth: 100, maxWidth: 800),
+        child: _qsnIndex < qsns.length
             ? QuizPanel(
                 ansQsn: _ansQsn,
                 qsnIndex: _qsnIndex,
-                qsns: _qsns,
+                qsns: qsns,
               )
-            : Result(_totalScore,_resetQuiz),
+            : Result(_totalScore, _resetQuiz),
       ),
     );
   }
