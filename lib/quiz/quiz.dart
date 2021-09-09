@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'answer.dart';
-import 'question.dart';
+import 'quizpanel.dart';
+import 'result.dart';
 
 class Quiz extends StatefulWidget {
   @override
@@ -10,7 +10,7 @@ class Quiz extends StatefulWidget {
 
 class _QuizState extends State<Quiz> {
   // List of String (questions)
-  final qsns = [
+  final _qsns = [
     {
       'qsn': "What is your favorite animal?",
       'ans': ['Dog', 'Cat', 'Panda'],
@@ -34,22 +34,13 @@ class _QuizState extends State<Quiz> {
     return Center(
       child: Container(
         constraints: BoxConstraints(minWidth: 100, maxWidth: 300),
-        child: _qsnIndex < qsns.length
-            ? Column(
-                children: [
-                  Question(
-                    qsns[_qsnIndex]['qsn'] as String,
-                  ),
-                  ...(qsns[_qsnIndex]['ans'] as List<String>).map((ans) {
-                    return Answer(_ansQsn, ans);
-                  }).toList()
-                ],
+        child: _qsnIndex < _qsns.length
+            ? QuizPanel(
+                ansQsn: _ansQsn,
+                qsnIndex: _qsnIndex,
+                qsns: _qsns,
               )
-            : Center(
-                child: Text(
-                  'You did it',
-                ),
-              ),
+            : Result(),
       ),
     );
   }
