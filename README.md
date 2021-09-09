@@ -1,7 +1,7 @@
 # Ultimate Flutter App
 
 ## Contents
-
+- Flutter Notes
 - Quiz App
 - Personal Expense App
 - Meals App
@@ -9,7 +9,7 @@
 - Great Places App
 - Chat App
 
-## Indexes
+## Index
 
 - [Command Line Tools](#Command-line-tools)
 - [Files and Folder Structure
@@ -31,6 +31,8 @@
     flutter doctor
   ```
 
+  **[⬆ Back to Index](#Index)**
+
 - ### Files and Folder Structure
 
   | Folder/File      | Use                                                       | Development   |
@@ -49,6 +51,8 @@
   | pubspec.lock     | Auto generated form pubspec.yml                           | Passive       |
 
   > Note: Active means used by programmer, Passive means Flutter manages automatically
+
+  **[⬆ Back to Index](#Index)**
 
 - ### Dart and Flutter
 
@@ -77,7 +81,22 @@
       print(a-b);
     }
 
-        // Private Properties(leading underscore to class or variable)
+    if(expression){
+      print("expression is true");
+    }else{
+      print("expression is false ");
+    }
+
+    // Ternary Operator
+    expression ? print("expression is true") : print("expression is false");
+
+    // Null (to reset or indicate that any type of variable doesn't have a value)
+    var name; // default uninitialized variable is null
+    if(name == null){
+      print("Name doesn't have any value")
+    }
+
+    // Private Properties(leading underscore to class or variable)
     // So we can't access them from other file
     class _Quiz{
       // Its a private class
@@ -231,6 +250,21 @@
     ),
   ```
 
+  ```dart
+
+    const qsns; // values doesn't change, (compile-time constant)
+
+    final qsns; // values doesn't change once it receives initial value, (run-time constant) value
+
+    var txt = const ['Hello'] // value is constant but not variable, txt is unmodifiable
+    txt.add('Max');
+    print(txt); // error, if const is removed then, Hello Max
+    txt = ['Hello Max'] // allowed cause txt is not constant
+
+  ```
+
+  **[⬆ Back to Index](#Index)**
+
 - ### Analyze main.dart
 
   ```dart
@@ -264,7 +298,10 @@
       );
     }
   }
+
   ```
+
+  **[⬆ Back to Index](#Index)**
 
 - ### Widgets
 
@@ -319,11 +356,13 @@
     // Container() is like box-model of css
   ```
 
+  **[⬆ Back to Index](#Index)**
+
 - ### Stateless vs Stateful Widget
 
   > In both, data can change externally and build method is called or the UI re-renders when data change
 
-  | [StatelessWidget](#Analyze-maindart)                        | StatefulWidget                                          |
+  | [StatelessWidget](#Analyze-maindart)     | StatefulWidget                                          |
   | ---------------------------------------- | ------------------------------------------------------- |
   | Input Data -> Widget -> Renders UI       | Input Data -> Widget & Internal State -> Renders UI     |
   | Gets re-rendered when input data changes | Gets re-rendered when input data or local State changes |
@@ -352,3 +391,5 @@
     }
 
   ```
+
+  **[⬆ Back to Index](#Index)**
