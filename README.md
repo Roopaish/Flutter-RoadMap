@@ -14,8 +14,10 @@
 - [Command Line Tools](#Command-line-tools)
 - [Files and Folder Structure
   ](#Files-and-Folder-Structure)
-- [Dart Basics](#Dart-Basics)
+- [Dart and Flutter](#Dart-and-Flutter)
 - [Analyze main.dart](#Analyze-maindart)
+- [Widgets](#Widgets)
+- [Stateless vs Stateful Widget](#Stateless-vs-Stateful-Widget)
 
 ## Notes
 
@@ -48,9 +50,10 @@
 
   > Note: Active means used by programmer, Passive means Flutter manages automatically
 
-- ### Dart Basics
+- ### Dart and Flutter
 
   ```dart
+
     void main(){
       // Starting of program
       // Everything should be here
@@ -73,6 +76,17 @@
     subNumbers(a,b){
       print(a-b);
     }
+
+        // Private Properties(leading underscore to class or variable)
+    // So we can't access them from other file
+    class _Quiz{
+      // Its a private class
+    }
+    var _qsnIndex = 0;
+
+  ```
+
+  ```dart
 
     // Class
     class Person{
@@ -107,6 +121,33 @@
     // Position Matters
     var p2 = Person("Sam",20);
 
+  ```
+
+  ```dart
+
+    // Multiple Constructors
+    class Person{
+      String name;
+      int age;
+
+      Person.old(this.name){
+        age = 60;
+      }
+
+      Person.young(this.name){
+        age = 20;
+      }
+    }
+
+    main(){
+      Person.old("Max");
+      print(Max.age)// 60
+    }
+
+  ```
+
+  ```dart
+
     // Arrow function(only if one statement is available)
     void main() => runApp(MyApp());
 
@@ -128,33 +169,66 @@
       print("ans chosen");
     }(),
 
-    // Private Properties(leading underscore to class or variable)
-    // So we can't access them from other file
-    class _Quiz{
-      // Its a private class
-    }
-    var _qsnIndex = 0;
+  ```
 
-    // Multiple Constructors
-    class Person{
-      String name;
-      int age;
+  ```dart
 
-      Person.old(this.name){
-        age = 60;
+    // Maps (key:value pairs)
+    var qsns = [
+      {
+        'qsn':'What is your favorite animal?',
+        'ans' : ['Dog','Cat']
+      },
+      {
+        'qsn':'What is your favorite color?',
+        'ans' : ['Black','Red']
       }
+    ];
 
-      Person.young(this.name){
-        age = 20;
-      }
-    }
+    qsns[0]['qsn'] // access 1st qsn
+    qsns[0]['ans'] // access 1st list of ans
 
-    main(){
-      Person.old("Max");
-      print(Max.age)// 60
-    }
+    // To get List of Answer Widgets
+    ...(qsns[_qsnIndex]['ans'] as List<String>).map((ans) {
+          return Answer(_ansQsn, ans);
+        }).toList()
 
+    // qsns[_qsnIndex]['ans'] as List<String> -> dart doesn't know that ans is a list, So we need to specify it
 
+    // List.map((ans){}) -> iterate through every element inside the list and can take that element as argument
+
+    // return Answer(_ansQsn,ans); -> Based on iterations, Answer widgets are generated
+
+    // .toList() -> All the answer Widgets are converted back to list cause Column take list of Widgets
+
+    // ... -> spread operator takes a list and pull all values fo list and add them to surrounding list
+
+    // Example
+    Column(
+      children : [
+        ...(qsns[_qsnIndex]['ans'] as List<String>).map((ans) {
+          return Answer(_ansQsn, ans);
+        }).toList()
+      ]
+    ),
+
+    // Equivalent to (without ...spread operator)
+    Column(
+      children : [
+        [
+          Answer(_ansQsn, qsns[_qsnIndex]['ans'][0]),
+          Answer(_ansQsn, qsns[_qsnIndex]['ans'][1]),
+        ]
+      ]
+    ),
+
+    // With ...spread operator (nested list got removed)
+    Column(
+      children : [
+          Answer(_ansQsn, qsns[_qsnIndex]['ans'][0]),
+          Answer(_ansQsn, qsns[_qsnIndex]['ans'][2]),
+      ]
+    ),
   ```
 
 - ### Analyze main.dart
@@ -249,12 +323,13 @@
 
   > In both, data can change externally and build method is called or the UI re-renders when data change
 
-  | StatelessWidget                          | StatefulWidget                                          |
+  | [StatelessWidget](#Analyze-maindart)                        | StatefulWidget                                          |
   | ---------------------------------------- | ------------------------------------------------------- |
   | Input Data -> Widget -> Renders UI       | Input Data -> Widget & Internal State -> Renders UI     |
   | Gets re-rendered when input data changes | Gets re-rendered when input data or local State changes |
 
   ```dart
+
     // StatefulWidget (combination of 2 classes)
 
     class Quiz extends StatefulWidget {
@@ -275,4 +350,5 @@
       @override
       Widget build(BuildContext context) {}
     }
+
   ```

@@ -22,27 +22,30 @@ class _QuizState extends State<Quiz> {
   Widget build(BuildContext context) {
     // List of String (questions)
     var qsns = [
-      "What\'s you favourite color?",
-      "What's your favourite animal?"
+      {
+        'qsn': "What is your favorite animal?",
+        'ans': ['Dog', 'Cat', 'Panda'],
+      },
+      {
+        'qsn': "What is your favorite color?",
+        'ans': ['Black', 'Red'],
+      },
     ];
 
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Quiz App',
+    return Center(
+      child: Container(
+        constraints: BoxConstraints(minWidth: 100, maxWidth: 300),
+        child: Column(
+          children: [
+            Question(
+              qsns[_qsnIndex]['qsn'] as String,
             ),
-          ),
-          body: Column(
-            children: [
-              Question(
-                qsns[_qsnIndex],
-              ),
-              Answer(_ansQsn),
-              Answer(_ansQsn),
-              Answer(_ansQsn),
-            ],
-          )),
+            ...(qsns[_qsnIndex]['ans'] as List<String>).map((ans) {
+              return Answer(_ansQsn, ans);
+            }).toList()
+          ],
+        ),
+      ),
     );
   }
 }
