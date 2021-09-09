@@ -1,13 +1,32 @@
 import 'package:flutter/material.dart';
 
 class Result extends StatelessWidget {
-  const Result({Key? key}) : super(key: key);
+  final int totalScore;
+
+  Result(this.totalScore);
+
+  String get resultPhrase {
+    String resultText;
+    if (totalScore <= 8) {
+      resultText = 'You are ...strange?';
+    } else if (totalScore <= 12) {
+      resultText = "Pretty likable!";
+    } else {
+      resultText = "You're innocent!";
+    }
+    return resultText;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'You did it',
+        resultPhrase,
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
       ),
     );
   }

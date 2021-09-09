@@ -1,6 +1,7 @@
 # Ultimate Flutter App
 
 ## Contents
+
 - Flutter Notes
 - Quiz App
 - Personal Expense App
@@ -121,7 +122,7 @@
       String name;
       int age;
 
-      Person(String name, @required int age){
+      Person(String name, required int age){
         this.name = name;
         this.age = age;
         // @required means age is compulsory to pass
@@ -129,10 +130,10 @@
       }
 
       // Alternative
-      Person({this.name,@required this.age});
+      Person({this.name,required this.age});
 
       // Alternative(positioned argument)
-      Person(this.name,@required this.age)
+      Person(this.name,required this.age)
     }
 
     // Position doesn't matter in named parameter
@@ -179,12 +180,14 @@
     onPressed: ()=>print("ans chosen!"),
     onPressed: (){
       // for other than one line statement
+      fxn()
       print("ans chosen");
     },
 
     // Anonymous Function (execute immediately)
     onPressed: (){
       // for other than one line statement
+      fxn()
       print("ans chosen");
     }(),
 
@@ -260,6 +263,18 @@
     txt.add('Max');
     print(txt); // error, if const is removed then, Hello Max
     txt = ['Hello Max'] // allowed cause txt is not constant
+
+  ```
+
+  ```dart
+
+    // Getter(mixture of method and property), can't receive arguments
+    returnType get getterName {
+      // do something
+      return something;
+    }
+
+    getterName // call/reference to getter
 
   ```
 

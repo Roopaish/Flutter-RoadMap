@@ -21,8 +21,8 @@ class QuizPanel extends StatelessWidget {
         Question(
           qsns[qsnIndex]['qsn'] as String,
         ),
-        ...(qsns[qsnIndex]['ans'] as List<String>).map((ans) {
-          return Answer(ansQsn, ans);
+        ...(qsns[qsnIndex]['ans'] as List<Map<String, Object>>).map((ans) {
+          return Answer(() => ansQsn(ans['score']), ans['text'] as String);
         }).toList()
       ],
     );

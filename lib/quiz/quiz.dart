@@ -13,20 +13,31 @@ class _QuizState extends State<Quiz> {
   final _qsns = [
     {
       'qsn': "What is your favorite animal?",
-      'ans': ['Dog', 'Cat', 'Panda'],
+      'ans': [
+        {'text': 'Dog', 'score': 1},
+        {'text': 'Cat', 'score': 5},
+        {'text': 'Penguin', 'score': 10},
+      ],
     },
     {
       'qsn': "What is your favorite color?",
-      'ans': ['Black', 'Red'],
+      'ans': [
+        {'text': 'Black', 'score': 5},
+        {'text': 'Red', 'score': 2},
+        {'text': 'Orange', 'score': 5},
+        {'text': 'White', 'score': 8},
+      ],
     },
   ];
-  var _qsnIndex = 0;
 
-  void _ansQsn() {
+  var _qsnIndex = 0;
+  var _totalScore = 0;
+
+  void _ansQsn(int score) {
+    _totalScore += score;
     setState(() {
       _qsnIndex++;
     });
-    print("ans pressed");
   }
 
   @override
@@ -40,7 +51,7 @@ class _QuizState extends State<Quiz> {
                 qsnIndex: _qsnIndex,
                 qsns: _qsns,
               )
-            : Result(),
+            : Result(_totalScore),
       ),
     );
   }
