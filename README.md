@@ -135,6 +135,26 @@
     }
     var _qsnIndex = 0;
 
+    // Multiple Constructors
+    class Person{
+      String name;
+      int age;
+
+      Person.old(this.name){
+        age = 60;
+      }
+
+      Person.young(this.name){
+        age = 20;
+      }
+    }
+
+    main(){
+      Person.old("Max");
+      print(Max.age)// 60
+    }
+
+
   ```
 
 - ### Analyze main.dart

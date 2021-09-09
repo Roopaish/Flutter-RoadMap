@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'answer.dart';
 import 'question.dart';
 
 class Quiz extends StatefulWidget {
@@ -10,7 +11,7 @@ class Quiz extends StatefulWidget {
 class _QuizState extends State<Quiz> {
   var _qsnIndex = 0;
 
-  void ansQsn() {
+  void _ansQsn() {
     setState(() {
       _qsnIndex++;
     });
@@ -37,22 +38,9 @@ class _QuizState extends State<Quiz> {
               Question(
                 qsns[_qsnIndex],
               ),
-              ElevatedButton(
-                onPressed: ansQsn,
-                child: Text("ans 1"),
-              ),
-              ElevatedButton(
-                onPressed: ansQsn,
-                child: Text("ans 2"),
-              ),
-              ElevatedButton(
-                onPressed: ansQsn,
-                child: Text("ans 3"),
-              ),
-              ElevatedButton(
-                onPressed: ansQsn,
-                child: Text("ans 4"),
-              ),
+              Answer(_ansQsn),
+              Answer(_ansQsn),
+              Answer(_ansQsn),
             ],
           )),
     );
