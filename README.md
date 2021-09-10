@@ -466,7 +466,10 @@
   Use Github Actions to auto build the github-pages as soon as you push to github.
 
   1. Inside project folder or repository, add a new folder '/.github/workflows'.
-  <img src='https://i.postimg.cc/FHcK1v6v/workflow-folder.png' border='1' alt='workflow-folder'/>
+
+    <kbd>
+      <img src='https://i.postimg.cc/FHcK1v6v/workflow-folder.png' border='1' alt='workflow-folder'/>
+    </kbd>
 
   2. Under workflows, create publish.yaml file
 
@@ -491,7 +494,10 @@
   4. Navigate to 'actions' tab of the github repo. There, we can see the action going on.
   5. After that action is completed, new branch 'gh-pages' will be created.
   6. Go to 'Settings' of the repo, then 'Pages' and Under Branch: dropdown, select 'gh-pages'
-  <img src='https://i.postimg.cc/j50WXXDp/github-pages.png' border='1' alt='github-pages'/>
+
+    <kbd>
+      <img src='https://i.postimg.cc/j50WXXDp/github-pages.png' border='1' alt='github-pages'/>
+    </kbd>
 
   7. Now the site will publish to
      'https://your_user_name.github.io/your_repo_nam'
