@@ -25,11 +25,13 @@
 - ### Command line tools
 
   ```bash
+
     # To create new project
     flutter create my_project_name
 
     # To check for missing requirements
     flutter doctor
+
   ```
 
   **[⬆ Back to Index](#Index)**
@@ -456,4 +458,72 @@
 
   ```
 
+  **[⬆ Back to Index](#Index)**
+
+- ### Github Workflow
+
+  Use Github Actions to auto build the github-pages as soon as you push to github.
+
+  1. Inside project folder or repository, add a new folder '/.github/workflows'.
+
+      <img src='https://i.postimg.cc/FHcK1v6v/workflow-folder.png' border='1' alt='workflow-folder'/>
+
+  2. Under workflows, create publish.yaml file
+
+
+      ```yaml
+
+        name: Gh-Pages
+
+        on:
+          push:
+            branches: [ master ]
+
+        jobs:
+          build:
+            runs-on: ubuntu-latest
+
+            steps:
+              - uses: actions/checkout@v2 # Only works with v2
+              - uses: subosito/flutter-action@v1
+              - uses: erickzanardo/flutter-gh-pages@v6
+
+      ```
+
+  3. Commit and Publish it to github.
+  4. Navigate to 'actions' tab of the github repo. There, we can see the action going on.
+  5. After that action is completed, new branch 'gh-pages' will be created.
+  6. Go to 'Settings' of the repo, then 'Pages' and Under Branch: dropdown, select 'gh-pages'
+
+      <img src='https://i.postimg.cc/j50WXXDp/github-pages.png' border='1' alt='github-pages'/>
+
+  7. Now the site will publish to 
+      'https://your_user_name.github.io/your_repo_nam'  
+    
+
+  > Note: In case you use custom url or the webpage reside in the root directory of custom url, below steps are not necessary   
+
+  
+  8. Now finally you have to open 'gh-pages' branch and change 'index.html'
+
+  9. Inside head tag find base url
+      ```html
+        <head>
+          .....
+          <base href="/">
+          .....
+        </head>
+      ```
+  10. Change base url to your repo name (or directory name in case of custom website)
+      ```html
+        <head>
+          .....
+          <base href="/your-repo-name/">
+          .....
+        </head>
+      ```
+  
+      **Done**
+
+    
   **[⬆ Back to Index](#Index)**
