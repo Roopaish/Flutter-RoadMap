@@ -287,6 +287,18 @@
 
   ```
 
+  ```dart
+
+    // String Interpolation
+    a = 10;
+    print('a = $a'); // a = 10
+    
+    tx.amount = 100; // tx is instance of a class with amount as property
+    print('amount =  \$${tx.amount}) // amount = $100
+
+  ```
+
+
   **[⬆ Back to Index](#Index)**
 
 - ### Analyze main.dart
