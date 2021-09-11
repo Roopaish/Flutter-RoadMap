@@ -4,12 +4,12 @@ import 'quizpanel.dart';
 import 'result.dart';
 import 'data.dart';
 
-class Quiz extends StatefulWidget {
+class QuizApp extends StatefulWidget {
   @override
-  _QuizState createState() => _QuizState();
+  _QuizAppState createState() => _QuizAppState();
 }
 
-class _QuizState extends State<Quiz> {
+class _QuizAppState extends State<QuizApp> {
   var _qsnIndex = 0;
   var _totalScore = 0;
 

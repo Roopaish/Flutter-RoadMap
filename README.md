@@ -12,6 +12,8 @@
 
 ## Index
 
+[Flutter Basics(Quiz App)](<#Flutter-Basics(Quiz-App)>)
+
 - [Command Line Tools](#Command-line-tools)
 - [Files and Folder Structure
   ](#Files-and-Folder-Structure)
@@ -21,7 +23,11 @@
 - [Stateless vs Stateful Widget](#Stateless-vs-Stateful-Widget)
 - [Github Workflow](#Github-Workflow)
 
+[More Widgets, Styling, Adding Logic(Personal Expense App)](<#More-Widgets,-Styling,-Adding-Logic(Personal-Expense-App)>)
+
 ## Notes
+
+## Flutter Basics(Quiz App)
 
 - ### Command line tools
 
@@ -527,3 +533,98 @@
       **Done**
 
   **[⬆ Back to Index](#Index)**
+
+## More Widgets, Styling, Adding Logic(Personal Expense App)
+
+- ### Important Widgets
+
+  - App/Page Setup
+
+    ```dart
+
+      // All Widget Wrapper
+      MaterialApp()
+      CupertinoApp()
+
+      // Styling overall app
+      Scaffold()
+      CupertinoPageScaffold()
+
+    ```
+
+  - Layout
+
+    ```dart
+      // Wrapper for other widgets, alignment and styling(border, padding, margin) , takes one child, flexible size
+      // To style other Widgets
+      Container()
+
+      // Arrange Widgets horizontally , takes multiple child , alignment only, takes full width
+      Row()
+
+      // Arrange Widgets vertically , takes multiple child , alignment only , takes full height
+      Column()
+
+    ```
+
+  - Row/Column Children (Responsive Widgets)
+
+    ```dart
+
+      Flexible()
+      Expanded()
+
+    ```
+
+  - Content Containers
+
+    ```dart
+      // Widgets on top of each other
+      Stack()
+
+      // Container with some default styling
+      Card() // Needs Parent or Child for its size, eg: Container
+
+    ```
+
+  - Repeat Elements
+
+    ```dart
+
+      // Make contents Scrollable (either row or column)
+      ListView()
+
+      // Align contents in both row and column
+      GridView()
+
+      // Used inside the ListView()
+      ListTile()
+
+    ```
+
+  - Content Types
+
+    ```dart
+
+      Text()
+      Image()
+      Icon()
+
+    ```
+
+  - User Input
+
+    ```dart
+
+      // Forms input
+      TextField()
+
+      // Buttons
+      RaisedButton()
+      FlatButton()
+      IconButton()
+
+      GestureDetector() // Used inside buttons
+      InkWell() // Gives ripple effect, to register event for double tap, tap on visible/invisible widgets
+
+    ```

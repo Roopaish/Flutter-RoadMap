@@ -1,5 +1,6 @@
 // import needed packages from Flutter
 import 'package:flutter/material.dart';
+import 'expense/expense.dart';
 import 'quiz/quiz.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        body: Quiz(),
+        body: ExpenseApp(),
       ),
     );
   }
