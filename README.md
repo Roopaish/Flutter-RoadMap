@@ -567,15 +567,54 @@
   - Layout
 
     ```dart
+
+      // Container()
       // Wrapper for other widgets, alignment and styling(border, padding, margin) , takes one child, flexible size
       // To style other Widgets
-      Container()
+      Container(
+        margin: EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 15,
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.purple,
+            width: 2,
+          ),
+        ),
+        padding: EdgeInsets.all(10),
+        child: Text(
+          '\$${tx.amount}',
+          style: TextStyle(
+            fontWeight: FontWeight.w600,
+            fontSize: 20,
+            color: Colors.purple,
+          ),
+        ),
+      ),
 
+      // Row()
       // Arrange Widgets horizontally , takes multiple child , alignment only, takes full width
-      Row()
+      // Wrap with SingleChildScrollView() to avoid warning bars
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Widget(),
+          Widget(),
+          Widget(),
+        ]
+      )
 
+      // Column()
       // Arrange Widgets vertically , takes multiple child , alignment only , takes full height
-      Column()
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Widget(),
+          Widget(),
+          Widget(),
+        ]
+      )
 
     ```
 
@@ -594,8 +633,12 @@
       // Widgets on top of each other
       Stack()
 
+      // Card()
       // Container with some default styling
-      Card() // Needs Parent or Child for its size, eg: Container
+      // Needs Parent or Child for its size, eg: Container
+      Card(
+        child: Text(),
+      ) 
 
     ```
 
@@ -617,8 +660,17 @@
   - Content Types
 
     ```dart
+      
+      // Text()
+      Text(
+        '\$${tx.amount}',
+        style: TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 20,
+          color: Colors.purple,
+        ),
+      )
 
-      Text()
       Image()
       Icon()
 
@@ -628,8 +680,21 @@
 
     ```dart
 
-      // Forms input
-      TextField()
+      // TextField()
+      // Forms InputFields
+      // Two ways of accessing the input
+      // one with normal variable and onChanged or similar property
+      // other with TextEditingController
+      // String amountInput = '';
+      final amountController = TextEditingController();
+      
+      TextField(
+        decoration: InputDecoration(labelText: 'Amount'),
+        // onChanged: (val) => amountInput = val,
+        controller: amountController, // watch and store every input inside this TextField
+      ),
+
+      print(double.parse(amountController.text)); // prints text stored in controller as a double
 
       // Buttons
       RaisedButton()
