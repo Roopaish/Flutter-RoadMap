@@ -650,11 +650,17 @@
       // ListView()
       // Make contents Scrollable (either row or column)
       // Column() or Row() with SingleChildScrollView() but doesn't have fix height (infinite height)
-      // Wrap ListView() with Container with certain height, so tha ListView() will have a limited height (Container's height)
+      // Wrap ListView() or ListView.builder() with Container with certain height, so tha it will have a limited height (Container's height)
       // ListView() renders children even when they are offscreen but ListView.builder() only renders what's visible
+      // ListView() for limited items and ListView.builder() fro many infinite items (or many)
       ListView(children:[])
 
-      ListView.builder()
+      ListView.builder(
+        itemBuilder: (ctx,index){
+          return text(transaction[index].title); // build Children Widgets
+        }
+        itemCount: transaction.length, // Number of Widgets to be build
+      )
 
       // Align contents in both row and column
       GridView()
