@@ -595,7 +595,7 @@
 
       // Row()
       // Arrange Widgets horizontally , takes multiple child , alignment only, takes full width
-      // Wrap with SingleChildScrollView() to avoid warning bars
+      // Wrap with SingleChildScrollView() to avoid warning bars and make it scrollable
       Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -607,6 +607,7 @@
 
       // Column()
       // Arrange Widgets vertically , takes multiple child , alignment only , takes full height
+      // Wrap with SingleChildScrollView() to avoid warning bars and make it scrollable
       Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
@@ -646,8 +647,14 @@
 
     ```dart
 
+      // ListView()
       // Make contents Scrollable (either row or column)
-      ListView()
+      // Column() or Row() with SingleChildScrollView() but doesn't have fix height (infinite height)
+      // Wrap ListView() with Container with certain height, so tha ListView() will have a limited height (Container's height)
+      // ListView() renders children even when they are offscreen but ListView.builder() only renders what's visible
+      ListView(children:[])
+
+      ListView.builder()
 
       // Align contents in both row and column
       GridView()
