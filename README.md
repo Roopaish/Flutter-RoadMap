@@ -25,6 +25,10 @@
 
 [More Widgets, Styling, Adding Logic(Personal Expense App)](#more-widgets-styling-adding-logicpersonal-expense-app)
 
+- [Adding Custom Assets](#adding-custom-assets)
+- [Important Widgets](#important-widgets)
+- [Access methods of StatefulWidget to connected State Widget](#access-methods-of-statefulwidget-to-connected-state-widget)
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -41,7 +45,7 @@
 
   ```
 
-  **[⬆ Back to Index](#Index)**
+  **[⬆ Back to Index](#index)**
 
 - ### Files and Folder Structure
 
@@ -62,7 +66,7 @@
 
   > Note: Active means used by programmer, Passive means Flutter manages automatically
 
-  **[⬆ Back to Index](#Index)**
+  **[⬆ Back to Index](#index)**
 
 - ### Dart and Flutter
 
@@ -298,7 +302,7 @@
 
   ```
 
-  **[⬆ Back to Index](#Index)**
+  **[⬆ Back to Index](#index)**
 
 - ### Analyze main.dart
 
@@ -336,7 +340,7 @@
 
   ```
 
-  **[⬆ Back to Index](#Index)**
+  **[⬆ Back to Index](#index)**
 
 - ### Widgets
 
@@ -440,7 +444,7 @@
 
   ```
 
-  **[⬆ Back to Index](#Index)**
+  **[⬆ Back to Index](#index)**
 
 - ### Stateless vs Stateful Widget
 
@@ -476,7 +480,7 @@
 
   ```
 
-  **[⬆ Back to Index](#Index)**
+  **[⬆ Back to Index](#index)**
 
 - ### Github Workflow
 
@@ -543,7 +547,7 @@
 
       **Done**
 
-  **[⬆ Back to Index](#Index)**
+  **[⬆ Back to Index](#index)**
 
 ## More Widgets, Styling, Adding Logic(Personal Expense App)
 
@@ -593,6 +597,8 @@
        );
 
      ```
+
+  **[⬆ Back to Index](#index)**
 
 - ### Important Widgets
 
@@ -827,6 +833,8 @@
 
     ```
 
+  **[⬆ Back to Index](#index)**
+
 - ### Access methods of StatefulWidget to connected State Widget
 
   ```dart
@@ -852,3 +860,5 @@
     }
 
   ```
+
+  **[⬆ Back to Index](#index)**
