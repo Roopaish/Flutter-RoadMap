@@ -553,12 +553,14 @@
 
   1. Make a folder assets on root directory of project
 
+    ```
       .
       ├── ...
       ├── assets # root folder for all the assets to be used in your app  
       │ ├── images # All your images
       │ ├── fonts # All you custom fonts  
       └── ...
+    ```
 
   2. update pubspec.yml and save
 
