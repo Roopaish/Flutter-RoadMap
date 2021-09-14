@@ -12,18 +12,18 @@
 
 ## Index
 
-[Flutter Basics(Quiz App)](<#Flutter-Basics(Quiz-App)>)
+[Flutter Basics(Quiz App)](#flutter-basicsquiz-app)
 
-- [Command Line Tools](#Command-line-tools)
+- [Command Line Tools](#command-line-tools)
 - [Files and Folder Structure
-  ](#Files-and-Folder-Structure)
-- [Dart and Flutter](#Dart-and-Flutter)
-- [Analyze main.dart](#Analyze-maindart)
-- [Widgets](#Widgets)
-- [Stateless vs Stateful Widget](#Stateless-vs-Stateful-Widget)
-- [Github Workflow](#Github-Workflow)
+  ](#files-and-folder-structure)
+- [Dart and Flutter](#dart-and-flutter)
+- [Analyze main.dart](#analyze-maindart)
+- [Widgets](#widgets)
+- [Stateless vs Stateful Widget](#stateless-vs-stateful-widget)
+- [Github Workflow](#github-workflow)
 
-[More Widgets, Styling, Adding Logic(Personal Expense App)](<#More-Widgets,-Styling,-Adding-Logic(Personal-Expense-App)>)
+[More Widgets, Styling, Adding Logic(Personal Expense App)](#more-widgets-styling-adding-logicpersonal-expense-app)
 
 ## Notes
 
@@ -553,46 +553,46 @@
 
   1. Make a folder assets on root directory of project
 
-    ```
-      .
-      ├── ...
-      ├── assets # root folder for all the assets to be used in your app  
-      │ ├── images # All your images
-      │ ├── fonts # All you custom fonts  
-      └── ...
-    ```
+     ```
+       .
+       ├── ...
+       ├── assets       # root folder for all the assets to be used in your app
+       │ ├── images     # All your images
+       │ ├── fonts      # All you custom fonts
+       └── ...
+     ```
 
   2. update pubspec.yml and save
 
-      ```yml
-      flutter:
-        assets:
-          - assets/images/ # for images
-        fonts:
-          - family: CustomFont
-            fonts:
-              - asset: fonts/CustomFont-Regular.ttf
-              - asset: fonts/CustomFont-Italic.ttf
-                style: italic
-          - family: CustomFont2
-            fonts:
-              - asset: fonts/CustomFont2.ttf
-              - asset: fonts/CustomFont2.ttf
-                weight: 700
-      ```
+     ```yml
+     flutter:
+       assets:
+         - assets/images/ # for images
+       fonts:
+         - family: CustomFont
+           fonts:
+             - asset: fonts/CustomFont-Regular.ttf
+             - asset: fonts/CustomFont-Italic.ttf
+               style: italic
+         - family: CustomFont2
+           fonts:
+             - asset: fonts/CustomFont2.ttf
+             - asset: fonts/CustomFont2.ttf
+               weight: 700
+     ```
 
   3. Now assets can be used
 
-      ```dart
+     ```dart
 
-        Image.asset('assets/images/waiting.jpg') // using the image
+       Image.asset('assets/images/waiting.jpg') // using the image
 
-        Text(
-          'Hello Peter!',
-          style: TextStyle(fontFamily: 'CustomFont'), // using the font
-        );
+       Text(
+         'Hello Peter!',
+         style: TextStyle(fontFamily: 'CustomFont'), // using the font
+       );
 
-      ```
+     ```
 
 - ### Important Widgets
 
