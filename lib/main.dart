@@ -13,6 +13,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ExpenseApp(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        accentColor: Colors.amberAccent,
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+        ),
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline1: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+      ),
     );
   }
 }

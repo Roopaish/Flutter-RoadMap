@@ -715,56 +715,86 @@
       FlatButton()
       IconButton()
 
-      GestureDetector() // Used inside buttons
+      // GestureDetector()
+      // Detect gestures on the child
+      GestureDetector(
+        onTap: () {},
+        child: NewTransaction(_addNewTransaction),
+        behavior: HitTestBehavior.opaque,
+      );
+      
       InkWell() // Gives ripple effect, to register event for double tap, tap on visible/invisible widgets
 
     ```
 
   - Extra
 
-  ```dart
+    ```dart
 
-    // showModelBottomSheet()
-    // Slides from bottom
-    showModalBottomSheet(
-      context: ctx,
-      builder: (_) {
-        return NewTransaction(_addNewTransaction);
-      },
-    );
+      // showModelBottomSheet()
+      // Slides from bottom
+      showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewTransaction(_addNewTransaction);
+        },
+      );
 
-    // GestureDetector()
-    // Detect gestures on the child
-    GestureDetector(
-      onTap: () {},
-      child: NewTransaction(_addNewTransaction),
-      behavior: HitTestBehavior.opaque,
-    );
+      // ThemeData()
+      // Global theme for flutter app, declared inside MaterialApp widget with theme property
+      ThemeData(
+        primarySwatch: Colors.blue, // Takes a color and auto-generate similar colors(shades) for other widgets
+        accentColor: Colors.amberAccent,
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                  fontSize: 20,
+                ),
+              ),
+        ),
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline1: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+      ),
 
-  ```
+      Text(
+        "hello",
+        style: TextStyle(
+          color: Theme.of(context).primaryColor, // access global theme data
+        ),
+      )
+
+      Text(
+        "hello",
+        style: Theme.of(context).textTheme.headline1,
+      ),
+
+    ```
 
 - ### Access methods of StatefulWidget to connected State Widget
 
-```dart
+  ```dart
 
-  class NewTransaction extends StatelessWidget {
-    final Function addTx;
-    @override
-    _NewTransactionState createState() => _NewTransactionState();
-  }
-
-  class _ExpenseAppState extends State<ExpenseApp> {
-    void submit(){
-      widget.addTx(); // widgets give access to class properties
-      Navigator.push(context).pop(); // clear the current Widget or return back
+    class NewTransaction extends StatelessWidget {
+      final Function addTx;
+      @override
+      _NewTransactionState createState() => _NewTransactionState();
     }
-    @override
-    Widget build(BuildContext context) {
-      return TextButton(
-              child: Text('Add Transaction'),
-              onPressed: submit,
-            );
-    }
-  }
 
-```
+    class _ExpenseAppState extends State<ExpenseApp> {
+      void submit(){
+        widget.addTx(); // widgets give access to class properties
+        Navigator.push(context).pop(); // clear the current Widget or return back
+      }
+      @override
+      Widget build(BuildContext context) {
+        return TextButton(
+                child: Text('Add Transaction'),
+                onPressed: submit,
+              );
+      }
+    }
+
+  ```
