@@ -292,12 +292,11 @@
     // String Interpolation
     a = 10;
     print('a = $a'); // a = 10
-    
+
     tx.amount = 100; // tx is instance of a class with amount as property
     print('amount =  \$${tx.amount}) // amount = $100
 
   ```
-
 
   **[⬆ Back to Index](#Index)**
 
@@ -639,7 +638,7 @@
       // Needs Parent or Child for its size, eg: Container
       Card(
         child: Text(),
-      ) 
+      )
 
     ```
 
@@ -673,7 +672,7 @@
   - Content Types
 
     ```dart
-      
+
       // Text()
       Text(
         '\$${transactions[index].amount.toStringAsFixed(2)}', // show number up to 2 decimal places
@@ -700,7 +699,7 @@
       // other with TextEditingController
       // String amountInput = '';
       final amountController = TextEditingController();
-      
+
       TextField(
         decoration: InputDecoration(labelText: 'Amount'),
         // onChanged: (val) => amountInput = val,
@@ -720,3 +719,52 @@
       InkWell() // Gives ripple effect, to register event for double tap, tap on visible/invisible widgets
 
     ```
+
+  - Extra
+
+  ```dart
+
+    // showModelBottomSheet()
+    // Slides from bottom
+    showModalBottomSheet(
+      context: ctx,
+      builder: (_) {
+        return NewTransaction(_addNewTransaction);
+      },
+    );
+
+    // GestureDetector()
+    // Detect gestures on the child
+    GestureDetector(
+      onTap: () {},
+      child: NewTransaction(_addNewTransaction),
+      behavior: HitTestBehavior.opaque,
+    );
+
+  ```
+
+- ### Access methods of StatefulWidget to connected State Widget
+
+```dart
+
+  class NewTransaction extends StatelessWidget {
+    final Function addTx;
+    @override
+    _NewTransactionState createState() => _NewTransactionState();
+  }
+
+  class _ExpenseAppState extends State<ExpenseApp> {
+    void submit(){
+      widget.addTx(); // widgets give access to class properties
+      Navigator.push(context).pop(); // clear the current Widget or return back
+    }
+    @override
+    Widget build(BuildContext context) {
+      return TextButton(
+              child: Text('Add Transaction'),
+              onPressed: submit,
+            );
+    }
+  }
+
+```

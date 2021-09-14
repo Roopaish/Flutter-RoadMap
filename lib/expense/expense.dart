@@ -39,11 +39,13 @@ class _ExpenseAppState extends State<ExpenseApp> {
 
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
-      context: ctx,
-      builder: (_) {
-        return NewTransaction(_addNewTransaction);
-      },
-    );
+        context: ctx,
+        builder: (_) {
+          return GestureDetector(
+            onTap: () {},
+            child: NewTransaction(_addNewTransaction),
+          );
+        });
   }
 
   @override
