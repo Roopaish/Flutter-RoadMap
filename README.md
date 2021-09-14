@@ -676,7 +676,7 @@
       
       // Text()
       Text(
-        '\$${tx.amount}',
+        '\$${transactions[index].amount.toStringAsFixed(2)}', // show number up to 2 decimal places
         style: TextStyle(
           fontWeight: FontWeight.w600,
           fontSize: 20,
@@ -705,6 +705,8 @@
         decoration: InputDecoration(labelText: 'Amount'),
         // onChanged: (val) => amountInput = val,
         controller: amountController, // watch and store every input inside this TextField
+        keyboardType: TextInputType.number, // only accepts numbers
+        onSubmitted:(_)=>submitData, //_ means it takes argument but not needed
       ),
 
       print(double.parse(amountController.text)); // prints text stored in controller as a double
