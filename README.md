@@ -683,7 +683,14 @@
         ),
       )
 
-      Image()
+      // Image()
+      // Add image from assets folder
+      Image.asset(
+        'assets/images/empty.jpg',
+        fit: BoxFit.cover, // squeeze the image to the size of parent
+      ),
+
+      
       Icon()
 
     ```
