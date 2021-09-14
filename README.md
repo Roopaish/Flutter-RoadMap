@@ -547,6 +547,51 @@
 
 ## More Widgets, Styling, Adding Logic(Personal Expense App)
 
+- ### Adding Custom Assets
+
+  Use Custom fonts and images or any multimedia
+
+  1. Make a folder assets on root directory of project
+
+      .
+      ├── ...
+      ├── assets # root folder for all the assets to be used in your app  
+      │ ├── images # All your images
+      │ ├── fonts # All you custom fonts  
+      └── ...
+
+  2. update pubspec.yml and save
+
+      ```yml
+      flutter:
+        assets:
+          - assets/images/ # for images
+        fonts:
+          - family: CustomFont
+            fonts:
+              - asset: fonts/CustomFont-Regular.ttf
+              - asset: fonts/CustomFont-Italic.ttf
+                style: italic
+          - family: CustomFont2
+            fonts:
+              - asset: fonts/CustomFont2.ttf
+              - asset: fonts/CustomFont2.ttf
+                weight: 700
+      ```
+
+  3. Now assets can be used
+
+      ```dart
+
+        Image.asset('assets/images/waiting.jpg') // using the image
+
+        Text(
+          'Hello Peter!',
+          style: TextStyle(fontFamily: 'CustomFont'), // using the font
+        );
+
+      ```
+
 - ### Important Widgets
 
   - App/Page Setup
@@ -690,7 +735,7 @@
         fit: BoxFit.cover, // squeeze the image to the size of parent
       ),
 
-      
+
       Icon()
 
     ```
@@ -729,7 +774,7 @@
         child: NewTransaction(_addNewTransaction),
         behavior: HitTestBehavior.opaque,
       );
-      
+
       InkWell() // Gives ripple effect, to register event for double tap, tap on visible/invisible widgets
 
     ```
