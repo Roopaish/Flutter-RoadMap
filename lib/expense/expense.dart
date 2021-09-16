@@ -10,20 +10,7 @@ class ExpenseApp extends StatefulWidget {
 }
 
 class _ExpenseAppState extends State<ExpenseApp> {
-  final List<Transaction> _userTransactions = [
-    Transaction(
-      id: 't1',
-      title: 'New Shows',
-      amount: 62.69,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Weekly groceries',
-      amount: 61.69,
-      date: DateTime.now(),
-    ),
-  ];
+  final List<Transaction> _userTransactions = [];
 
   // Only transaction younger than 7 days will be included here
   List<Transaction> get _recentTransactions {
@@ -81,7 +68,7 @@ class _ExpenseAppState extends State<ExpenseApp> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(_recentTransactions),
-            TransactionList(_userTransactions,_deleteTransaction),
+            TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
       ),

@@ -961,4 +961,7 @@ return tx.date.isAfter(
 
 // Reverse a list
 _userTransactions.reversed.toList();
+
+// Remove item from list
+_userTransactions.removeWhere((tx) => tx.id == id);
 ```
