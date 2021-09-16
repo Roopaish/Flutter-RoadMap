@@ -759,26 +759,25 @@ ListView.builder(
 // Generate 7 list items
 List.generate(7, (index) {
   final weekDay = DateTime.now().subtract(Duration(days: index));
-  var totalSum;
+  var totalSum = transaction[index].amount;
 
-  for (var i = 0; i < recentTransactions.length; i++) {
-    if (recentTransactions[i].date.day == weekDay.day &&
-        recentTransactions[i].date.month == weekDay.month &&
-        recentTransactions[i].date.year == weekDay.year) {
-      totalSum += recentTransactions[i].amount;
-    }
-  }
   return {
     'day': DateFormat.E().format(weekDay).substring(0, 1), // gives short form of days' name (through intl package)
     'amount': totalSum,
   };
 });
 
+// ListTile()
+// Used as return value for ListView()
+ListTile(
+  leading: Text('Left most element'),
+  title: Text('Middle Top element'),
+  subtitle: Text('Middle Bottom element'),
+  trailing: Text('Right most element'),
+),
+
 // Align contents in both row and column
 GridView()
-
-// Used inside the ListView()
-ListTile()
 ```
 
 - Content Types
@@ -891,6 +890,13 @@ SizedBox(
   height: 4,
   width: 10,
 ),
+
+// CircleAvatar()
+// Make the child round
+CircleAvatar(
+    child: Image(),
+    radius: 30,
+  ),
 ```
 
 **[⬆ Back to Index](#index)**
