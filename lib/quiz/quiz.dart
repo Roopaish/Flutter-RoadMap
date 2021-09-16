@@ -31,16 +31,21 @@ class _QuizAppState extends State<QuizApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        constraints: BoxConstraints(minWidth: 100, maxWidth: 800),
-        child: _qsnIndex < qsns.length
-            ? QuizPanel(
-                ansQsn: _ansQsn,
-                qsnIndex: _qsnIndex,
-                qsns: qsns,
-              )
-            : Result(_totalScore, _resetQuiz),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Quiz App'),
+      ),
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints(minWidth: 100, maxWidth: 800),
+          child: _qsnIndex < qsns.length
+              ? QuizPanel(
+                  ansQsn: _ansQsn,
+                  qsnIndex: _qsnIndex,
+                  qsns: qsns,
+                )
+              : Result(_totalScore, _resetQuiz),
+        ),
       ),
     );
   }

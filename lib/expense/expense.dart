@@ -63,13 +63,18 @@ class _ExpenseAppState extends State<ExpenseApp> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
-          ],
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 700),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Chart(_recentTransactions),
+                TransactionList(_userTransactions, _deleteTransaction),
+              ],
+            ),
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
