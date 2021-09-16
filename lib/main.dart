@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       home: ExpenseApp(),
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        accentColor: Colors.amberAccent,
+        accentColor: Colors.indigo,
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(

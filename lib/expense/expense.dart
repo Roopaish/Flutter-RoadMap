@@ -14,17 +14,18 @@ class _ExpenseAppState extends State<ExpenseApp> {
     Transaction(
       id: 't1',
       title: 'New Shows',
-      amount: 69.69,
+      amount: 62.69,
       date: DateTime.now(),
     ),
     Transaction(
       id: 't2',
       title: 'Weekly groceries',
-      amount: 69.69,
+      amount: 61.69,
       date: DateTime.now(),
     ),
   ];
 
+  // Only transaction younger than 7 days will be included here
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
       return tx.date.isAfter(

@@ -663,20 +663,58 @@ FractionallySizedBox(
 ),
 
 // Flexible()
+// Like flexbox of CSS
 // Control how a child of Row or Column or Flex flexes
 Flexible(
-  fit: FlexFit.tight,
+  fit: FlexFit.tight, // force the child to fill the available space
   child:Text("hello"),
+)
+
+// Example of Flexible use case
+Column(
+  children: [
+    Flexible(
+      fit: FlexFit.tight, // takes remaining spaces
+      // flex: 1; by default because of fit property, takes 1/3 part of available space
+      child: Container(
+        height: 100,
+        color: Colors.blue,
+      ),
+    ),
+    Flexible(
+      flex:2, // takes 2/3 part of available space cause total flex = 1+2 = 3
+      fit:FlexFit.loose, // takes width of child
+      // because of loose, the size of Container is equal to size of child
+      // but flex:2; will still be in account which may cause white spaces
+      // if the child is smaller than 2/3 part of available space
+      child: Container(
+        height: 100,
+        color: Colors.red,
+      ),
+    ),
+    Container(
+      // not flexible, so takes the width of its child
+      height: 100,
+      color: Colors.pink,
+    ),
+  ],
 )
 
 // FittedBox()
 // Scales and positions its child Widget
-// By default it shrinks the child if space is not enough 
+// By default it shrinks the child if space is not enough
 FittedBox(
   child: Text('\$${spendingAmount.toStringAsFixed(0)}'),
 ),
 
-Expanded()
+// Expanded() is Flexible() with FlexFit.tight,
+Expanded(
+  // can have flex property
+  child: Container(
+    height: 100,
+    color: Colors.blue,
+  ),
+),
 ```
 
 - Content Containers
@@ -884,10 +922,22 @@ Widget build(BuildContext context) {
 **[⬆ Back to Index](#index)**
 
 - ### More Dart
+
 ```dart
 // fold method reduces a collection to a single value by iteratively combining each element of the collection with an existing value
 // List<Map<String, Object>> groupedTransactionValues;
 groupedTransactionValues.fold(0.0, (previousValue, element) {
   return previousValue + (element['amount'] as double);
 });
+
+// where() allows to run a function on every item in the list, and if that function returns true, the item is kept in newly returned list
+// tx.date.isAfter(other date) => if tx.date is after 'other date', it returns true
+// DateTime.now() gives current date and time, .subtract subtracts current date and time with 7days
+_userTransactions.where((tx) {
+return tx.date.isAfter(
+  DateTime.now().subtract(
+    Duration(days: 7),
+  ),// returns true if tx.date is after Today minus 7days
+    // Only transaction younger than 7 days will be included
+);
 ```
