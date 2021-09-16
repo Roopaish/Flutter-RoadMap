@@ -27,7 +27,9 @@
 
 - [Adding Custom Assets](#adding-custom-assets)
 - [Important Widgets](#important-widgets)
+- [Flutter Methods to show Widgets](#flutter-methods-to-show-widgets)
 - [Access methods of StatefulWidget to connected State Widget](#access-methods-of-statefulwidget-to-connected-state-widget)
+- [More Dart](#more-dart)
 
 ## Notes
 
@@ -891,7 +893,10 @@ CircleAvatar(
   ),
 ```
 
+**[⬆ Back to Index](#index)**
+
 - ### Flutter Methods to show Widgets
+
 ```dart
 // showModelBottomSheet()
 // Slides from bottom
@@ -965,3 +970,5 @@ _userTransactions.reversed.toList();
 // Remove item from list
 _userTransactions.removeWhere((tx) => tx.id == id);
 ```
+
+**[⬆ Back to Index](#index)**
