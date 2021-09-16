@@ -662,7 +662,20 @@ FractionallySizedBox(
   ),
 ),
 
-Flexible()
+// Flexible()
+// Control how a child of Row or Column or Flex flexes
+Flexible(
+  fit: FlexFit.tight,
+  child:Text("hello"),
+)
+
+// FittedBox()
+// Scales and positions its child Widget
+// By default it shrinks the child if space is not enough 
+FittedBox(
+  child: Text('\$${spendingAmount.toStringAsFixed(0)}'),
+),
+
 Expanded()
 ```
 
