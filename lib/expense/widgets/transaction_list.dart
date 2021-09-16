@@ -29,7 +29,7 @@ class TransactionList extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       child: Padding(
-                        padding: EdgeInsets.all(6),
+                        padding: EdgeInsets.all(10),
                         child: FittedBox(
                             child: Text('\$${transactions[index].amount}')),
                       ),

@@ -946,4 +946,7 @@ return tx.date.isAfter(
   ),// returns true if tx.date is after Today minus 7days
     // Only transaction younger than 7 days will be included
 );
+
+// Reverse a list
+_userTransactions.reversed.toList();
 ```
