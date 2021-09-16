@@ -24,8 +24,9 @@ class _NewTransactionState extends State<NewTransaction> {
       return; // return when title is empty or amount is negative
     }
     widget.addTx(
-      _titleController.text,
-      double.parse(_amountController.text),
+      enteredTitle,
+      enteredAmount,
+      _selectedDate,
     );
     Navigator.of(context).pop();
   }
@@ -71,10 +72,11 @@ class _NewTransactionState extends State<NewTransaction> {
               height: 70,
               child: Row(
                 children: [
-                  Text(
-                    DateFormat.yMd().format(_selectedDate),
+                  Expanded(
+                    child: Text(
+                      DateFormat.yMd().format(_selectedDate),
+                    ),
                   ),
-                  SizedBox(width: 20),
                   TextButton(
                     child: Text(
                       "Pick A Date",
