@@ -14,12 +14,13 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: ExpenseApp(),
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        accentColor: Colors.indigo,
+        primarySwatch: Colors.purple,
+        accentColor: Colors.deepPurple[400],
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(
                   fontSize: 20,
+                  color: Colors.white,
                 ),
               ),
         ),

@@ -450,6 +450,7 @@ class Quiz extends StatefulWidget {
 // Stores the state
 // State<Quiz> tells flutter that below State class belongs to Quiz class *
 class _QuizState extends State<Quiz> {
+  // context can be accessed here without passing from build method unlike stateless Widget
   setState((){
     // Write code that changes the UI
     // Calls build again but update only changed Widget
@@ -844,15 +845,6 @@ InkWell() // Gives ripple effect, to register event for double tap, tap on visib
 - Extra
 
 ```dart
-// showModelBottomSheet()
-// Slides from bottom
-showModalBottomSheet(
-  context: ctx,
-  builder: (_) {
-    return NewTransaction(_addNewTransaction);
-  },
-);
-
 // ThemeData()
 // Global theme for flutter app, declared inside MaterialApp widget with theme property
 ThemeData(
@@ -897,6 +889,26 @@ CircleAvatar(
     child: Image(),
     radius: 30,
   ),
+```
+
+- ### Flutter Methods to show Widgets
+```dart
+// showModelBottomSheet()
+// Slides from bottom
+showModalBottomSheet(
+  context: ctx,
+  builder: (_) {
+    return AnyWidget();
+  },
+);
+
+// showDatePicker()
+showDatePicker(
+  context: ctx,
+  initialDate: DateTime.now(),
+  firstDate: DateTime(2021),
+  lastDate: DateTime.now(),
+);
 ```
 
 **[⬆ Back to Index](#index)**
