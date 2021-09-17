@@ -134,6 +134,7 @@ class _ExpenseAppState extends State<ExpenseApp> {
                 if (isLandscape)
                   _showChart
                       ? Container(
+                          constraints: BoxConstraints(maxHeight: 250),
                           height: (MediaQuery.of(context).size.height -
                                   appBar.preferredSize.height -
                                   MediaQuery.of(context).padding.top) *
