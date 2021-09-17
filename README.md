@@ -328,7 +328,8 @@ class MyApp extends StatelessWidget {
 
 - ### Widgets
 
-```dart// Widgets are classes with Constructor that takes named parameters
+```dart
+// Widgets are classes with Constructor that takes named parameters
 // Widgets(), this is object of Widget Class
 // Press 'ctrl+space' inside () brackets of Widget to get the list of named parameters
 // Always add comma after each parameter to make the code pretty
@@ -424,6 +425,9 @@ OutlinedButton{
     ),
   ),
 }
+
+// For Icons along with above buttons
+// TextButton.icon(), ElevatedButton.icon(), OutlinedButton.icon()
 ```
 
 **[⬆ Back to Index](#index)**
@@ -1023,7 +1027,7 @@ if(isLandscape)  _usersTransaction.isEmpty ? Widget1() : Widget2() // Render Wid
 ```
 
 - ### LayoutBuilder
-To get the space available for a given Widget in the overall app
+  To get the space available for a given Widget in the overall app
 
 ```dart
 // constraints is an object containing height and width of widget
