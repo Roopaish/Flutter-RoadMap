@@ -51,6 +51,8 @@ class _ExpenseAppState extends State<ExpenseApp> {
     });
   }
 
+  bool _showChart = false;
+
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
@@ -71,20 +73,35 @@ class _ExpenseAppState extends State<ExpenseApp> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Container(
-                  height: (MediaQuery.of(context).size.height -
-                          appBar.preferredSize.height -
-                          MediaQuery.of(context).padding.top) *
-                      0.3,
-                  child: Chart(_recentTransactions),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Show Chart'),
+                    Switch(
+                      value: _showChart,
+                      onChanged: (val) {
+                        setState(() {
+                          _showChart = val;
+                        });
+                      },
+                    ),
+                  ],
                 ),
-                Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.7,
-                    child:
-                        TransactionList(_userTransactions, _deleteTransaction)),
+                _showChart
+                    ? Container(
+                        height: (MediaQuery.of(context).size.height -
+                                appBar.preferredSize.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.3,
+                        child: Chart(_recentTransactions),
+                      )
+                    : Container(
+                        height: (MediaQuery.of(context).size.height -
+                                appBar.preferredSize.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.7,
+                        child: TransactionList(
+                            _userTransactions, _deleteTransaction)),
               ],
             ),
           ),

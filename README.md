@@ -891,6 +891,17 @@ CircleAvatar(
     child: Image(),
     radius: 30,
   ),
+
+// Switch()
+var _showChart = true;
+Switch(
+  value: _showChart,
+  onChanged: (val) { // val is true or false based on switching
+    setState(() {
+      _showChart = val;
+    });
+  },
+),
 ```
 
 **[⬆ Back to Index](#index)**
@@ -985,6 +996,7 @@ MediaQuery.of(context).size.height // get full height of screen
 MediaQuery.of(context).size.width // get full width of screen
 appBar.preferredSize.height // get height of certain widget, appBar is final variable with AppBar Widget
 MediaQuery.of(context).padding.top // get height of status bar
+MediaQuery.of(context).viewInsets.bottom // size of anything that's lapping in our view, eg: keyboard pops up when we type overlapping certain parts of app
 ```
 
 - ### Force Portrait Mode
