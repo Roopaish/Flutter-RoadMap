@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -64,7 +65,7 @@ class _ExpenseAppState extends State<ExpenseApp> {
 
     // ObstructingPreferredSizeWidget is used to use appBar.preferredSize.height
     // property for CupertinoNavigationBar, not needed for AppBar
-    final ObstructingPreferredSizeWidget appBar = Platform.isIOS
+    final PreferredSizeWidget appBar = (!kIsWeb && Platform.isIOS)
         ? CupertinoNavigationBar(
             middle: Text('Expense App'),
             trailing: Row(
@@ -76,7 +77,7 @@ class _ExpenseAppState extends State<ExpenseApp> {
                 ),
               ],
             ),
-          )
+          ) as PreferredSizeWidget
         : AppBar(
             title: Text("ExpenseApp"),
             actions: <Widget>[
@@ -85,7 +86,7 @@ class _ExpenseAppState extends State<ExpenseApp> {
                 onPressed: () => _startAddNewTransaction(context),
               ),
             ],
-          ) as ObstructingPreferredSizeWidget;
+          );
 
     final txListWidget = Container(
       height: (MediaQuery.of(context).size.height -
@@ -107,7 +108,6 @@ class _ExpenseAppState extends State<ExpenseApp> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       Text(
                         'Show Chart',
                         style: Theme.of(context).textTheme.headline1,
@@ -148,10 +148,10 @@ class _ExpenseAppState extends State<ExpenseApp> {
       ),
     );
 
-    return Platform.isIOS
+    return (!kIsWeb && Platform.isIOS)
         ? CupertinoPageScaffold(
             child: pageBody,
-            navigationBar: appBar,
+            navigationBar: appBar as ObstructingPreferredSizeWidget,
           )
         : Scaffold(
             appBar: appBar,
