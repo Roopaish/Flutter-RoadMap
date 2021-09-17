@@ -63,8 +63,8 @@ class _ExpenseAppState extends State<ExpenseApp> {
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
 
-    // ObstructingPreferredSizeWidget is used to use appBar.preferredSize.height
-    // property for CupertinoNavigationBar, not needed for AppBar
+    // PreferredSizeWidget is used to use appBar.preferredSize.height
+    // property for CupertinoNavigationBar
     final PreferredSizeWidget appBar = (!kIsWeb && Platform.isIOS)
         ? CupertinoNavigationBar(
             middle: Text('Expense App'),
