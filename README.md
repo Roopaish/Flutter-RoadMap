@@ -1002,3 +1002,17 @@ void main(){
 }
 ```
 
+- ### LayoutBuilder
+To get the space available for a given Widget in the overall app
+
+```dart
+// constraints is an object containing height and width of widget
+LayoutBuilder(builder: (ctx, constraints) {
+  return Column(
+    children: [
+      Container(height: constraints.maxHeight * 0.15,) // take 15 % of given height
+      Container(height: constraints.maxWidth * 0.15,) // take 15 % of given width
+    ]
+  );
+}
+```
