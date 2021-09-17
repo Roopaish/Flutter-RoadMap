@@ -972,3 +972,33 @@ _userTransactions.removeWhere((tx) => tx.id == id);
 ```
 
 **[⬆ Back to Index](#index)**
+
+## Responsive and Adaptive UI
+
+Responsive for different screen sizes.
+Adaptive for different operating system.
+
+- ### Media Query
+
+```dart
+MediaQuery.of(context).size.height // get full height of screen
+MediaQuery.of(context).size.width // get full width of screen
+appBar.preferredSize.height // get height of certain widget, appBar is final variable with AppBar Widget
+MediaQuery.of(context).padding.top // get height of status bar
+```
+
+- ### Force Portrait Mode
+
+```dart
+import 'package:flutter/services.dart';
+
+void main(){
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+    ]); // Disable landscape mode
+  runApp(MyApp());
+}
+```
+
