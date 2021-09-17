@@ -357,6 +357,8 @@ RaisedButton(), Text(), Card(), ... // Also Container() with some styling
 Row(
   mainAxisAlignment: MainAxisAlignment.center, // horizontal axis
   crossAxisAlignment: CrossAxisAlignment.center, // vertical axis
+  mainAxisSize: MainAxisSize.min, // size of row will be as big as its children need to be
+
   children: [
     Text("Row1"),
     Text("Row2"),
@@ -368,6 +370,8 @@ Row(
 Column(
   mainAxisAlignment: MainAxisAlignment.center, // vertical axis
   crossAxisAlignment: CrossAxisAlignment.center, // horizontal axis
+  mainAxisSize: MainAxisSize.min, // size of column will be as big as its children need to be
+
   children: [
     Text("Column1"),
     Text("Column2"),
@@ -823,7 +827,7 @@ Icon()
 final amountController = TextEditingController();
 
 TextField(
-  decoration: InputDecoration(labelText: 'Amount'),
+  decoration: InputDecoration(labelText: 'Amount'), // Placeholder
   // onChanged: (val) => amountInput = val,
   controller: amountController, // watch and store every input inside this TextField
   keyboardType: TextInputType.number, // only accepts numbers
@@ -1003,6 +1007,7 @@ MediaQuery.of(context).size.width // get full width of screen
 appBar.preferredSize.height // get height of certain widget, appBar is final variable with AppBar Widget
 MediaQuery.of(context).padding.top // get height of status bar
 MediaQuery.of(context).viewInsets.bottom // size of anything that's lapping in our view, eg: keyboard pops up when we type overlapping certain parts of app
+SafeArea() // Wrap full app body with this to avoid widgets getting in System status bar or bottom navigation bar
 ```
 
 - ### Orientation
@@ -1039,4 +1044,56 @@ LayoutBuilder(builder: (ctx, constraints) {
     ]
   );
 }
+```
+
+- ### Adaptive UI
+
+```dart
+Switch.adaptive() // Render switch based on OS
+
+// To know platforms where app is running
+import 'dart:io';
+
+Platform.isIOS // Boolean, True is OS is IOS else false
+Platform.isAndroid
+Platform.isLinux
+Platform.isMacOS
+Platform.isWindows
+
+// Cupertino Widgets
+import 'package:flutter/cupertino.dart';
+
+CupertinoApp( // MaterialApp() alternative
+  home: CupertinoPageScaffold( // Scaffold alternative
+    child: pageBody,
+    navigationBar: CupertinoNavigationBar( // AppBar() alternative
+      middle: Text('Expense App'),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            child: Icon(CupertinoIcons.add),
+            onTap: () => _startAddNewTransaction(context),
+          ),
+        ],
+      ),
+    ),
+  ),
+)
+
+CupertinoTextField(placeholder: 'placeholder',)
+
+CupertinoButton(
+  child: Text(
+    'Choose Date'
+  ),
+  style: TextStyle(),
+  onPressed: (){},
+)
+
+// Custom Adaptive Widget
+// Create a adaptive_widget.dart file
+// Create Different Adaptive Widgets by checking platform and defining widgets accordingly 
+// Use them on other files, using  their constructors
+// Avoiding duplication
 ```
