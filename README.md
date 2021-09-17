@@ -902,6 +902,8 @@ Switch(
     });
   },
 ),
+
+_showChart ? Text('Switch is enabled'): Text('Switch is Disabled')
 ```
 
 **[⬆ Back to Index](#index)**
@@ -999,9 +1001,10 @@ MediaQuery.of(context).padding.top // get height of status bar
 MediaQuery.of(context).viewInsets.bottom // size of anything that's lapping in our view, eg: keyboard pops up when we type overlapping certain parts of app
 ```
 
-- ### Force Portrait Mode
+- ### Orientation
 
 ```dart
+// Force portrait mode even if screen is rotated
 import 'package:flutter/services.dart';
 
 void main(){
@@ -1012,6 +1015,11 @@ void main(){
     ]); // Disable landscape mode
   runApp(MyApp());
 }
+
+// To render a widget on condition
+final isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+if(isLandscape) Widget(),
+if(isLandscape)  _usersTransaction.isEmpty ? Widget1() : Widget2() // Render Widget2 if device is on landscape mode and _userTransactions is not empty
 ```
 
 - ### LayoutBuilder
