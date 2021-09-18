@@ -31,6 +31,21 @@
 - [Access methods of StatefulWidget to connected State Widget](#access-methods-of-statefulwidget-to-connected-state-widget)
 - [More Dart](#more-dart)
 
+[Responsive and Adaptive UI](#responsive-and-adaptive-ui)
+- [Media Query](#media-query)
+- [Orientation](#orientation)
+- [LayoutBuilder](#layoutbuilder)
+- [Adaptive UI](#adaptive-ui)
+
+[Flutter Internals and Performance](#flutter-internals-and-performance)
+- [Flutter Under the Hood](#flutter-under-the-hood)
+- [Avoid unnecessary Widget rebuild](#avoid-unnecessary-widget-rebuild)
+- [Maintain Widgets](#maintain-widgets)
+- [Widget Lifecycle](#widget-lifecycle)
+- [App Lifecycle](#app-lifecycle)
+- [Context](#context)
+- [Key](#key)
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -1010,6 +1025,8 @@ MediaQuery.of(context).viewInsets.bottom // size of anything that's lapping in o
 SafeArea() // Wrap full app body with this to avoid widgets getting in System status bar or bottom navigation bar
 ```
 
+**[⬆ Back to Index](#index)**
+
 - ### Orientation
 
 ```dart
@@ -1031,6 +1048,8 @@ if(isLandscape) Widget(),
 if(isLandscape)  _usersTransaction.isEmpty ? Widget1() : Widget2() // Render Widget2 if device is on landscape mode and _userTransactions is not empty
 ```
 
+**[⬆ Back to Index](#index)**
+
 - ### LayoutBuilder
 
 To get the space available for a given Widget in the overall app
@@ -1046,6 +1065,8 @@ LayoutBuilder(builder: (ctx, constraints) {
   );
 }
 ```
+
+**[⬆ Back to Index](#index)**
 
 - ### Adaptive UI
 
@@ -1099,6 +1120,8 @@ CupertinoButton(
 // Avoiding duplication
 ```
 
+**[⬆ Back to Index](#index)**
+
 ## Flutter Internals and Performance
 
 - ### Flutter Under the Hood
@@ -1123,6 +1146,8 @@ build method is triggered when setState is invoked ,UI refreshes ,MediaQuery cha
 Widgets are objects of classes which have their own build method which is triggered when new instance of Widget Classes are created.  
 So first constructor is called then build method is invoked when we create new instance of Widgets.
 
+**[⬆ Back to Index](#index)**
+
 - ### Avoid unnecessary Widget rebuild
 
 For bigger apps, it can boost performance.  
@@ -1133,6 +1158,8 @@ This doesn't work with dynamic values for Class property.
 const Text("This never change and the text is not dynamic."),
 const CharBar(this.label,this.fxn),
 ```
+
+**[⬆ Back to Index](#index)**
 
 - ### Maintain Widgets
 
@@ -1156,6 +1183,8 @@ List<Widget> _buildTransactionList(MediaQueryDta media){
 // Use the content in builder fxn
 if(isLandscape) _buildLandscapeContent(),
 ```
+
+**[⬆ Back to Index](#index)**
 
 - ### Widget Lifecycle
 
@@ -1196,6 +1225,8 @@ void dispose(){
 }
 ```
 
+**[⬆ Back to Index](#index)**
+
 - ### App Lifecycle
 
 Lifecycle State Name  
@@ -1233,6 +1264,8 @@ class _Chart extends State<Chart> with WidgetsBindingObserver{
 }
 ```
 
+**[⬆ Back to Index](#index)**
+
 - ### Context
 
 Every widget has its own context attached to it. Context stores meta information on the Widget and its location in the Widget Tree.
@@ -1242,6 +1275,8 @@ Context know about each other, they know where Widgets are and what other widget
 They communicate with each other.
 
 Context has all the information about position of widget, overall Widget tree and establish direct communication between channels behind the scenes to exchange data between Widgets.
+
+**[⬆ Back to Index](#index)**
 
 - ### Key
 
@@ -1297,3 +1332,5 @@ class TransactionItem extends StatefulWidget{
 }
 
 ```
+
+**[⬆ Back to Index](#index)**
