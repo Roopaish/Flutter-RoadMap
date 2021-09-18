@@ -1093,7 +1093,134 @@ CupertinoButton(
 
 // Custom Adaptive Widget
 // Create a adaptive_widget.dart file
-// Create Different Adaptive Widgets by checking platform and defining widgets accordingly 
+// Create Different Adaptive Widgets by checking platform and defining widgets accordingly
 // Use them on other files, using  their constructors
 // Avoiding duplication
+```
+
+## Flutter Internals and Performance
+
+- ### Flutter Under the Hood
+  Flutter paints the UI 60fps. If some information is not change flutter takes the old info and paints on the screen which is fast and very efficient when refreshing the UI.
+
+Widget Tree => configuration (rebuilds frequently)
+ELement Tree => Links widgets rendered objects (rarely rebuild))
+Render Tree => Rendered objects on the screen (rarely rebuilds)
+
+Element is a object managed by flutter in memory which holds the reference to Widgets.
+Element is created for all widgets.
+
+On encountering a StatefulWidget,it creates an Element and then it also calls the createState method to create State Object which is also connected to Element.
+So One StatefulElement holds reference to both StatefulWidget and State Object.
+When setState() is called, old StatefulWidget is replaced by new StatefulWidget but State object is same. Same happens to all child widget. Old reference is updated but if some data is same, then only data that has been changed is re-rendered.
+
+Element which hasn't been rendered to the screen yet, is rendered to the screen. SO Element has pointer to Element on the Screen and Widget holding Configuration.
+
+build method is triggered when setState is invoked ,UI refreshes ,MediaQuery changes or softKeyboard appears.
+
+Widgets are objects of classes which have their own build method which is triggered when new instance of Widget Classes are created.
+So first constructor is called then build method is invoked when we create new instance of Widgets.
+
+- ### Avoid unnecessary Widget rebuild
+  For bigger apps, it can boost performance.
+  Using const constructors for Widgets which doesn't change(immutable) will not recreate object(Widget) when re-build.
+  This doesn't work with dynamic values for Class property.
+
+```dart
+const Text("This never change and the text is not dynamic."),
+const CharBar(this.label,this.fxn),
+```
+
+- ### Maintain Widgets
+  Extracting Widgets makes the code readable but can also boost some performance in some cases.
+  Eg: If certain number of widgets depends on MediaQuery, it is good to make a separate widget containing those widgets.
+
+Builder Methods
+
+```dart
+// Define a fxn to build certain part of app
+Widget _buildLandscapeContent(){
+  return Container();
+}
+
+List<Widget> _buildTransactionList(MediaQueryDta media){
+  return [ListTile(), Container()];
+}
+
+// Use the content in builder fxn
+if(isLandscape) _buildLandscapeContent(),
+```
+
+- ### Widget Lifecycle
+  Stateless Widget : Constructor() -> build()
+
+Stateful Widget : WidgetConstructor() -> createState() -> StateConstructor() -> initState() -> build() -> setState(), didUpdateWidget() -> build(), dispose()
+initState() runs when State object is created for the first time
+didUpdateWidget() in State object is triggered when the widget belonging to this state is updated
+dispose() runs when Widget is destroyed
+
+Only the WidgetConstructor is called when creating new instance of Stateful Widget afterward i.e. createState() -> StateConstructor() -> initState() this does not happen again. It means the State is not recreated when Widget rebuilds automatically instead it sticks around and hold reference of the element which manages the State and is updated to point at the new Widget.
+
+```dart
+// Inside State class
+// @override because these exists in parent class and we are deliberately changing them
+// super refers to parent object
+@override
+void initState(){
+  super.initState(); // runs initState() of parent State
+  // execute as soon as State Object is created
+  // used for fetching initial data for app
+}
+
+@override
+void didUpdateWidget(NewTransaction oldWidget){
+  super.didUpdateWidget(oldWidget); // runs didUpdateWidget() of parent State
+  // execute when the Widget changes or rebuilds
+  // less used
+  // to refetch data or fetch new data
+}
+
+@override
+void dispose(){
+  super.dispose(); // runs dispose() of parent State
+  // execute when Widget leaves the screen
+  // used for cleaning up
+  // like cleaning up connection with server when not needed
+}
+```
+
+- ### App Lifecycle
+  Lifecycle State Name
+  inactive : App is inactive(not in background), no user input received but not fully cleared from memory
+  paused : App is not visible to user but running in background
+  resumed : App is again visible, responds to user inputs
+  suspending : App is about to be suspended
+
+Listen to App Cycle events
+
+```dart
+class _Chart extends State<Chart> with WidgetsBindingObserver{
+  @override
+  void initState(){
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    // when AppLifecycle changes it goes to certain observer and calls didChangeAppLifecycleState() method
+    // this means this class
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state){
+    // called when AppLifecycle changes
+    print(state); // prints AppLifecycleState.paused if app is on recent
+  }
+
+  @override
+  dispose(){
+    super.dispose() ;
+    WidgetsBinding.instance.removeObserver(this); // to avoid memory leaks
+    // to clear all listener for AppLifecycle changes
+    // Don't do it in main State Widget which will shutdown the whole app
+    // Do in child Widget
+  }
+}
 ```
