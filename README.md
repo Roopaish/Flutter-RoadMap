@@ -1032,7 +1032,8 @@ if(isLandscape)  _usersTransaction.isEmpty ? Widget1() : Widget2() // Render Wid
 ```
 
 - ### LayoutBuilder
-  To get the space available for a given Widget in the overall app
+
+To get the space available for a given Widget in the overall app
 
 ```dart
 // constraints is an object containing height and width of widget
@@ -1101,16 +1102,17 @@ CupertinoButton(
 ## Flutter Internals and Performance
 
 - ### Flutter Under the Hood
-  Flutter paints the UI 60fps. If some information is not change flutter takes the old info and paints on the screen which is fast and very efficient when refreshing the UI.
 
-Widget Tree => configuration (rebuilds frequently)
-ELement Tree => Links widgets rendered objects (rarely rebuild))
+Flutter paints the UI 60fps. If some information is not change flutter takes the old info and paints on the screen which is fast and very efficient when refreshing the UI.
+
+Widget Tree => configuration (rebuilds frequently)  
+ELement Tree => Links widgets' rendered objects (rarely rebuild))  
 Render Tree => Rendered objects on the screen (rarely rebuilds)
 
 Element is a object managed by flutter in memory which holds the reference to Widgets.
 Element is created for all widgets.
 
-On encountering a StatefulWidget,it creates an Element and then it also calls the createState method to create State Object which is also connected to Element.
+On encountering a StatefulWidget, it creates an Element and then it also calls the createState method to create State Object which is also connected to Element.
 So One StatefulElement holds reference to both StatefulWidget and State Object.
 When setState() is called, old StatefulWidget is replaced by new StatefulWidget but State object is same. Same happens to all child widget. Old reference is updated but if some data is same, then only data that has been changed is re-rendered.
 
@@ -1118,13 +1120,14 @@ Element which hasn't been rendered to the screen yet, is rendered to the screen.
 
 build method is triggered when setState is invoked ,UI refreshes ,MediaQuery changes or softKeyboard appears.
 
-Widgets are objects of classes which have their own build method which is triggered when new instance of Widget Classes are created.
+Widgets are objects of classes which have their own build method which is triggered when new instance of Widget Classes are created.  
 So first constructor is called then build method is invoked when we create new instance of Widgets.
 
 - ### Avoid unnecessary Widget rebuild
-  For bigger apps, it can boost performance.
-  Using const constructors for Widgets which doesn't change(immutable) will not recreate object(Widget) when re-build.
-  This doesn't work with dynamic values for Class property.
+
+For bigger apps, it can boost performance.  
+Using const constructors for Widgets which doesn't change(immutable) will not recreate object(Widget) when re-build.  
+This doesn't work with dynamic values for Class property.
 
 ```dart
 const Text("This never change and the text is not dynamic."),
@@ -1132,8 +1135,11 @@ const CharBar(this.label,this.fxn),
 ```
 
 - ### Maintain Widgets
-  Extracting Widgets makes the code readable but can also boost some performance in some cases.
-  Eg: If certain number of widgets depends on MediaQuery, it is good to make a separate widget containing those widgets.
+
+Extract Widgets
+
+Extracting Widgets makes the code readable but can also boost some performance in some cases.  
+Eg: If certain number of widgets depends on MediaQuery, it is good to make a separate widget containing those widgets.
 
 Builder Methods
 
@@ -1152,11 +1158,12 @@ if(isLandscape) _buildLandscapeContent(),
 ```
 
 - ### Widget Lifecycle
-  Stateless Widget : Constructor() -> build()
 
-Stateful Widget : WidgetConstructor() -> createState() -> StateConstructor() -> initState() -> build() -> setState(), didUpdateWidget() -> build(), dispose()
-initState() runs when State object is created for the first time
-didUpdateWidget() in State object is triggered when the widget belonging to this state is updated
+Stateless Widget : Constructor() -> build()
+
+Stateful Widget : WidgetConstructor() -> createState() -> StateConstructor() -> initState() -> build(), setState() -> didUpdateWidget() -> build(), dispose()  
+initState() runs when State object is created for the first time  
+didUpdateWidget() in State object is triggered when the widget belonging to this state is updated  
 dispose() runs when Widget is destroyed
 
 Only the WidgetConstructor is called when creating new instance of Stateful Widget afterward i.e. createState() -> StateConstructor() -> initState() this does not happen again. It means the State is not recreated when Widget rebuilds automatically instead it sticks around and hold reference of the element which manages the State and is updated to point at the new Widget.
@@ -1190,11 +1197,12 @@ void dispose(){
 ```
 
 - ### App Lifecycle
-  Lifecycle State Name
-  inactive : App is inactive(not in background), no user input received but not fully cleared from memory
-  paused : App is not visible to user but running in background
-  resumed : App is again visible, responds to user inputs
-  suspending : App is about to be suspended
+
+Lifecycle State Name  
+inactive : App is inactive(not in background), no user input received but not fully cleared from memory  
+paused : App is not visible to user but running in background  
+resumed : App is again visible, responds to user inputs  
+suspending : App is about to be suspended
 
 Listen to App Cycle events
 
@@ -1223,4 +1231,69 @@ class _Chart extends State<Chart> with WidgetsBindingObserver{
     // Do in child Widget
   }
 }
+```
+
+- ### Context
+
+Every widget has its own context attached to it. Context stores meta information on the Widget and its location in the Widget Tree.
+Skeleton of widget tree.
+
+Context know about each other, they know where Widgets are and what other widgets revolve around them.  
+They communicate with each other.
+
+Context has all the information about position of widget, overall Widget tree and establish direct communication between channels behind the scenes to exchange data between Widgets.
+
+- ### Key
+
+Most Widgets don't need a key specially Stateless Widget.
+
+Example where we need it: Lists and Stateful Widgets  
+Widget Tree (Widgets from top to bottom) : ListView(children:[item1, item2])
+
+Element Tree (Reference to above Widgets): 
+&ListView(reference to ListView Widget which hold info about its children too)  
+&item1(reference to both item1 StatefulWidget and State Object)  
+&item2(reference to both item2 StatefulWidget and State Object)
+
+When item1 is deleted.  
+Flutter checks from top to bottom.  
+First &ListView and ListView are checked. If both present, its items in ListView are checked.  
+Secondly, item is checked in the same level as item1(which is deleted). Since its a list,item2 moves up to the place left by item1. So Flutter answer as yes cause it finds an item where old item was.  
+So now &item1 update reference to the item2.  
+
+Now &item2 does not find any fitting Widget as item2 move up, so &item2 is deleted along its State.  
+
+Solution: Using keys will delete both item1 and &item1 when item1 is deleted.
+TL;DR: Without key, FLutter checks the type of Widget that ELement is referencing to.  
+       With key, Flutter checks the Widget with certain key value that is equal to key value of Element.  
+       Key helps to identify connected Widget with key value rather than the type of Widget.
+
+
+```dart
+import 'dart:math'; // for Random class
+Color _chosenColor;
+
+@override
+void initState(){
+  const availableColors = [Colors.blue, Colors.red, Colors.purple ];
+  // generate random between 0, 1, 2, 3
+  _bgColor = availableColors[Random().nextInt(4)] // assigned to background color for List Items 
+  // Doesn't need to wrap in setState() cause initState() is called before build method
+  super.initState();
+}
+
+ListView(
+  children: transaction.map((tx) => TransactionItem(key: ValueKey(tx.id), transaction: tx)).toList(),
+  // key should be defined for parent Widget 
+  // key: UniqueKey() generate unique key to identify each items for every build or change in state of UI
+  // key: ValueKey(id) give provided key or id which does not changes
+)
+
+class TransactionItem extends StatefulWidget{
+  const TransactionItem({Key key, @required this.transaction}) : super(key: key);
+  // super forward key of TransactionItem to StatefulWidget key, so it knows what to do with it, its a constructor for StatefulWIdget (parent Widget)
+  ...
+  ...
+}
+
 ```
