@@ -2,9 +2,9 @@
 
 ## Contents
 
-- Flutter Notes
-- Quiz App
-- Personal Expense App
+- [Flutter Notes](#notes)
+- [Quiz App](#https://roopaish.github.io/Ultimate-Flutter-App/#/quiz-app)
+- [Personal Expense App](#https://roopaish.github.io/Ultimate-Flutter-App/#/expense-app)
 - Meals App
 - Shop App
 - Great Places App
@@ -32,12 +32,14 @@
 - [More Dart](#more-dart)
 
 [Responsive and Adaptive UI](#responsive-and-adaptive-ui)
+
 - [Media Query](#media-query)
 - [Orientation](#orientation)
 - [LayoutBuilder](#layoutbuilder)
 - [Adaptive UI](#adaptive-ui)
 
 [Flutter Internals and Performance](#flutter-internals-and-performance)
+
 - [Flutter Under the Hood](#flutter-under-the-hood)
 - [Avoid unnecessary Widget rebuild](#avoid-unnecessary-widget-rebuild)
 - [Maintain Widgets](#maintain-widgets)
@@ -1300,7 +1302,7 @@ Most Widgets don't need a key specially Stateless Widget.
 Example where we need it: Lists and Stateful Widgets  
 Widget Tree (Widgets from top to bottom) : ListView(children:[item1, item2])
 
-Element Tree (Reference to above Widgets): 
+Element Tree (Reference to above Widgets):
 &ListView(reference to ListView Widget which hold info about its children too)  
 &item1(reference to both item1 StatefulWidget and State Object)  
 &item2(reference to both item2 StatefulWidget and State Object)
@@ -1309,15 +1311,14 @@ When item1 is deleted.
 Flutter checks from top to bottom.  
 First &ListView and ListView are checked. If both present, its items in ListView are checked.  
 Secondly, item is checked in the same level as item1(which is deleted). Since its a list,item2 moves up to the place left by item1. So Flutter answer as yes cause it finds an item where old item was.  
-So now &item1 update reference to the item2.  
+So now &item1 update reference to the item2.
 
-Now &item2 does not find any fitting Widget as item2 move up, so &item2 is deleted along its State.  
+Now &item2 does not find any fitting Widget as item2 move up, so &item2 is deleted along its State.
 
 Solution: Using keys will delete both item1 and &item1 when item1 is deleted.
 TL;DR: Without key, FLutter checks the type of Widget that ELement is referencing to.  
-       With key, Flutter checks the Widget with certain key value that is equal to key value of Element.  
-       Key helps to identify connected Widget with key value rather than the type of Widget.
-
+ With key, Flutter checks the Widget with certain key value that is equal to key value of Element.  
+ Key helps to identify connected Widget with key value rather than the type of Widget.
 
 ```dart
 import 'dart:math'; // for Random class
@@ -1327,14 +1328,14 @@ Color _chosenColor;
 void initState(){
   const availableColors = [Colors.blue, Colors.red, Colors.purple ];
   // generate random between 0, 1, 2, 3
-  _bgColor = availableColors[Random().nextInt(4)] // assigned to background color for List Items 
+  _bgColor = availableColors[Random().nextInt(4)] // assigned to background color for List Items
   // Doesn't need to wrap in setState() cause initState() is called before build method
   super.initState();
 }
 
 ListView(
   children: transaction.map((tx) => TransactionItem(key: ValueKey(tx.id), transaction: tx)).toList(),
-  // key should be defined for parent Widget 
+  // key should be defined for parent Widget
   // key: UniqueKey() generate unique key to identify each items for every build or change in state of UI
   // key: ValueKey(id) give provided key or id which does not changes
 )
