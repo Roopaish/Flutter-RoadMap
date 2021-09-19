@@ -802,8 +802,23 @@ ListTile(
   trailing: Text('Right most element'),
 ),
 
+// GridView()
 // Align contents in both row and column
-GridView()
+ GridView(
+  children: [],
+  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+    maxCrossAxisExtent: 200,
+    childAspectRatio: 3 / 2, // for 200 width, height will be 300
+    crossAxisSpacing: 20, // spacing between items
+    mainAxisSpacing: 20,
+  ),
+  // Slivers are scrollable area on the screen and Grid is scrollable like ListView
+  // gridDelegate provides layout for the grid
+  // SliverGridDelegateWithMaxCrossAxisExtent allows to define max Width for each grid item
+  // Grid will automatically fit as many items with 200px width on the provided screen
+)
+
+// GridView.builder() for many elements
 ```
 
 - Content Types
@@ -1334,3 +1349,7 @@ class TransactionItem extends StatefulWidget{
 ```
 
 **[⬆ Back to Index](#index)**
+
+## Navigation and Multiple Screens(Meals App)
+
+- ###
