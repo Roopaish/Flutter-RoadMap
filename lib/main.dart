@@ -55,10 +55,10 @@ class MyApp extends StatelessWidget {
                 color: Colors.blue[900],
                 fontFamily: 'RobotoCondensed',
               ),
-              body1: TextStyle(
+              bodyText1: TextStyle(
                 color: Color.fromRGBO(20, 51, 51, 1),
               ),
-              body2: TextStyle(
+              bodyText2: TextStyle(
                 color: Color.fromRGBO(20, 51, 51, 1),
               ),
             ),
