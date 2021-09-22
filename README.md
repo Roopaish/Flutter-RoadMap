@@ -761,6 +761,11 @@ Stack(
 // Container with some default styling
 // Needs Parent or Child for its size, eg: Container
 Card(
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(
+      15,
+    ),
+  elevation: 4,
   child: Text(),
 )
 ```
@@ -844,6 +849,14 @@ Image.asset(
   fit: BoxFit.cover, // squeeze the image to the size of parent
 ),
 
+// Add image from url
+Image.network(
+  imageUrl,
+  height: 250,
+  width: double.infinity,
+  fit: BoxFit.cover,
+),
+
 
 Icon()
 ```
@@ -885,6 +898,10 @@ GestureDetector(
 
 // InkWell()
 // GestureDetector() with ripple effect
+InkWell(
+  onTap: (){},
+  child: Text("Click"),
+),
 ```
 
 - Extra
@@ -934,6 +951,15 @@ CircleAvatar(
     child: Image(),
     radius: 30,
   ),
+
+// manage border for child elements
+ClipRRect(
+  borderRadius: BorderRadius.only(
+    topLeft: Radius.circular(15),
+    topRight: Radius.circular(15),
+  ),
+  child: Image.network(imageUrl),
+),
 
 // Switch()
 var _showChart = true;
