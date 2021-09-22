@@ -807,6 +807,7 @@ ListTile(
 // GridView()
 // Align contents in both row and column
  GridView(
+  padding: const EdgeInsets.all(25),
   children: [],
   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
     maxCrossAxisExtent: 200,
@@ -875,13 +876,15 @@ IconButton()
 
 // GestureDetector()
 // Detect gestures on the child
+// Register event for double tap, tap on visible/invisible widgets
 GestureDetector(
   onTap: () {},
   child: NewTransaction(_addNewTransaction),
   behavior: HitTestBehavior.opaque,
 );
 
-InkWell() // Gives ripple effect, to register event for double tap, tap on visible/invisible widgets
+// InkWell()
+// GestureDetector() with ripple effect
 ```
 
 - Extra
@@ -1353,4 +1356,41 @@ class TransactionItem extends StatefulWidget{
 
 ## Navigation and Multiple Screens(Meals App)
 
-- ###
+- ### Gradient
+
+```dart
+// LinearGradient() gives gradient background for the container
+Container(
+padding: const EdgeInsets.all(15),
+child: Text(title),
+decoration: BoxDecoration(
+  gradient: LinearGradient(
+    colors: [
+      color.withOpacity(0.7),
+      color,
+    ],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  ),
+  borderRadius: BorderRadius.circular(15),
+),
+)
+```
+
+- ### Navigotor
+
+```dart
+// Navigate between pages
+// Needs to be connected to context, to know what current screen is and to know what to add on top of it or remove
+
+// add new page on top of current page, transition to CategoryMealsScreen() from current page
+// Back button will be added automatically in CategoryMealsScreen()
+Navigator.of(ctx).push(
+  MaterialPageRoute(
+    builder: (_) {
+      return CategoryMealsScreen();
+    },
+  ),
+);
+
+```
