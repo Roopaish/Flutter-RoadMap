@@ -602,6 +602,8 @@ Image.asset('assets/images/waiting.jpg') // using the image
 Text(
   'Hello Peter!',
   style: TextStyle(fontFamily: 'CustomFont'), // using the font
+  softWrap: true, // wraps text
+  overflow: TextOverflow.fade, // handle visual text overflow
 );
 ```
 
@@ -754,6 +756,11 @@ Stack(
   children = [
     Widget(),
     Widget(),
+    Positioned( // only as a children of stack to position Widgets
+      bottom: 20,
+      right: 10,
+      child: Container(),
+    ),
   ]
 )
 
@@ -1054,6 +1061,18 @@ _userTransactions.removeWhere((tx) => tx.id == id);
 
 // Returns true if categories list has categoryId
 categories.contains(categoryId)
+
+// switch case
+switch (compexity) {
+  case Complexity.Simple:
+    return 'Simple';
+  case Complexity.Challenging:
+    return 'Challenging';
+  case Complexity.Hard:
+    return 'Hard';
+  default:
+    return 'Unknown';
+}
 ```
 
 **[⬆ Back to Index](#index)**
