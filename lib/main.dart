@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         accentColor: Colors.blueGrey,
-        canvasColor: Color.fromRGBO(255, 254, 229, 1),
+        canvasColor: Color.fromRGBO(255, 255, 255, 1),
         fontFamily: 'Raleway',
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         textTheme: ThemeData.light().textTheme.copyWith(
               headline1: TextStyle(
                 fontSize: 20,
-                color: Colors.blue[900],
+                fontWeight: FontWeight.bold,
                 fontFamily: 'RobotoCondensed',
               ),
               bodyText1: TextStyle(

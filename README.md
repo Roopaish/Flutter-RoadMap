@@ -1393,4 +1393,24 @@ Navigator.of(ctx).push(
   ),
 );
 
+// Named Routes
+// Switch to CategoriesMealsScreen() whose constructor takes arguments
+// 1st define the routes
+MaterialApp(
+  routes: {
+    '/': (context) => CategoriesScreen
+    '/categories': (context) => CategoriesMealsScreen(), 
+  }
+),
+
+// 2nd Create Navigator for the defined route and pass the arguments
+Navigator.of(context).pushNamed('/categories', arguments: {
+  'id': id,
+  'title': title,
+});
+
+//3rd Access arguments inside build method of CategoriesMealsScreen() Widget
+final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
+final categoryTitle = routeArgs['title'];
+final categoryId = routeArgs['id'];
 ```
