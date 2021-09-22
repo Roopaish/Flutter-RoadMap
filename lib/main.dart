@@ -1,6 +1,7 @@
 // import needed packages from Flutter
 import 'package:flutter/material.dart';
 import 'expense/expense.dart';
+import 'meals/screens/category_meals_screen.dart';
 import 'meals/meals.dart';
 import 'quiz/quiz.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/quiz-app': (context) => QuizApp(),
         '/expense-app': (context) => ExpenseApp(),
+        CategoryMealsScreen.routeName : (context) => CategoryMealsScreen(),
       },
       debugShowCheckedModeBanner: false,
       home: MealsApp(),

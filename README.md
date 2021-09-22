@@ -1025,6 +1025,9 @@ _userTransactions.reversed.toList();
 
 // Remove item from list
 _userTransactions.removeWhere((tx) => tx.id == id);
+
+// Returns true if categories list has categoryId
+categories.contains(categoryId)
 ```
 
 **[⬆ Back to Index](#index)**
@@ -1393,18 +1396,19 @@ Navigator.of(ctx).push(
   ),
 );
 
+
 // Named Routes
-// Switch to CategoriesMealsScreen() whose constructor takes arguments
+// Switch to CategoriesMealsScreen() and also pass data without constructor through map
 // 1st define the routes
 MaterialApp(
   routes: {
-    '/': (context) => CategoriesScreen
-    '/categories': (context) => CategoriesMealsScreen(), 
+    '/categories': (context) => CategoriesScreen
+    '/category-meals': (context) => CategoriesMealsScreen(), 
   }
 ),
 
 // 2nd Create Navigator for the defined route and pass the arguments
-Navigator.of(context).pushNamed('/categories', arguments: {
+Navigator.of(context).pushNamed('/category-meals', arguments: {
   'id': id,
   'title': title,
 });
