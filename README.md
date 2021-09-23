@@ -866,7 +866,10 @@ Image.network(
 ),
 
 
-Icon()
+Icon(
+  Icons.delete,
+  size: 24,
+)
 ```
 
 - User Input
@@ -1298,6 +1301,14 @@ void dispose(){
   // used for cleaning up
   // like cleaning up connection with server when not needed
 }
+
+@override
+  void didChangeDependencies() {
+    // can be used instead of initState when we require context of State
+    // cause initState runs before build, so context is not available
+    // this fxn also runs before build, but we can access context anyway
+    super.didChangeDependencies();
+  }
 ```
 
 **[⬆ Back to Index](#index)**
@@ -1492,6 +1503,27 @@ onUnknownRoute:(settings){
 }
 ```
 
+```dart
+Navigator.of(context).pop(); // get rid of current page or return back
+Navigator.of(context).popAndPushNamed('/meals-app'); // pop and push to new page
+Navigator.of(context).canPop(); // check if you can go back, (is there something below this on stack)
+
+// pop and send some arguments to the new page
+// popping statement
+Navigator.of(context).pop(id); 
+
+// pushing and receiving the result i.e. id from the popped page to a new page(or page that is one step below in stack)
+// .then fxn runs when a page i.e. MealDetailScreen is popped
+Navigator.of(context)
+    .pushNamed(
+  MealDetailScreen.routeName,
+  arguments: id,
+)
+    .then((result) {
+  print(result);
+});
+```
+
 - ### TabBar
 
 ```dart
@@ -1616,3 +1648,5 @@ Scaffold(
 Navigator.of(context).pushReplacement();
 Navigator.of(context).pushReplacementNamed();
 ```
+
+> VoidCallback = void Function

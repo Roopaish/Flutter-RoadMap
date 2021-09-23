@@ -4,7 +4,7 @@ import '../screens/filters_screen.dart';
 class MainDrawer extends StatelessWidget {
   const MainDrawer({Key? key}) : super(key: key);
 
-  Widget _buildListTile(String title, IconData icon, Function tapHandler) {
+  Widget _buildListTile(String title, IconData icon, VoidCallback tapHandler) {
     return ListTile(
       leading: Icon(
         icon,
@@ -18,7 +18,7 @@ class MainDrawer extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      onTap: () => tapHandler,
+      onTap: tapHandler,
     );
   }
 
