@@ -48,6 +48,17 @@
 - [Context](#context)
 - [Key](#key)
 
+[Navigation and Multiple Screens(Meals App)](#navigation-and-multiple-screensmeals-app)
+
+- [Gradient](#gradient)
+- [Navigator](#navigator)
+- [TabBar](#tabbar)
+- [BottomNavigationBar](#bottomnavigationbar)
+- [Drawer](#drawer)
+- [Stack of Pages](#stack-of-pages)
+- [SwitchListTile](#switchlisttile)
+- [Pass data through route](#pass-data-through-route)
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -1455,7 +1466,9 @@ decoration: BoxDecoration(
 )
 ```
 
-- ### Navigotor
+**[⬆ Back to Index](#index)**
+
+- ### Navigator
 
 ```dart
 // Navigate between pages
@@ -1536,6 +1549,8 @@ Navigator.of(context)
 });
 ```
 
+**[⬆ Back to Index](#index)**
+
 - ### TabBar
 
 ```dart
@@ -1570,6 +1585,8 @@ DefaultTabController(
   ),
 )
 ```
+
+**[⬆ Back to Index](#index)**
 
 - ### BottomNavigationBar
 
@@ -1634,6 +1651,8 @@ class _TabsScreenState extends State<TabsScreen> {
 }
 ```
 
+**[⬆ Back to Index](#index)**
+
 - ### Drawer
 
 ```dart
@@ -1643,6 +1662,8 @@ Scaffold(
   ),
 ),
 ```
+
+**[⬆ Back to Index](#index)**
 
 - ### Stack of Pages
 
@@ -1664,6 +1685,8 @@ Navigator.of(context).pushReplacementNamed();
 
 > VoidCallback = void Function
 
+**[⬆ Back to Index](#index)**
+
 - ### SwitchListTile
 
 ```dart
@@ -1680,13 +1703,15 @@ SwitchListTile(
 ),
 ```
 
-- ### Passing data from main.dart to other screen through routes
+**[⬆ Back to Index](#index)**
+
+- ### Pass data through route
 
 ```dart
 // Passing _setFilter fxn from main app screen to FiltersScreen
 MaterialApp(
   routes: {
-    FlterScreen.routename: (ctx) => FiltersScreen(_setFilters),
+    FilterScreen.routename: (ctx) => FiltersScreen(_setFilters),
   }
 )
 
@@ -1694,3 +1719,5 @@ MaterialApp(
 final Function saveFilters;
 FiltersScreen(this.saveFilters)
 ```
+
+**[⬆ Back to Index](#index)**

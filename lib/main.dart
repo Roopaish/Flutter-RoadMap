@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/meals-app',
+      initialRoute: '/',
       routes: {
         // Quiz App
         '/quiz-app': (context) => QuizApp(),
