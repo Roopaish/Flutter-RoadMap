@@ -5,7 +5,7 @@
 - [Flutter Notes](#notes)
 - [Quiz App](https://roopaish.github.io/Ultimate-Flutter-App/#/quiz-app)
 - [Personal Expense App](https://roopaish.github.io/Ultimate-Flutter-App/#/expense-app)
-- Meals App
+- [Meals App](https://roopaish.github.io/Ultimate-Flutter-App/#/meals-app)
 - Shop App
 - Great Places App
 - Chat App
