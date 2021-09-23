@@ -57,6 +57,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 'vegetarian': _vegeterian,
               };
               widget.saveFilters(selectedFilters);
+              Navigator.of(context).pushNamed('/meals-app');
             },
           ),
         ],
