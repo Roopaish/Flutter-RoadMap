@@ -539,31 +539,7 @@ jobs:
 </kbd>
 
 7. Now the site will publish to
-   'https://your_user_name.github.io/your_repo_nam'
-
-> Note: In case you use custom url or the webpage reside in the root directory of custom url, below steps are not necessary
-
-8. Now finally you have to open 'gh-pages' branch and change 'index.html'
-
-9. Inside head tag find base url
-
-```html
-<head>
-  .....
-  <base href="/" />
-  .....
-</head>
-```
-
-10. Change base url to your repo name (or directory name in case of custom website)
-
-```html
-<head>
-  .....
-  <base href="/your-repo-name/" />
-  .....
-</head>
-```
+   'https://your_user_name.github.io/your_repo_name'
 
 **Done**
 
