@@ -952,6 +952,9 @@ SizedBox(
   width: 10,
 ),
 
+// Horizontal line
+Divider(),
+
 // CircleAvatar()
 // Make the child round
 CircleAvatar(
@@ -1052,6 +1055,9 @@ return tx.date.isAfter(
   ),// returns true if tx.date is after Today minus 7days
     // Only transaction younger than 7 days will be included
 );
+
+// Iterates and Returns only one item from the list when found and stops
+final selectedMeal = Dummy_Meals.firstWhere((meal) => meal.id == mealId);
 
 // Reverse a list
 _userTransactions.reversed.toList();
@@ -1440,15 +1446,16 @@ Navigator.of(ctx).push(
     },
   ),
 );
+```
 
-
+```dart
 // Named Routes
 // Switch to CategoriesMealsScreen() and also pass data without constructor through map
 // 1st define the routes
 MaterialApp(
   routes: {
     '/categories': (context) => CategoriesScreen
-    '/category-meals': (context) => CategoriesMealsScreen(), 
+    '/category-meals': (context) => CategoriesMealsScreen(),
   }
 ),
 
@@ -1462,4 +1469,58 @@ Navigator.of(context).pushNamed('/category-meals', arguments: {
 final routeArgs = ModalRoute.of(context).settings.arguments as Map<String, String>;
 final categoryTitle = routeArgs['title'];
 final categoryId = routeArgs['id'];
+```
+
+```dart
+// Properties of MaterialApp(), onGenerate and unUnkown takes settings about the route and returns a route
+// CategoriesScreen() will appear for any route that is not registered in routes: (for named Routes)
+onGenerateRoute: (settings){
+  if(settings.name == '/meal-detail'){
+  return MaterialPageRoute(builder:(ctx) => MealScreen());
+  }
+  return MaterialPageRoute(builder:(ctx) => CategoriesScreen());
+}
+
+// When certain page can't be found
+// Can be used for 404 error screen
+onUnknownRoute:(settings){
+  if(settings.name == '/meal-detail'){
+  return MaterialPageRoute(builder:(ctx) => MealScreen());
+  }
+  return MaterialPageRoute(builder:(ctx) => CategoriesScreen());
+}
+```
+
+- ### TabBar
+```dart
+// It should be on main screen of the app
+// DefaultTabController is needed for TabBar below AppBar
+DefaultTabController(
+  initialIndex: 1, // Start screen with favorite, default is 0
+  length: 2,
+  child: Scaffold(
+    appBar: AppBar(
+      title: Text('Meals'),
+      bottom: TabBar(
+        tabs: [
+          Tab(
+            icon: Icon(Icons.category),
+            text: "Categories",
+          ),
+          Tab(
+            icon: Icon(Icons.favorite),
+            text: "Favorites",
+          ),
+        ],
+      ),
+    ),
+    body: TabBarView(
+      // Children must match the order of tabs defined above in TabBar()
+      children:[
+        CategoriesScreen(),
+        FavoritesScreen(),
+      ],
+    ),
+  ),
+)
 ```

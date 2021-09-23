@@ -14,32 +14,37 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
+      initialRoute: '/meals-app',
       routes: {
         '/quiz-app': (context) => QuizApp(),
         '/expense-app': (context) => ExpenseApp(),
+        '/meals-app': (context) => MealsApp(),
         CategoryMealsScreen.routeName: (context) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (context) => MealDetailScreen(),
       },
+      onGenerateRoute: (settings) {},
       debugShowCheckedModeBanner: false,
-      home: MealsApp(),
-      // Builder(
-      //   builder: (context) => GridView.count(
-      //     crossAxisSpacing: 10,
-      //     mainAxisSpacing: 10,
-      //     crossAxisCount: 2,
-      //     children: [
-      //       OutlinedButton(
-      //         onPressed: () => Navigator.pushNamed(context, '/quiz-app'),
-      //         child: Text("Quiz App"),
-      //       ),
-      //       OutlinedButton(
-      //         onPressed: () => Navigator.pushNamed(context, '/expense-app'),
-      //         child: Text("Expense App"),
-      //       ),
-      //     ],
-      //   ),
-      // ),
+      home: Builder(
+        builder: (context) => GridView.count(
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          crossAxisCount: 2,
+          children: [
+            OutlinedButton(
+              onPressed: () => Navigator.pushNamed(context, '/quiz-app'),
+              child: Text("Quiz App"),
+            ),
+            OutlinedButton(
+              onPressed: () => Navigator.pushNamed(context, '/expense-app'),
+              child: Text("Expense App"),
+            ),
+            OutlinedButton(
+              onPressed: () => Navigator.pushNamed(context, '/meals-app'),
+              child: Text("Meals App"),
+            ),
+          ],
+        ),
+      ),
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         accentColor: Colors.blueGrey,
