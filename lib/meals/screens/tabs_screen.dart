@@ -10,33 +10,45 @@ class TabsScreen extends StatefulWidget {
 }
 
 class _TabsScreenState extends State<TabsScreen> {
+  final List<Map<String, Object>> _pages = [
+    {'page': CategoriesScreen(), 'title': 'Categories'},
+    {'page': FavoritesScreen(), 'title': 'Favorites'},
+  ];
+
+  int _selectedPageIndex = 0;
+
+  void _selectPage(int index) {
+    setState(() {
+      _selectedPageIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      initialIndex: 1, // Start screen with favorite
-      length: 2,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text('Meals'),
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.category),
-                text: "Categories",
-              ),
-              Tab(
-                icon: Icon(Icons.favorite),
-                text: "Favorites",
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_pages[_selectedPageIndex]['title'] as String),
+      ),
+      body: _pages[_selectedPageIndex]['page'] as Widget,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectPage,
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Theme.of(context).accentColor,
+        currentIndex: _selectedPageIndex,
+        type: BottomNavigationBarType.shifting,
+        items: [
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.category),
+            label: 'Categories',
           ),
-        ),
-        body: TabBarView(
-          children:[
-            CategoriesScreen(),
-            FavoritesScreen(),
-          ],
-        ),
+          BottomNavigationBarItem(
+            backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+        ],
       ),
     );
   }

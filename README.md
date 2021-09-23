@@ -1492,8 +1492,9 @@ onUnknownRoute:(settings){
 ```
 
 - ### TabBar
+
 ```dart
-// It should be on main screen of the app
+// The widget can be either stateful or stateless
 // DefaultTabController is needed for TabBar below AppBar
 DefaultTabController(
   initialIndex: 1, // Start screen with favorite, default is 0
@@ -1523,4 +1524,63 @@ DefaultTabController(
     ),
   ),
 )
+```
+
+- ### BottomNavigationBar
+```dart
+// Should be StatefulWidget
+class TabsScreen extends StatefulWidget {
+  const TabsScreen({Key? key}) : super(key: key);
+
+  @override
+  _TabsScreenState createState() => _TabsScreenState();
+}
+
+class _TabsScreenState extends State<TabsScreen> {
+  final List<Map<String, Object>> _pages = [
+    {'page': CategoriesScreen(), 'title': 'Categories'},
+    {'page': FavoritesScreen(), 'title': 'Favorites'},
+  ];
+
+  int _selectedPageIndex = 0;
+
+  void _selectPage(int index) {
+    setState(() {
+      _selectedPageIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_pages[_selectedPageIndex]['title'] as String),
+      ),
+      body: _pages[_selectedPageIndex]['page'] as Widget,
+      bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectPage,
+        backgroundColor: Theme.of(context).primaryColor,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Theme.of(context).accentColor,
+        currentIndex: _selectedPageIndex,
+        // type: BottomNavigationBarType.shifting,
+        // type animates the switching between tabs
+        // Items should be styled differently
+        // i.e. backgroundColor of BottomNavigationBar does not work in BottomNavigationBarItem, so they should have their own backgroundColor
+        items: [
+          BottomNavigationBarItem(
+            // backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.category),
+            label: 'Categories',
+          ),
+          BottomNavigationBarItem(
+            // backgroundColor: Theme.of(context).primaryColor,
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+        ],
+      ),
+    );
+  }
+}
 ```
