@@ -631,6 +631,7 @@ CupertinoPageScaffold()
 // Wrapper for other widgets, alignment and styling(border, padding, margin) , takes one child, flexible size
 // To style other Widgets
 Container(
+  alignment: Alignment.centerLeft,
   margin: EdgeInsets.symmetric(
     vertical: 10,
     horizontal: 15,
@@ -1527,6 +1528,7 @@ DefaultTabController(
 ```
 
 - ### BottomNavigationBar
+
 ```dart
 // Should be StatefulWidget
 class TabsScreen extends StatefulWidget {
@@ -1556,6 +1558,9 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title'] as String),
       ),
+      drawer: Drawer(
+
+      ),
       body: _pages[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
@@ -1583,4 +1588,14 @@ class _TabsScreenState extends State<TabsScreen> {
     );
   }
 }
+```
+
+- ### Drawer
+
+```dart
+Scaffold(
+  drawer: Drawer(
+    child: Container(),
+  ),
+),
 ```

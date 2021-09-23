@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
         CategoryMealsScreen.routeName: (context) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (context) => MealDetailScreen(),
       },
-      onGenerateRoute: (settings) {},
       debugShowCheckedModeBanner: false,
       home: Builder(
         builder: (context) => GridView.count(
