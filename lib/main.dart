@@ -4,6 +4,7 @@ import 'expense/expense.dart';
 import 'meals/screens/category_meals_screen.dart';
 import 'meals/meals.dart';
 import 'meals/screens/meal_detail_screen.dart';
+import 'meals/screens/filters_screen.dart';
 import 'quiz/quiz.dart';
 
 void main() {
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/meals-app': (context) => MealsApp(),
         CategoryMealsScreen.routeName: (context) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (context) => MealDetailScreen(),
+        FiltersScreen.routeName: (context) => FiltersScreen(),
       },
       debugShowCheckedModeBanner: false,
       home: Builder(
