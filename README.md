@@ -1599,3 +1599,20 @@ Scaffold(
   ),
 ),
 ```
+
+- ### Stack of Pages
+```dart
+// Navigating from page1 to page2 creates a stack where page1 is under page 2
+// and then returning back to page1 with back button, will clear the page2 in the stack
+// i.e page2 is replaced by page1, Thus optimizing performance
+
+// But Navigating from page1 to page2 and then to page1 again through some link can create stack of page1|page2|page1
+// here, previous page1 and page2 doesn't get cleared from the stack
+// i.e. New page is added on top of each other instead of replacing, Thus performance can be degraded
+
+// instead of push and pushName, we use pushReplacement and pushReplacementNamed respectively to solve this issue
+// there will be no back button or you won't be able to go back cause there's nothing on stack
+// Can be used for logging into the app, where once logged in you can't go back to login screen
+Navigator.of(context).pushReplacement();
+Navigator.of(context).pushReplacementNamed();
+```
