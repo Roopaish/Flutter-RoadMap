@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'models/meal.dart';
 import 'screens/tabs_screen.dart';
 
 class MealsApp extends StatefulWidget {
-  const MealsApp({Key? key}) : super(key: key);
+  final List<Meal> favoriteMeals;
+  MealsApp(this.favoriteMeals);
 
   @override
   _MealsAppState createState() => _MealsAppState();
 }
 
 class _MealsAppState extends State<MealsApp> {
-
   @override
   Widget build(BuildContext context) {
-    return TabsScreen();
+    return TabsScreen(widget.favoriteMeals);
   }
 }

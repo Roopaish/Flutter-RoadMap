@@ -1069,6 +1069,18 @@ _userTransactions.reversed.toList();
 // Remove item from list
 _userTransactions.removeWhere((tx) => tx.id == id);
 
+// Remove item at given index
+_userTransactions.removeAt(existingIndex);
+
+// get index of element on list
+_userTransactions.indexWhere((tx) => tx.id == txId);
+
+// add first element to list _favoriteMeals from Dummy_meals for which the fxn returns true
+_favoriteMeals.add(Dummy_Meals.firstWhere((meal) => meal.id == mealId))
+
+// Check condition for items in lists and stop if found any
+_favoriteMeals.any((meal) => meal.id == id);
+
 // Returns true if categories list has categoryId
 categories.contains(categoryId)
 
@@ -1510,7 +1522,7 @@ Navigator.of(context).canPop(); // check if you can go back, (is there something
 
 // pop and send some arguments to the new page
 // popping statement
-Navigator.of(context).pop(id); 
+Navigator.of(context).pop(id);
 
 // pushing and receiving the result i.e. id from the popped page to a new page(or page that is one step below in stack)
 // .then fxn runs when a page i.e. MealDetailScreen is popped
@@ -1633,6 +1645,7 @@ Scaffold(
 ```
 
 - ### Stack of Pages
+
 ```dart
 // Navigating from page1 to page2 creates a stack where page1 is under page 2
 // and then returning back to page1 with back button, will clear the page2 in the stack
@@ -1652,6 +1665,7 @@ Navigator.of(context).pushReplacementNamed();
 > VoidCallback = void Function
 
 - ### SwitchListTile
+
 ```dart
 // ListTile with trailing Switch
 SwitchListTile(
@@ -1667,6 +1681,7 @@ SwitchListTile(
 ```
 
 - ### Passing data from main.dart to other screen through routes
+
 ```dart
 // Passing _setFilter fxn from main app screen to FiltersScreen
 MaterialApp(
