@@ -1650,3 +1650,18 @@ Navigator.of(context).pushReplacementNamed();
 ```
 
 > VoidCallback = void Function
+
+- ### SwitchListTile
+```dart
+// ListTile with trailing Switch
+SwitchListTile(
+  title: Text('Gluten-free'),
+  value: _glutenFree,
+  subtitle: Text('Only include glute-free meals'),
+  onChanged: (newValue) {
+    setState(() {
+      _glutenFree = newValue;
+    });
+  },
+),
+```
