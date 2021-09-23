@@ -1665,3 +1665,17 @@ SwitchListTile(
   },
 ),
 ```
+
+- ### Passing data from main.dart to other screen through routes
+```dart
+// Passing _setFilter fxn from main app screen to FiltersScreen
+MaterialApp(
+  routes: {
+    FlterScreen.routename: (ctx) => FiltersScreen(_setFilters),
+  }
+)
+
+// In FiltersScreen Widget
+final Function saveFilters;
+FiltersScreen(this.saveFilters)
+```
