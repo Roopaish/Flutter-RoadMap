@@ -59,6 +59,9 @@
 - [SwitchListTile](#switchlisttile)
 - [Pass data through route](#pass-data-through-route)
 
+[State Management (Shop App)](#State-management-shop-app)
+
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -632,6 +635,7 @@ Scaffold()
 CupertinoPageScaffold()
 
 ```
+**[⬆ Back to Index](#index)**
 
 - Layout
 
@@ -686,6 +690,8 @@ Column(
   ]
 )
 ```
+**[⬆ Back to Index](#index)**
+
 
 - Responsive Widgets
 
@@ -756,6 +762,8 @@ Expanded(
   ),
 ),
 ```
+**[⬆ Back to Index](#index)**
+
 
 - Content Containers
 
@@ -786,6 +794,8 @@ Card(
   child: Text(),
 )
 ```
+**[⬆ Back to Index](#index)**
+
 
 - Repeat Elements
 
@@ -841,10 +851,42 @@ ListTile(
   // gridDelegate provides layout for the grid
   // SliverGridDelegateWithMaxCrossAxisExtent allows to define max Width for each grid item
   // Grid will automatically fit as many items with 200px width on the provided screen
+
+  // SliverGridDelegateWithFixedCrossAxisCount is used for showing defined number of items in the grid
+  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    childAspectRatio: 3 / 2,
+    crossAxisSpacing: 10,
+    mainAxisSpacing: 10,
+  ),
 )
 
-// GridView.builder() for many elements
+// GridView.builder() for many elements 
+GridView.builder(
+  padding: const EdgeInsets.all(10),
+  itemCount: products.length,
+  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 2,
+    childAspectRatio: 3 / 2,
+    crossAxisSpacing: 10,
+    mainAxisSpacing: 10,
+  ),
+  
+  // GridTile can be used anywhere but works well with GridView
+  itemBuilder: (ctx, i) => GridTile(
+      child: Image.network(ImageUrl),
+      // GridTileBar is like ListTile
+      footer: GridTileBar(
+        backgroundColor: Colors.black54,
+        leading: IconButton(icon: Icon(Icons.favorite),onPressed: () {}, color: Colors.red),
+        title: AnyWidget(),
+        trailing: IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)
+      ),
+  ),
+)
 ```
+**[⬆ Back to Index](#index)**
+
 
 - Content Types
 
@@ -857,6 +899,7 @@ Text(
     fontSize: 20,
     color: Colors.purple,
   ),
+  textAlign: TextAlign.center,
 )
 
 // Image()
@@ -880,6 +923,8 @@ Icon(
   size: 24,
 )
 ```
+**[⬆ Back to Index](#index)**
+
 
 - User Input
 
@@ -923,6 +968,8 @@ InkWell(
   child: Text("Click"),
 ),
 ```
+**[⬆ Back to Index](#index)**
+
 
 - Extra
 
@@ -976,6 +1023,7 @@ CircleAvatar(
   ),
 
 // manage border for child elements
+// Clip Rounded Rectangle
 ClipRRect(
   borderRadius: BorderRadius.only(
     topLeft: Radius.circular(15),
@@ -1719,3 +1767,13 @@ FiltersScreen(this.saveFilters)
 ```
 
 **[⬆ Back to Index](#index)**
+
+
+## State Management (Shop App)
+
+- Problem with routes created on the fly
+
+Passing data through routes created on fly when required can make it hard to manage the project.  
+We have to pass data through constructors. So, if page1 has data1 which is transferred to page2 (where data1 is not used) then to page3 (where data1 will be used). So it's not an ideal way of transferring data.
+
+

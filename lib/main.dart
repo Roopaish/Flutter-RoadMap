@@ -1,20 +1,24 @@
 // import needed packages from Flutter
 import 'package:flutter/material.dart';
+
+import 'quiz/quiz.dart';
 import 'expense/expense.dart';
-import 'meals/dummy_data.dart';
-import 'meals/models/meal.dart';
-import 'meals/screens/category_meals_screen.dart';
+
 import 'meals/meals.dart';
+import 'meals/models/meal.dart';
+import 'meals/dummy_data.dart';
+import 'meals/screens/category_meals_screen.dart';
 import 'meals/screens/meal_detail_screen.dart';
 import 'meals/screens/filters_screen.dart';
-import 'quiz/quiz.dart';
+
+import 'shop/shop.dart';
+
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  // For Meals-App
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -90,27 +94,28 @@ class _MyAppState extends State<MyApp> {
             FiltersScreen(_filters, _setFilters),
       },
       debugShowCheckedModeBanner: false,
-      home: Builder(
-        builder: (context) => GridView.count(
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-          crossAxisCount: 2,
-          children: [
-            OutlinedButton(
-              onPressed: () => Navigator.pushNamed(context, '/quiz-app'),
-              child: Text("Quiz App"),
-            ),
-            OutlinedButton(
-              onPressed: () => Navigator.pushNamed(context, '/expense-app'),
-              child: Text("Expense App"),
-            ),
-            OutlinedButton(
-              onPressed: () => Navigator.pushNamed(context, '/meals-app'),
-              child: Text("Meals App"),
-            ),
-          ],
-        ),
-      ),
+      home: ShopApp(),
+      // Builder(
+      //   builder: (context) => GridView.count(
+      //     crossAxisSpacing: 10,
+      //     mainAxisSpacing: 10,
+      //     crossAxisCount: 2,
+      //     children: [
+      //       OutlinedButton(
+      //         onPressed: () => Navigator.pushNamed(context, '/quiz-app'),
+      //         child: Text("Quiz App"),
+      //       ),
+      //       OutlinedButton(
+      //         onPressed: () => Navigator.pushNamed(context, '/expense-app'),
+      //         child: Text("Expense App"),
+      //       ),
+      //       OutlinedButton(
+      //         onPressed: () => Navigator.pushNamed(context, '/meals-app'),
+      //         child: Text("Meals App"),
+      //       ),
+      //     ],
+      //   ),
+      // ),
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         accentColor: Colors.blueGrey,
