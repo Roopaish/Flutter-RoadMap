@@ -1807,7 +1807,7 @@ class Products with ChangeNotifier{
   // ChangeNotifier establish communication tunnel with the help of context object which is needed to pass data around
   // ChangeNotifier is used by provider
   void addProduct(){
-    notifyListeners(); //notify listeners to rebuild the UI
+    notifyListeners(); //notify listeners to rebuild the UI, like setState for Provider Package
   }
 }
 ```
@@ -1837,7 +1837,7 @@ class ProductsGrid extends StatelessWidget {
 ```dart
 final loadedProduct = Provider.of<Products>(
       context,
-      listen: false, // Default is true, this widget will not rebuild when Products is changed. So, notifyListener() will not act on it.
+      listen: false, // Default is true, this widget will not rebuild when Products is changed i.e. notifyListener() will not act on it.
     )
 ```
 
