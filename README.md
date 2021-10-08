@@ -286,6 +286,11 @@ Column(
       Answer(_ansQsn, qsns[_qsnIndex]['ans'][2]),
   ]
 ),
+
+// returning a copy of list but not reference to the list
+List<Product> get items {
+  return [..._items];
+}
 ```
 
 ```dart
@@ -1771,9 +1776,43 @@ FiltersScreen(this.saveFilters)
 
 ## State Management (Shop App)
 
-- Problem with routes created on the fly
+- ### Problem with routes
 
 Passing data through routes created on fly when required can make it hard to manage the project.  
-We have to pass data through constructors. So, if page1 has data1 which is transferred to page2 (where data1 is not used) then to page3 (where data1 will be used). So it's not an ideal way of transferring data.
+We have to pass data through constructors. So, if page1 has data1 which is transferred to page2 (where data1 is not used) then to page3 (where data1 will be used). So it's not an ideal way of transferring data. It leads to long chain of passing data.  
 
+So named routes are ideal.  
+  
+We need to define all data in top level file (main.dart), so to pass data around different Widgets. And if some data changes in main.dart then the whole app rebuilds, which is not great for performance. That's where state management is needed.
 
+- ### State Management
+
+State is data which affects UI(and which might change over time).  
+User interface is function of data(state). If State changes, UI changes.  
+  
+App-wide State: affects entire app or significant parts of app (like authentication)  
+Widget(Local) State: affects only a widget (like loading spinner)  
+  
+- Provider Package (Provided by flutter as a dependency for State management)
+
+A global or central State/Data Provider("Container") is attached to certain Widget. Now all child Widget of that Widget can listen to that provider.  
+Without passing data through constructor, we can add listener to child Widget with of(context).  
+Here, only the build() method of child Widget where listener is applied is executed. So, not all Widgets will rebuild. 
+
+```dart
+class Products with ChangeNotifier{
+  // Here Products class property is mixed with ChangeNotifier class provided by flutter
+  // It's called mixin
+  // ChangeNotifier establish communication tunnel with the help of context object which is needed to pass data around
+  // ChangeNotifier is used by provider
+}
+```
+
+```dart
+// Wrap the top level Widget in where child widgets are defined which needs data from provider
+ChangeNotifierProvider(
+  create: (ctx) => Products(), // provide instance of Products() in all child widgets
+  child: MaterialApp(),
+);
+// Now if something is changed in the Product class and we call notifyListeners(), only the child widgets which are listening will be rebuild
+```
