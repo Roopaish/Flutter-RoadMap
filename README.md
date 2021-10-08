@@ -60,6 +60,11 @@
 - [Pass data through route](#pass-data-through-route)
 
 [State Management (Shop App)](#State-management-shop-app)
+- [Problem with routes](#problem-with-routes)
+- [State Management](#state-management)
+- [Inheritance(extends) vs Mixins(with)](#inheritanceextends-vs-mixinswith)
+- [Using nested models and providers](#using-nested-models-and-providers)
+- [Consumer instead of Provider](#consumer-instead-of-provider)
 
 
 ## Notes
@@ -1785,6 +1790,8 @@ So named routes are ideal.
   
 We need to define all data in top level file (main.dart), so to pass data around different Widgets. And if some data changes in main.dart then the whole app rebuilds, which is not great for performance. That's where state management is needed.
 
+**[⬆ Back to Index](#index)**
+
 - ### State Management
 
 State is data which affects UI(and which might change over time).  
@@ -1841,6 +1848,8 @@ final loadedProduct = Provider.of<Products>(
     )
 ```
 
+**[⬆ Back to Index](#index)**
+
 - ### Inheritance(extends) vs Mixins(with)
 
 ```dart
@@ -1887,6 +1896,8 @@ void main(){
 // Multiple inheritance is not supported in dart
 ```
 
+**[⬆ Back to Index](#index)**
+
 - ### Using nested models and providers
 
 ```dart
@@ -1927,3 +1938,31 @@ Best Practices:
 Use .value provider, for list or grid item. See [key](#key) .value constructor solves the issue that key is solving. With create, it can create bugs as soon as we have more items that go outside the screen.  
   
 Use create approach when using a object for one time. And use .value approach, when same object is reused again and again for efficiency and avoid bugs.
+
+**[⬆ Back to Index](#index)**
+
+- ### Consumer instead of Provider
+
+```dart
+// With Provider
+Widget build(BuildContext context) {
+  final product = Provider.of<Product>(context);
+  return Text(product.title);
+}
+
+// With Consumer 
+Widget build(BuildContext context) {
+  return Consumer<Product>(
+    builder: (ctx, product, child) => Text(product.title);
+  );
+}
+```
+Provider:  
+When provider.of is used whole build method will re-run whenever data(Product) changes.  
+  
+Consumer:  
+Only run subpart of Widget tree, which is wrapped in Consumer whenever data(Product) changes.  
+  
+> Can be used together
+
+**[⬆ Back to Index](#index)**
