@@ -60,12 +60,12 @@
 - [Pass data through route](#pass-data-through-route)
 
 [State Management (Shop App)](#State-management-shop-app)
+
 - [Problem with routes](#problem-with-routes)
 - [State Management](#state-management)
 - [Inheritance(extends) vs Mixins(with)](#inheritanceextends-vs-mixinswith)
 - [Using nested models and providers](#using-nested-models-and-providers)
 - [Consumer instead of Provider](#consumer-instead-of-provider)
-
 
 ## Notes
 
@@ -559,6 +559,7 @@ jobs:
 8. Now finally you have to open 'gh-pages' branch and change 'index.html'
 
 9. Inside head tag find base url
+
 ```html
 <head>
   .....
@@ -566,6 +567,7 @@ jobs:
   .....
 </head>
 ```
+
 10. Change base url to your repo name (or directory name in case of custom website)
 
 ```html
@@ -645,6 +647,7 @@ Scaffold()
 CupertinoPageScaffold()
 
 ```
+
 **[⬆ Back to Index](#index)**
 
 - Layout
@@ -700,8 +703,8 @@ Column(
   ]
 )
 ```
-**[⬆ Back to Index](#index)**
 
+**[⬆ Back to Index](#index)**
 
 - Responsive Widgets
 
@@ -772,8 +775,8 @@ Expanded(
   ),
 ),
 ```
-**[⬆ Back to Index](#index)**
 
+**[⬆ Back to Index](#index)**
 
 - Content Containers
 
@@ -804,8 +807,8 @@ Card(
   child: Text(),
 )
 ```
-**[⬆ Back to Index](#index)**
 
+**[⬆ Back to Index](#index)**
 
 - Repeat Elements
 
@@ -871,7 +874,7 @@ ListTile(
   ),
 )
 
-// GridView.builder() for many elements 
+// GridView.builder() for many elements
 GridView.builder(
   padding: const EdgeInsets.all(10),
   itemCount: products.length,
@@ -881,7 +884,7 @@ GridView.builder(
     crossAxisSpacing: 10,
     mainAxisSpacing: 10,
   ),
-  
+
   // GridTile can be used anywhere but works well with GridView
   itemBuilder: (ctx, i) => GridTile(
       child: Image.network(ImageUrl),
@@ -895,8 +898,8 @@ GridView.builder(
   ),
 )
 ```
-**[⬆ Back to Index](#index)**
 
+**[⬆ Back to Index](#index)**
 
 - Content Types
 
@@ -933,8 +936,8 @@ Icon(
   size: 24,
 )
 ```
-**[⬆ Back to Index](#index)**
 
+**[⬆ Back to Index](#index)**
 
 - User Input
 
@@ -978,8 +981,8 @@ InkWell(
   child: Text("Click"),
 ),
 ```
-**[⬆ Back to Index](#index)**
 
+**[⬆ Back to Index](#index)**
 
 - Extra
 
@@ -1778,16 +1781,15 @@ FiltersScreen(this.saveFilters)
 
 **[⬆ Back to Index](#index)**
 
-
 ## State Management (Shop App)
 
 - ### Problem with routes
 
 Passing data through routes created on fly when required can make it hard to manage the project.  
-We have to pass data through constructors. So, if page1 has data1 which is transferred to page2 (where data1 is not used) then to page3 (where data1 will be used). So it's not an ideal way of transferring data. It leads to long chain of passing data.  
+We have to pass data through constructors. So, if page1 has data1 which is transferred to page2 (where data1 is not used) then to page3 (where data1 will be used). So it's not an ideal way of transferring data. It leads to long chain of passing data.
 
-So named routes are ideal.  
-  
+So named routes are ideal.
+
 We need to define all data in top level file (main.dart), so to pass data around different Widgets. And if some data changes in main.dart then the whole app rebuilds, which is not great for performance. That's where state management is needed.
 
 **[⬆ Back to Index](#index)**
@@ -1795,16 +1797,16 @@ We need to define all data in top level file (main.dart), so to pass data around
 - ### State Management
 
 State is data which affects UI(and which might change over time).  
-User interface is function of data(state). If State changes, UI changes.  
-  
+User interface is function of data(state). If State changes, UI changes.
+
 App-wide State: affects entire app or significant parts of app (like authentication)  
-Widget(Local) State: affects only a widget (like loading spinner)  
-  
+Widget(Local) State: affects only a widget (like loading spinner)
+
 - Provider Package (Provided by flutter as a dependency for State management)
 
 A global or central State/Data Provider("Container") is attached to certain Widget. Now all child Widget of that Widget can listen to that provider.  
 Without passing data through constructor, we can add listener to child Widget with of(context).  
-Here, only the build() method of child Widget where listener is applied is executed. So, not all Widgets will rebuild. 
+Here, only the build() method of child Widget where listener is applied is executed. So, not all Widgets will rebuild.
 
 ```dart
 // create a provider class
@@ -1889,7 +1891,7 @@ void main(){
 
 // Not much of difference
 
-// Mixin is just to get utility methods 
+// Mixin is just to get utility methods
 // Mixin doesn't define a stronger connection like Inheritance
 
 // Multiple mixin can be added in one class
@@ -1913,6 +1915,7 @@ GridView.builder(
 ```
 
 `Alternative Syntax`
+
 ```dart
 // Alternative syntax if we are not using ctx
 // place a placeholder, if the data does not need context
@@ -1935,8 +1938,8 @@ GridView.builder(
 ```
 
 Best Practices:  
-Use .value provider, for list or grid item. See [key](#key) .value constructor solves the issue that key is solving. With create, it can create bugs as soon as we have more items that go outside the screen.  
-  
+Use .value provider, for list or grid item. See [key](#key) .value constructor solves the issue that key is solving. With create, it can create bugs as soon as we have more items that go outside the screen.
+
 Use create approach when using a object for one time. And use .value approach, when same object is reused again and again for efficiency and avoid bugs.
 
 **[⬆ Back to Index](#index)**
@@ -1950,19 +1953,32 @@ Widget build(BuildContext context) {
   return Text(product.title);
 }
 
-// With Consumer 
+// With Consumer
 Widget build(BuildContext context) {
   return Consumer<Product>(
-    builder: (ctx, product, child) => Text(product.title);
+    builder: (ctx, product, child) => Text(product.title)]
   );
 }
 ```
+
 Provider:  
-When provider.of is used whole build method will re-run whenever data(Product) changes.  
-  
+When provider.of is used whole build method will re-run whenever data(Product) changes.
+
 Consumer:  
-Only run subpart of Widget tree, which is wrapped in Consumer whenever data(Product) changes.  
-  
+Only run subpart of Widget tree, which is wrapped in Consumer whenever data(Product) changes.
+
 > Can be used together
+
+```dart
+// Child is defined for certain part which does not re-render when data changes
+Widget build(BuildContext context) {
+  return Consumer<Product>(
+    builder: (ctx, product, child) => Scaffold(
+      appBar: AppBar(title: child)
+    ),
+    child: Text("Does not change"),
+  );
+}
+```
 
 **[⬆ Back to Index](#index)**
