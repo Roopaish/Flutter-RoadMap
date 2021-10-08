@@ -1886,3 +1886,44 @@ void main(){
 // Multiple mixin can be added in one class
 // Multiple inheritance is not supported in dart
 ```
+
+- ### Using nested models and providers
+
+```dart
+// here products is a list of Product() objects
+// Creating provider for each Product() object
+GridView.builder(
+  ...
+  itemBuilder: (ctx, i) => ChangeNotifierProvider(
+    create:(ctx) => products[i],
+    child: ProductItem(),
+  ),
+)
+```
+
+`Alternative Syntax`
+```dart
+// Alternative syntax if we are not using ctx
+// place a placeholder, if the data does not need context
+GridView.builder(
+  ...
+  itemBuilder: (ctx, i) => ChangeNotifierProvider(
+    create:(_) => products[i],
+    child: ProductItem(),
+  ),
+)
+
+// Or use different constructor
+GridView.builder(
+  ...
+  itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+    value: products[i],
+    child: ProductItem(),
+  ),
+)
+```
+
+Best Practices:  
+Use .value provider, for list or grid item. See [key](#key) .value constructor solves the issue that key is solving. With create, it can create bugs as soon as we have more items that go outside the screen.  
+  
+Use create approach when using a object for one time. And use .value approach, when same object is reused again and again for efficiency and avoid bugs.
