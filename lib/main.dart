@@ -80,6 +80,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
+      // ChangeNotifierProvider (for Shop App only)
       create: (ctx) => Products(),
       child: MaterialApp(
         initialRoute: '/',
@@ -97,6 +98,7 @@ class _MyAppState extends State<MyApp> {
           FiltersScreen.routeName: (context) =>
               FiltersScreen(_filters, _setFilters),
           // Shop App
+          '/shop-app': (context) => ShopApp(),
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
         },
         debugShowCheckedModeBanner: false,

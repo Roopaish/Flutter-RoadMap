@@ -1800,6 +1800,7 @@ Without passing data through constructor, we can add listener to child Widget wi
 Here, only the build() method of child Widget where listener is applied is executed. So, not all Widgets will rebuild. 
 
 ```dart
+// create a provider class
 class Products with ChangeNotifier{
   // Here Products class property is mixed with ChangeNotifier class provided by flutter
   // It's called mixin
@@ -1810,9 +1811,21 @@ class Products with ChangeNotifier{
 
 ```dart
 // Wrap the top level Widget in where child widgets are defined which needs data from provider
+// below is defined in build of MyApp
 ChangeNotifierProvider(
   create: (ctx) => Products(), // provide instance of Products() in all child widgets
   child: MaterialApp(),
 );
 // Now if something is changed in the Product class and we call notifyListeners(), only the child widgets which are listening will be rebuild
+
+// Accessing data provided by provider to direct or indirect child
+// .of is generic type and we only want Products here
+// Since Products is provided by ChangeNotifierProvider with create property, we can access it here
+class ProductsGrid extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final productsData = Provider.of<Products>(context); // instance of Products(), object
+    final products = productsData.items;
+  }
+}
 ```
