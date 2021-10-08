@@ -1816,11 +1816,12 @@ ChangeNotifierProvider(
   create: (ctx) => Products(), // provide instance of Products() in all child widgets
   child: MaterialApp(),
 );
-// Now if something is changed in the Product class and we call notifyListeners(), only the child widgets which are listening will be rebuild
+// Now if something is changed in the Product class and we call notifyListeners() and only the child widgets which are listening will be rebuild
 
 // Accessing data provided by provider to direct or indirect child
 // .of is generic type and we only want Products here
 // Since Products is provided by ChangeNotifierProvider with create property, we can access it here
+// Only ProductsGrid will rebuild if Products is changed
 class ProductsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1828,4 +1829,50 @@ class ProductsGrid extends StatelessWidget {
     final products = productsData.items;
   }
 }
+```
+
+- ### Inheritance(extends) vs Mixins(with)
+
+```dart
+// Mixin
+mixin Agility{
+  var speed = 10;
+  void sitDown(){
+    print("Sit Down!");
+  }
+}
+
+class Mammal{
+  void breathe(){
+    print("Breathe in.. Breathe out..");
+  }
+}
+
+// Inheritance + Mixin
+class Person extends Mammal with Agility{
+  String name;
+  Person(this.name);
+
+  @override
+  void breathe(){
+    // override the methods of Mammal
+  }
+}
+
+void main(){
+  final person = Person('Sam');
+  print(person.name);
+  person.breathe();
+
+  print(person.speed);
+  person.sitDown();
+}
+
+// Not much of difference
+
+// Mixin is just to get utility methods 
+// Mixin doesn't define a stronger connection like Inheritance
+
+// Multiple mixin can be added in one class
+// Multiple inheritance is not supported in dart
 ```
