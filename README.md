@@ -1806,6 +1806,9 @@ class Products with ChangeNotifier{
   // It's called mixin
   // ChangeNotifier establish communication tunnel with the help of context object which is needed to pass data around
   // ChangeNotifier is used by provider
+  void addProduct(){
+    notifyListeners(); //notify listeners to rebuild the UI
+  }
 }
 ```
 
@@ -1829,6 +1832,13 @@ class ProductsGrid extends StatelessWidget {
     final products = productsData.items;
   }
 }
+```
+
+```dart
+final loadedProduct = Provider.of<Products>(
+      context,
+      listen: false, // Default is true, this widget will not rebuild when Products is changed. So, notifyListener() will not act on it.
+    )
 ```
 
 - ### Inheritance(extends) vs Mixins(with)
