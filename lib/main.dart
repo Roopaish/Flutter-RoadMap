@@ -206,7 +206,7 @@ class _AppListState extends State<AppList> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage('${albums['covers'][index]}'),
-                            fit: BoxFit.cover,
+                            fit: BoxFit.contain,
                           ),
                           borderRadius: BorderRadius.circular(5),
                         ),
@@ -236,7 +236,7 @@ class _AppListState extends State<AppList> {
               child: Text('Scroll ->',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                  ))),
+                  ),),),
         ],
       ),
     );
