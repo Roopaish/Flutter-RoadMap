@@ -2035,6 +2035,9 @@ if (_items.containsKey(productId)) {
 
 // Loop through every element of map
 _items.forEach((key, value) {});
+
+// Remove a key-value pair from map where key is matched
+_items.remove(key);
 ```
 
 - ### MultiProvider
@@ -2075,3 +2078,18 @@ import '../providers/cart.dart' show Cart;
 import '../widgets/cart_item.dart';
 ```
 
+
+- ### Dismissible Widget
+
+```dart
+// Swipe a Widget to remove it from screen
+Dismissible(
+  key: ValueKey(id),
+  background: Text('Widget that appears while dismissing'),
+  direction: DismissDirection.endToStart, // restricting right to left swipe
+  onDismissed: (direction) {
+    Provider.of<Cart>(context, listen: false).removeItem(productId);
+  },
+  child: Text('Widget that is dismissible'),
+)
+```
