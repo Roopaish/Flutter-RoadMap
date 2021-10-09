@@ -1982,3 +1982,25 @@ Widget build(BuildContext context) {
 ```
 
 **[⬆ Back to Index](#index)**
+
+- ### PopupMenuButton()
+
+```dart
+// Button which when clicked creates a dropdown of PopupMenuItems
+PopupMenuButton(
+  onSelected: (int selectedValue) {
+    print(selectedValue);
+  },
+  icon: Icon(Icons.more_vert),
+  itemBuilder: (_) => [
+    PopupMenuItem(
+      child: Text('Only Favorites'),
+      value: 0,
+    ),
+    PopupMenuItem(
+      child: Text('Show All'),
+      value: 1,
+    ),
+  ],
+),
+```
