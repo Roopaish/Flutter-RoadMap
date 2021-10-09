@@ -2004,3 +2004,32 @@ PopupMenuButton(
   ],
 ),
 ```
+
+- ### Some Map Methods
+
+```dart
+// _items is a map
+// _items.containsKey(productId) checks if the key exists in the map
+// _items.update() updates existing key with new value
+// _items.putIfAbsent adds a new key-value pair to map
+if (_items.containsKey(productId)) {
+    _items.update(
+        productId,
+        (existingCartItem) => CartItem(
+              id: existingCartItem.id,
+              title: existingCartItem.title,
+              quantity: existingCartItem.quantity + 1,
+              price: existingCartItem.price,
+            ));
+  } else {
+    _items.putIfAbsent(
+        productId,
+        () => CartItem(
+              id: DateTime.now().toString(),
+              title: title,
+              quantity: 1,
+              price: price,
+            ));
+  }
+}
+```
