@@ -2053,3 +2053,25 @@ MultiProvider(
     child: Widgets(),
 )
 ```
+
+- ### Colliding of same class name from different imports
+
+```dart
+// Here both cart.dart and cart_item.dart has CartItem class defined which are different
+// Now when using CartItem(), error happens
+import '../providers/cart.dart';
+import '../widgets/cart_item.dart';
+
+// Fix using as prefix
+import '../providers/cart.dart';
+import '../widgets/cart_item.dart' as ci;
+
+ci.CartItem() // refers to CartItem from cart_item.dart
+
+// Using show prefix
+// If we only use Cart but not CartItem from cart.dart, we can use show prefix
+// Now if we use CartItem, the one from cart_item.dart is used
+import '../providers/cart.dart' show Cart;
+import '../widgets/cart_item.dart';
+```
+
