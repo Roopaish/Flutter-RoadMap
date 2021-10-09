@@ -235,7 +235,7 @@ class _AppListState extends State<AppList> {
               child: Text('Scroll ->',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                  ))),
+                  ),),),
         ],
       ),
     );
