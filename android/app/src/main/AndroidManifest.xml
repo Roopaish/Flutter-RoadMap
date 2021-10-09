@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ultimate_flutter_app">
+    package="com.example.Flutter_RoadMap">
    <application
-        android:label="ultimate_flutter_app"
+        android:label="Flutter_RoadMap"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

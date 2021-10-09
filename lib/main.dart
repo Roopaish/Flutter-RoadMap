@@ -86,6 +86,7 @@ class _MyAppState extends State<MyApp> {
       // ChangeNotifierProvider (for Shop App only)
       create: (ctx) => Products(),
       child: MaterialApp(
+        title: 'Flutter RoadMap',
         initialRoute: '/',
         routes: {
           // Quiz App
@@ -105,7 +106,7 @@ class _MyAppState extends State<MyApp> {
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
         },
         debugShowCheckedModeBanner: false,
-        home: AppList(),
+        home: ShopApp(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,
