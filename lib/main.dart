@@ -106,7 +106,7 @@ class _MyAppState extends State<MyApp> {
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
         },
         debugShowCheckedModeBanner: false,
-        home: ShopApp(),
+        home: AppList(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,

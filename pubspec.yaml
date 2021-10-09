@@ -1,5 +1,5 @@
-name: Flutter RoadMap
-description: Covering Beginner to Advanced Topic of Flutter while making notes and apps.
+name: ultimate_flutter_app
+description: Covering Beginner to Advanced aspects of Flutter while making notes and building apps.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
