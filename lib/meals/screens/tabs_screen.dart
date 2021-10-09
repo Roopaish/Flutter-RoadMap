@@ -41,8 +41,11 @@ class _TabsScreenState extends State<TabsScreen> {
         title: Text(_pages[_selectedPageIndex]['title'] as String),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pushNamed('/'),
-            child: Text('Menu'),
+            onPressed: () => Navigator.of(context).pop(),
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
