@@ -184,7 +184,7 @@ class _AppListState extends State<AppList> {
             ),
           ),
           FractionallySizedBox(
-            heightFactor: MediaQuery.of(context).size.width > 850 ? 0.8 : 0.6,
+            heightFactor: 0.8,
             child: PageView.builder(
               itemCount: albums['covers'].length,
               onPageChanged: (value) {
@@ -193,40 +193,35 @@ class _AppListState extends State<AppList> {
                 });
               },
               itemBuilder: (context, index) {
-                return Container(
-                  padding: EdgeInsets.only(
-                    right: 30,
-                  ),
-                  child: GestureDetector(
-                    onTap: () => Navigator.of(context)
-                        .pushNamed(albums['routes'][index]),
-                    child: FractionallySizedBox(
-                      widthFactor: 0.8,
-                      child: MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: NetworkImage('${albums['covers'][index]}'),
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(5),
+                return GestureDetector(
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(albums['routes'][index]),
+                  child: FractionallySizedBox(
+                    widthFactor: 0.8,
+                    child: MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage('${albums['covers'][index]}'),
+                            fit: BoxFit.cover,
                           ),
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                bottom: 0,
-                                child: Text(
-                                  '${albums['title'][index]}',
-                                  style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              bottom: 0,
+                              child: Text(
+                                '${albums['title'][index]}',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
