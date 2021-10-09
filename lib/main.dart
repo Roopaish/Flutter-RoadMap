@@ -19,6 +19,7 @@ import 'shop/shop.dart';
 import 'shop/screens/product_detail_screen.dart';
 import 'shop/providers/products.dart';
 import 'shop/providers/cart.dart';
+import 'shop/screens/cart_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -112,9 +113,10 @@ class _MyAppState extends State<MyApp> {
           // Shop App
           '/shop-app': (context) => ShopApp(),
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
+          CartScreen.routeName: (context) => CartScreen(),
         },
         debugShowCheckedModeBanner: false,
-        home: AppList(),
+        home: ShopApp(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,

@@ -2032,6 +2032,9 @@ if (_items.containsKey(productId)) {
             ));
   }
 }
+
+// Loop through every element of map
+_items.forEach((key, value) {});
 ```
 
 - ### MultiProvider
