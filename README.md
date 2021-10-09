@@ -2033,3 +2033,20 @@ if (_items.containsKey(productId)) {
   }
 }
 ```
+
+- ### MultiProvider
+
+```dart
+// Products() and Cart() are added to entire child Widget Tree
+MultiProvider(
+  providers: [
+    ChangeNotifierProvider(
+      create: (ctx) => Products(),
+    ),
+    ChangeNotifierProvider.value(
+      value: Cart(),
+    )
+  ],
+    child: Widgets(),
+)
+```

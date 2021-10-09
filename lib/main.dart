@@ -18,6 +18,7 @@ import 'meals/screens/filters_screen.dart';
 import 'shop/shop.dart';
 import 'shop/screens/product_detail_screen.dart';
 import 'shop/providers/products.dart';
+import 'shop/providers/cart.dart';
 
 void main() {
   runApp(MyApp());
@@ -82,9 +83,16 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      // ChangeNotifierProvider (for Shop App only)
-      create: (ctx) => Products(),
+    // Providers (for Shop App only)
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => Products(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Cart(),
+        )
+      ],
       child: MaterialApp(
         title: 'Flutter RoadMap',
         initialRoute: '/',
@@ -232,11 +240,14 @@ class _AppListState extends State<AppList> {
             ),
           ),
           Positioned(
-              bottom: 20,
-              child: Text('Scroll ->',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),),),
+            bottom: 20,
+            child: Text(
+              'Scroll ->',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ],
       ),
     );
