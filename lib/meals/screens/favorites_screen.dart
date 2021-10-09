@@ -11,18 +11,23 @@ class FavoritesScreen extends StatelessWidget {
     if (favoriteMeals.isEmpty) {
       return Center(child: Text('You have no favorites yet! Start Adding.'));
     } else {
-      return ListView.builder(
-        itemBuilder: (ctx, index) {
-          return MealItem(
-            id: favoriteMeals[index].id,
-            title: favoriteMeals[index].title,
-            imageUrl: favoriteMeals[index].imageUrl,
-            affordability: favoriteMeals[index].affordability,
-            compexity: favoriteMeals[index].complexity,
-            duration: favoriteMeals[index].duration,
-          );
-        },
-        itemCount: favoriteMeals.length,
+      return Center(
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 600),
+          child: ListView.builder(
+            itemBuilder: (ctx, index) {
+              return MealItem(
+                id: favoriteMeals[index].id,
+                title: favoriteMeals[index].title,
+                imageUrl: favoriteMeals[index].imageUrl,
+                affordability: favoriteMeals[index].affordability,
+                compexity: favoriteMeals[index].complexity,
+                duration: favoriteMeals[index].duration,
+              );
+            },
+            itemCount: favoriteMeals.length,
+          ),
+        ),
       );
     }
   }

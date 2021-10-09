@@ -39,6 +39,12 @@ class _TabsScreenState extends State<TabsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title'] as String),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pushNamed('/'),
+            child: Text('Menu'),
+          ),
+        ],
       ),
       drawer: MainDrawer(),
       body: _pages[_selectedPageIndex]['page'] as Widget,

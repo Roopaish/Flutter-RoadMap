@@ -1,4 +1,7 @@
 // import needed packages from Flutter
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -102,28 +105,7 @@ class _MyAppState extends State<MyApp> {
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
         },
         debugShowCheckedModeBanner: false,
-        home: ShopApp(),
-        // Builder(
-        //   builder: (context) => GridView.count(
-        //     crossAxisSpacing: 10,
-        //     mainAxisSpacing: 10,
-        //     crossAxisCount: 2,
-        //     children: [
-        //       OutlinedButton(
-        //         onPressed: () => Navigator.pushNamed(context, '/quiz-app'),
-        //         child: Text("Quiz App"),
-        //       ),
-        //       OutlinedButton(
-        //         onPressed: () => Navigator.pushNamed(context, '/expense-app'),
-        //         child: Text("Expense App"),
-        //       ),
-        //       OutlinedButton(
-        //         onPressed: () => Navigator.pushNamed(context, '/meals-app'),
-        //         child: Text("Meals App"),
-        //       ),
-        //     ],
-        //   ),
-        // ),
+        home: AppList(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,
@@ -151,6 +133,115 @@ class _MyAppState extends State<MyApp> {
                 ),
               ),
         ),
+      ),
+    );
+  }
+}
+
+// Listing apps on homescreen
+class AppList extends StatefulWidget {
+  @override
+  _AppListState createState() => _AppListState();
+}
+
+class _AppListState extends State<AppList> {
+  int _currentPage = 0;
+  final Map albums = {
+    'covers': [
+      'https://i.postimg.cc/fbSHj92Q/quiz-app.png',
+      'https://i.postimg.cc/13jCqHKK/expense-app.png',
+      'https://i.postimg.cc/C5V7HMdh/meals-app.png',
+    ],
+    'title': ['Quiz App', 'Expense App', 'Meals App'],
+    'routes': ['/quiz-app', '/expense-app', '/meals-app']
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          AnimatedSwitcher(
+            duration: Duration(milliseconds: 100),
+            child: Container(
+              key: UniqueKey(),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage('${albums['covers'][_currentPage]}'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 10,
+                  sigmaY: 10,
+                ),
+                child: Container(
+                  color: Colors.black.withOpacity(0.4),
+                ),
+              ),
+            ),
+          ),
+          FractionallySizedBox(
+            heightFactor: MediaQuery.of(context).size.width > 850 ? 0.8 : 0.6,
+            child: PageView.builder(
+              itemCount: albums['covers'].length,
+              onPageChanged: (value) {
+                setState(() {
+                  _currentPage = value;
+                });
+              },
+              itemBuilder: (context, index) {
+                return Container(
+                  padding: EdgeInsets.only(
+                    right: 30,
+                  ),
+                  child: GestureDetector(
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(albums['routes'][index]),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage('${albums['covers'][index]}'),
+                              fit: BoxFit.cover,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                bottom: 0,
+                                child: Text(
+                                  '${albums['title'][index]}',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          Positioned(
+              bottom: 20,
+              child: Text('Scroll ->',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ))),
+        ],
       ),
     );
   }
