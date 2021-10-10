@@ -21,6 +21,7 @@ import 'shop/providers/products.dart';
 import 'shop/providers/cart.dart';
 import 'shop/screens/cart_screen.dart';
 import 'shop/providers/orders.dart';
+import 'shop/screens/orders_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -118,6 +119,7 @@ class _MyAppState extends State<MyApp> {
           '/shop-app': (context) => ShopApp(),
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),
+          OrdersScreen.routeName: (context) => OrdersScreen(),
         },
         debugShowCheckedModeBanner: false,
         home: AppList(),

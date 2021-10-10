@@ -394,6 +394,12 @@ MaterialApp(
       title: Text(
         'Ultimate Flutter App',
       ),
+      actions: [
+        IconButton(),
+        IconButton(),
+        Text(),
+      ],
+      // automaticallyImplyLeading: false, // to not add auto generated back button
     ),
     body: Text("Body, You can add any Widget here!"),
   ),
