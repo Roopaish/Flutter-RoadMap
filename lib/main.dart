@@ -157,7 +157,7 @@ class AppList extends StatefulWidget {
 
 class _AppListState extends State<AppList> {
   int _currentPage = 0;
-  String appName = '';
+  String appName = 'Quiz App';
   final Map albums = {
     'covers': [
       'https://i.postimg.cc/fbSHj92Q/quiz-app.png',
