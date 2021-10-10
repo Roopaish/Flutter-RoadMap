@@ -2050,6 +2050,21 @@ _items.forEach((key, value) {});
 _items.remove(key);
 ```
 
+```dart
+// Some List Methods
+// Insert new items at first index 
+// 0 means insert at 0 index
+_orders.insert(
+  0,
+  OrderItem(
+    id: DateTime.now().toString(),
+    amount: total,
+    products: cartProducts,
+    dateTime: DateTime.now(),
+  ),
+);
+```
+
 **[⬆ Back to Index](#6)**
 
 - ### MultiProvider

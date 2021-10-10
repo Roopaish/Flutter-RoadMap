@@ -20,6 +20,7 @@ import 'shop/screens/product_detail_screen.dart';
 import 'shop/providers/products.dart';
 import 'shop/providers/cart.dart';
 import 'shop/screens/cart_screen.dart';
+import 'shop/providers/orders.dart';
 
 void main() {
   runApp(MyApp());
@@ -92,6 +93,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Orders(),
         )
       ],
       child: MaterialApp(
