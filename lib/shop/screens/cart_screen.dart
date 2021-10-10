@@ -16,6 +16,7 @@ class CartScreen extends StatelessWidget {
       appBar: AppBar(
         title: AppBar(
           title: Text('Your Cart'),
+          automaticallyImplyLeading: false,
         ),
       ),
       body: Column(
@@ -34,7 +35,7 @@ class CartScreen extends StatelessWidget {
                   Spacer(),
                   Chip(
                     label: Text(
-                      '\$${cart.totalAmount}',
+                      '\$${cart.totalAmount.toStringAsFixed(2)}',
                       style: TextStyle(
                         color: Colors.white,
                       ),

@@ -11,7 +11,7 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           AppBar(
-            title: Text('Hello Firen!'),
+            title: Text('Hello!'),
             automaticallyImplyLeading: false,
           ),
           Divider(),
@@ -19,7 +19,7 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.shop),
             title: Text('Shop'),
             onTap: () {
-              Navigator.of(context).pushReplacementNamed('/');
+              Navigator.of(context).pushReplacementNamed('/shop-app');
             },
           ),
           ListTile(
