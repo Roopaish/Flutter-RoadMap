@@ -78,6 +78,10 @@
 - [Collision of same class name from different imports](#collision-of-same-class-name-from-different-imports)
 - [Dismissible Widget](#dismissible-widget)
 
+## 7
+[User Inputs and Forms (Shop App)](#user-inputs-and-forms-shop-app)
+- [Snackbars]
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -2131,3 +2135,32 @@ Dismissible(
 ```
 
 **[⬆ Back to Index](#6)**
+
+## User Inputs and Forms (Shop App)
+
+- ### Snackbar
+
+```dart
+// Connect to nearest Scaffold
+Scaffold.of(context)
+
+// Open Drawer of the nearest Scaffold
+Scaffold.of(context).openDrawer();
+
+// Snackbar : popup that slides from bottom, whenever something happens on screen
+Scaffold.of(context).hideCurrentSnackBar(); // hides previous SnackBar immediately if new one is requested
+Scaffold.of(context).showSnackBar(SnackBar(
+  content: Text('Added item to cart!'), 
+  duration: Duration(seconds: 2),
+  action: SnackBarAction(
+    label: 'UNDO',
+    onPressed: () {
+      cart.removeSingleItem(product.id);
+    },
+  ),
+),);
+
+// Above methods are depreciated, Scaffold is replaced with ScaffoldMessenger
+ScaffoldMessenger.of(context).hideCurrentSnackBar(); // hides previous SnackBar immediately if new one is requested
+ScaffoldMessenger.of(context).showSnackBar(SnackBar());
+```
