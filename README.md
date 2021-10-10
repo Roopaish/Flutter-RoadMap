@@ -12,6 +12,7 @@
 
 ## Index
 
+## 1
 [Flutter Basics(Quiz App)](#flutter-basicsquiz-app)
 
 - [Command Line Tools](#command-line-tools)
@@ -23,6 +24,7 @@
 - [Stateless vs Stateful Widget](#stateless-vs-stateful-widget)
 - [Github Workflow](#github-workflow)
 
+## 2
 [More Widgets, Styling, Adding Logic(Personal Expense App)](#more-widgets-styling-adding-logicpersonal-expense-app)
 
 - [Adding Custom Assets](#adding-custom-assets)
@@ -31,6 +33,7 @@
 - [Access methods of StatefulWidget to connected State Widget](#access-methods-of-statefulwidget-to-connected-state-widget)
 - [More Dart](#more-dart)
 
+## 3
 [Responsive and Adaptive UI](#responsive-and-adaptive-ui)
 
 - [Media Query](#media-query)
@@ -38,6 +41,7 @@
 - [LayoutBuilder](#layoutbuilder)
 - [Adaptive UI](#adaptive-ui)
 
+## 4
 [Flutter Internals and Performance](#flutter-internals-and-performance)
 
 - [Flutter Under the Hood](#flutter-under-the-hood)
@@ -48,6 +52,7 @@
 - [Context](#context)
 - [Key](#key)
 
+## 5 
 [Navigation and Multiple Screens(Meals App)](#navigation-and-multiple-screensmeals-app)
 
 - [Gradient](#gradient)
@@ -59,13 +64,19 @@
 - [SwitchListTile](#switchlisttile)
 - [Pass data through route](#pass-data-through-route)
 
-[State Management (Shop App)](#State-management-shop-app)
+## 6
+[State Management (Shop App)](#state-management-shop-app)
 
 - [Problem with routes](#problem-with-routes)
 - [State Management](#state-management)
 - [Inheritance(extends) vs Mixins(with)](#inheritanceextends-vs-mixinswith)
 - [Using nested models and providers](#using-nested-models-and-providers)
 - [Consumer instead of Provider](#consumer-instead-of-provider)
+- [PopupMenuButton()](#popupMenuButton)
+- [Some Map Methods](#some-map-methods)
+- [MultiProvider](#multiprovider)
+- [Collision of same class name from different imports](#collision-of-same-class-name-from-different-imports)
+- [Dismissible Widget](#dismissible-widget)
 
 ## Notes
 
@@ -81,7 +92,7 @@ flutter create my_project_name
 flutter doctor
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#1)**
 
 - ### Files and Folder Structure
 
@@ -102,7 +113,7 @@ flutter doctor
 
 > Note: Active means used by programmer, Passive means Flutter manages automatically
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#1)**
 
 - ### Dart and Flutter
 
@@ -328,7 +339,7 @@ tx.amount = 100; // tx is instance of a class with amount as property
 print('amount =  \$${tx.amount}) // amount = $100
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#1)**
 
 - ### Analyze main.dart
 
@@ -365,7 +376,7 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#1)**
 
 - ### Widgets
 
@@ -475,7 +486,7 @@ OutlinedButton{
 // TextButton.icon(), ElevatedButton.icon(), OutlinedButton.icon()
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#1)**
 
 - ### Stateless vs Stateful Widget
 
@@ -511,7 +522,7 @@ class _QuizState extends State<Quiz> {
 }
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#1)**
 
 - ### Github Workflow
 
@@ -580,7 +591,7 @@ jobs:
 
 **Done**
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#1)**
 
 ## More Widgets, Styling, Adding Logic(Personal Expense App)
 
@@ -590,8 +601,7 @@ Use Custom fonts and images or any multimedia
 
 1. Make a folder assets on root directory of project
 
-```
-  .
+`2
   ├── ...
   ├── assets       # root folder for all the assets to be used in your app
   │ ├── images     # All your images
@@ -631,7 +641,7 @@ Text(
 );
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 - ### Important Widgets
 
@@ -704,7 +714,7 @@ Column(
 )
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 - Responsive Widgets
 
@@ -776,7 +786,7 @@ Expanded(
 ),
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 - Content Containers
 
@@ -808,7 +818,7 @@ Card(
 )
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 - Repeat Elements
 
@@ -899,7 +909,7 @@ GridView.builder(
 )
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 - Content Types
 
@@ -937,7 +947,7 @@ Icon(
 )
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 - User Input
 
@@ -982,7 +992,7 @@ InkWell(
 ),
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 - Extra
 
@@ -1059,7 +1069,7 @@ Switch(
 _showChart ? Text('Switch is enabled'): Text('Switch is Disabled')
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 - ### Flutter Methods to show Widgets
 
@@ -1082,7 +1092,7 @@ showDatePicker(
 );
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 - ### Access methods of StatefulWidget to connected State Widget
 
@@ -1108,9 +1118,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-**[⬆ Back to Index](#index)**
-
-- ### More Dart
+**[⬆ Back to Index](#23- ### More Dart
 
 ```dart
 // fold method reduces a collection to a single value by iteratively combining each element of the collection with an existing value
@@ -1167,7 +1175,7 @@ switch (compexity) {
 }
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
 ## Responsive and Adaptive UI
 
@@ -1185,7 +1193,7 @@ MediaQuery.of(context).viewInsets.bottom // size of anything that's lapping in o
 SafeArea() // Wrap full app body with this to avoid widgets getting in System status bar or bottom navigation bar
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#3)**
 
 - ### Orientation
 
@@ -1208,7 +1216,7 @@ if(isLandscape) Widget(),
 if(isLandscape)  _usersTransaction.isEmpty ? Widget1() : Widget2() // Render Widget2 if device is on landscape mode and _userTransactions is not empty
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#3)**
 
 - ### LayoutBuilder
 
@@ -1226,7 +1234,7 @@ LayoutBuilder(builder: (ctx, constraints) {
 }
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#3)**
 
 - ### Adaptive UI
 
@@ -1280,7 +1288,7 @@ CupertinoButton(
 // Avoiding duplication
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#3)**
 
 ## Flutter Internals and Performance
 
@@ -1306,7 +1314,7 @@ build method is triggered when setState is invoked ,UI refreshes ,MediaQuery cha
 Widgets are objects of classes which have their own build method which is triggered when new instance of Widget Classes are created.  
 So first constructor is called then build method is invoked when we create new instance of Widgets.
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#4)**
 
 - ### Avoid unnecessary Widget rebuild
 
@@ -1319,7 +1327,7 @@ const Text("This never change and the text is not dynamic."),
 const CharBar(this.label,this.fxn),
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#4)**
 
 - ### Maintain Widgets
 
@@ -1344,7 +1352,7 @@ List<Widget> _buildTransactionList(MediaQueryDta media){
 if(isLandscape) _buildLandscapeContent(),
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#4)**
 
 - ### Widget Lifecycle
 
@@ -1393,7 +1401,7 @@ void dispose(){
   }
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#4)**
 
 - ### App Lifecycle
 
@@ -1432,7 +1440,7 @@ class _Chart extends State<Chart> with WidgetsBindingObserver{
 }
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#4)**
 
 - ### Context
 
@@ -1444,7 +1452,7 @@ They communicate with each other.
 
 Context has all the information about position of widget, overall Widget tree and establish direct communication between channels behind the scenes to exchange data between Widgets.
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#4)**
 
 - ### Key
 
@@ -1500,7 +1508,7 @@ class TransactionItem extends StatefulWidget{
 
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#4)**
 
 ## Navigation and Multiple Screens(Meals App)
 
@@ -1525,7 +1533,7 @@ decoration: BoxDecoration(
 )
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#5)**
 
 - ### Navigator
 
@@ -1608,7 +1616,7 @@ Navigator.of(context)
 });
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#5)**
 
 - ### TabBar
 
@@ -1645,7 +1653,7 @@ DefaultTabController(
 )
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#5)**
 
 - ### BottomNavigationBar
 
@@ -1710,7 +1718,7 @@ class _TabsScreenState extends State<TabsScreen> {
 }
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#5)**
 
 - ### Drawer
 
@@ -1722,7 +1730,7 @@ Scaffold(
 ),
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#5)**
 
 - ### Stack of Pages
 
@@ -1744,7 +1752,7 @@ Navigator.of(context).pushReplacementNamed();
 
 > VoidCallback = void Function
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#5)**
 
 - ### SwitchListTile
 
@@ -1762,7 +1770,7 @@ SwitchListTile(
 ),
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#5)**
 
 - ### Pass data through route
 
@@ -1779,7 +1787,7 @@ final Function saveFilters;
 FiltersScreen(this.saveFilters)
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#5)**
 
 ## State Management (Shop App)
 
@@ -1792,7 +1800,7 @@ So named routes are ideal.
 
 We need to define all data in top level file (main.dart), so to pass data around different Widgets. And if some data changes in main.dart then the whole app rebuilds, which is not great for performance. That's where state management is needed.
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#6)**
 
 - ### State Management
 
@@ -1850,7 +1858,7 @@ final loadedProduct = Provider.of<Products>(
     )
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#6)**
 
 - ### Inheritance(extends) vs Mixins(with)
 
@@ -1898,7 +1906,7 @@ void main(){
 // Multiple inheritance is not supported in dart
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#6)**
 
 - ### Using nested models and providers
 
@@ -1942,7 +1950,7 @@ Use .value provider, for list or grid item. See [key](#key) .value constructor s
 
 Use create approach when using a object for one time. And use .value approach, when same object is reused again and again for efficiency and avoid bugs.
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#6)**
 
 - ### Consumer instead of Provider
 
@@ -1981,7 +1989,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#6)**
 
 - ### PopupMenuButton()
 
@@ -2004,6 +2012,8 @@ PopupMenuButton(
   ],
 ),
 ```
+
+**[⬆ Back to Index](#6)**
 
 - ### Some Map Methods
 
@@ -2040,10 +2050,12 @@ _items.forEach((key, value) {});
 _items.remove(key);
 ```
 
+**[⬆ Back to Index](#6)**
+
 - ### MultiProvider
 
 ```dart
-// Products() and Cart() are added to entire child Widget Tree
+// Providers Products() and Cart() are added to entire child Widget Tree
 MultiProvider(
   providers: [
     ChangeNotifierProvider(
@@ -2057,7 +2069,9 @@ MultiProvider(
 )
 ```
 
-- ### Colliding of same class name from different imports
+**[⬆ Back to Index](#6)**
+
+- ### Collision of same class name from different imports
 
 ```dart
 // Here both cart.dart and cart_item.dart has CartItem class defined which are different
@@ -2078,6 +2092,7 @@ import '../providers/cart.dart' show Cart;
 import '../widgets/cart_item.dart';
 ```
 
+**[⬆ Back to Index](#6)**
 
 - ### Dismissible Widget
 
@@ -2093,3 +2108,5 @@ Dismissible(
   child: Text('Widget that is dismissible'),
 )
 ```
+
+**[⬆ Back to Index](#6)**
