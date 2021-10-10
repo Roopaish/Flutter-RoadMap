@@ -2131,6 +2131,10 @@ Dismissible(
     Provider.of<Cart>(context, listen: false).removeItem(productId);
   },
   child: Text('Widget that is dismissible'),
+  confirmDismiss: (direction) {
+    // More on AlertDialog() below
+    return Future.value(true); // Dismiss, if false then it won't dismiss
+  }
 )
 ```
 
@@ -2164,3 +2168,35 @@ Scaffold.of(context).showSnackBar(SnackBar(
 ScaffoldMessenger.of(context).hideCurrentSnackBar(); // hides previous SnackBar immediately if new one is requested
 ScaffoldMessenger.of(context).showSnackBar(SnackBar());
 ```
+
+- ### AlertDialog
+
+```dart
+// showDialog is used to show any type of Dialog like AlterDialog
+Dismissible(
+  confirmDismiss: (direction) {
+    return showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Are you sure?'),
+        content: Text('Do you want to remove the item from the cart?'),
+        actions: [
+          TextButton(
+            child: Text('No'),
+            onPressed: () {
+              Navigator.of(ctx).pop(false); // Pop back with false value, as the fxn wants a Future boolean as a return
+            },
+          ),
+          TextButton(
+            child: Text('Yes'),
+            onPressed: () {
+              Navigator.of(ctx).pop(true); // Pop back with true value
+            },
+          ),
+        ],
+      ),
+    );
+  },
+)
+```
+

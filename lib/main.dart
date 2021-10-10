@@ -122,7 +122,7 @@ class _MyAppState extends State<MyApp> {
           OrdersScreen.routeName: (context) => OrdersScreen(),
         },
         debugShowCheckedModeBanner: false,
-        home: AppList(),
+        home: ShopApp(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,
