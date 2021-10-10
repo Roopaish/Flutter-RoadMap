@@ -116,7 +116,7 @@ class _MyAppState extends State<MyApp> {
           CartScreen.routeName: (context) => CartScreen(),
         },
         debugShowCheckedModeBanner: false,
-        home: ShopApp(),
+        home: AppList(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,
@@ -157,6 +157,7 @@ class AppList extends StatefulWidget {
 
 class _AppListState extends State<AppList> {
   int _currentPage = 0;
+  String appName = '';
   final Map albums = {
     'covers': [
       'https://i.postimg.cc/fbSHj92Q/quiz-app.png',
@@ -194,51 +195,53 @@ class _AppListState extends State<AppList> {
               ),
             ),
           ),
-          FractionallySizedBox(
-            heightFactor: 0.8,
-            child: PageView.builder(
-              itemCount: albums['covers'].length,
-              onPageChanged: (value) {
-                setState(() {
-                  _currentPage = value;
-                });
-              },
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(albums['routes'][index]),
-                  child: FractionallySizedBox(
-                    widthFactor: 0.8,
-                    child: MouseRegion(
-                      cursor: SystemMouseCursors.click,
-                      child: Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage('${albums['covers'][index]}'),
-                            fit: BoxFit.contain,
-                          ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              bottom: 0,
-                              child: Text(
-                                '${albums['title'][index]}',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
+          Container(
+            constraints: BoxConstraints(maxWidth: 818),
+            child: FractionallySizedBox(
+              heightFactor: MediaQuery.of(context).size.width < 818 ? 0.4 : 0.8,
+              child: PageView.builder(
+                itemCount: albums['covers'].length,
+                onPageChanged: (value) {
+                  setState(() {
+                    _currentPage = value;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  appName = albums['title'][index];
+                  return GestureDetector(
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(albums['routes'][index]),
+                    child: FractionallySizedBox(
+                      widthFactor: 0.8,
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage('${albums['covers'][index]}'),
+                              fit: MediaQuery.of(context).size.width < 818
+                                  ? BoxFit.cover
+                                  : BoxFit.contain,
                             ),
-                          ],
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 40,
+            child: Text(
+              '$appName',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           Positioned(
