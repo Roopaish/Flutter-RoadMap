@@ -2200,3 +2200,118 @@ Dismissible(
 )
 ```
 
+- ### Form
+
+```dart
+// FocusNode to shift focus from one Field to another
+final _priceFocusNode = FocusNode();
+final _descriptionFocusNode = FocusNode();
+
+// FocusNode must be disposed before leaving screen
+// because they are stored in memory and can lead to memory leak
+@override
+void dispose() {
+  _priceFocusNode.dispose();
+  _descriptionFocusNode.dispose();
+  super.dispose();
+}
+
+Form(
+  child: ListView(
+    children: [
+      TextFormField(
+        decoration: InputDecoration(labelText: 'Title'), // placeholder + title
+        textInputAction: TextInputAction.next, // Adds next key on bottom right corner of soft keyboard
+        // Shifting focus to next Input field with focusNode = _priceFocusNode, on enter or next button is pressed
+        onFieldSubmitted: (_) {
+          FocusScope.of(context).requestFocus(_priceFocusNode);
+        },
+      ),
+      TextFormField(
+        decoration: InputDecoration(labelText: 'Price'),
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.number,
+        focusNode: _priceFocusNode,
+        onFieldSubmitted: (_) {
+          FocusScope.of(context).requestFocus(_descriptionFocusNode);
+        },
+      ),
+      TextFormField(
+        decoration: InputDecoration(labelText: 'Description'),
+        maxLines: 3, // height of input box is equal to 3 lines, which is also scrollable
+        keyboardType: TextInputType.multiline, // pressing enter will lead to newline
+        focusNode: _descriptionFocusNode,
+      ),
+    ],
+  ),
+),
+```
+
+```dart
+// Image Url field to preview Image after focus is shifted
+
+// TextEditingController.text is available after pressing enter or confirming the Input Field which updates the UI but not when focus is shifted
+// So, with the help of listener and hasFocus method, we can update the UI so that TextEditingController.text will be available
+
+// Adding custom listener when Image Text Field loses focus
+
+// Defined inside State class connected to StatefulWidget
+final _imageUrlController = TextEditingController();
+final _imageUrlFocusNode = FocusNode();
+
+@override
+void initState() {
+  _imageUrlFocusNode.addListener(_updateImageUrl); // adding listener to FocusNode, _updateImageUrl will be executed whenever focus changes
+  super.initState();
+}
+
+@override
+void dispose() {
+  _imageUrlFocusNode.removeListener(_updateImageUrl); // removing listener to avoid memory leak
+  _imageUrlController.dispose();
+  _imageUrlFocusNode.dispose();
+  super.dispose();
+}
+
+void _updateImageUrl() {
+  if (!_imageUrlFocusNode.hasFocus) {
+    setState(() {}); // calling setState() to update the UI, not stating by ourself but since _imageUrlController has changed, the changes will be reflected on UI
+  }
+}
+
+Widget build(BuildContext context) {
+  return Form(
+    child: Row(
+      children: [
+        Container(
+          width: 100,
+          height: 100,
+          margin: EdgeInsets.only(top: 8, right: 10),
+          decoration: BoxDecoration(
+              border: Border.all(
+            width: 1,
+            color: Colors.grey,
+          )),
+          child: _imageUrlController.text.isEmpty
+              ? Text('Enter a URL')
+              : FittedBox(
+                  child: Image.network(
+                    _imageUrlController.text,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+        ),
+        Expanded(
+          child: TextFormField(
+            decoration: InputDecoration(labelText: 'Image URL'),
+            keyboardType: TextInputType.url,
+            textInputAction: TextInputAction.done,
+            controller: _imageUrlController,
+            focusNode: _imageUrlFocusNode,
+          ),
+        ),
+      ],
+    ),
+  )
+}
+```
