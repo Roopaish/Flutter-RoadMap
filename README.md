@@ -13,6 +13,7 @@
 ## Index
 
 ## 1
+
 [Flutter Basics(Quiz App)](#flutter-basicsquiz-app)
 
 - [Command Line Tools](#command-line-tools)
@@ -25,6 +26,7 @@
 - [Github Workflow](#github-workflow)
 
 ## 2
+
 [More Widgets, Styling, Adding Logic(Personal Expense App)](#more-widgets-styling-adding-logicpersonal-expense-app)
 
 - [Adding Custom Assets](#adding-custom-assets)
@@ -34,6 +36,7 @@
 - [More Dart](#more-dart)
 
 ## 3
+
 [Responsive and Adaptive UI](#responsive-and-adaptive-ui)
 
 - [Media Query](#media-query)
@@ -42,6 +45,7 @@
 - [Adaptive UI](#adaptive-ui)
 
 ## 4
+
 [Flutter Internals and Performance](#flutter-internals-and-performance)
 
 - [Flutter Under the Hood](#flutter-under-the-hood)
@@ -52,7 +56,8 @@
 - [Context](#context)
 - [Key](#key)
 
-## 5 
+## 5
+
 [Navigation and Multiple Screens(Meals App)](#navigation-and-multiple-screensmeals-app)
 
 - [Gradient](#gradient)
@@ -65,6 +70,7 @@
 - [Pass data through route](#pass-data-through-route)
 
 ## 6
+
 [State Management (Shop App)](#state-management-shop-app)
 
 - [Problem with routes](#problem-with-routes)
@@ -79,7 +85,9 @@
 - [Dismissible Widget](#dismissible-widget)
 
 ## 7
+
 [User Inputs and Forms (Shop App)](#user-inputs-and-forms-shop-app)
+
 - [Snackbars]
 
 ## Notes
@@ -340,7 +348,15 @@ a = 10;
 print('a = $a'); // a = 10
 
 tx.amount = 100; // tx is instance of a class with amount as property
-print('amount =  \$${tx.amount}) // amount = $100
+print('amount =  \$${tx.amount}) // amount = \$100');
+
+// String methods
+value.startsWith('https') // returns true if value String starts with https
+value.endsWith('.png') // returns true if value String ends with .png
+
+// Parsing
+double.parse('123hello'); // 123
+double.tryParse('hello'); // null as no number is there to parse
 ```
 
 **[⬆ Back to Index](#1)**
@@ -612,12 +628,13 @@ Use Custom fonts and images or any multimedia
 1. Make a folder assets on root directory of project
 
 `2
-  ├── ...
-  ├── assets       # root folder for all the assets to be used in your app
-  │ ├── images     # All your images
-  │ ├── fonts      # All you custom fonts
-  └── ...
-```
+├── ...
+├── assets # root folder for all the assets to be used in your app
+│ ├── images # All your images
+│ ├── fonts # All you custom fonts
+└── ...
+
+````
 
 2. update pubspec.yml and save
 
@@ -636,7 +653,7 @@ flutter:
         - asset: fonts/CustomFont2.ttf
         - asset: fonts/CustomFont2.ttf
           weight: 700
-```
+````
 
 3. Now assets can be used
 
@@ -1128,7 +1145,7 @@ Widget build(BuildContext context) {
 }
 ```
 
-**[⬆ Back to Index](#23- ### More Dart
+\*\*[⬆ Back to Index](#23- ### More Dart
 
 ```dart
 // fold method reduces a collection to a single value by iteratively combining each element of the collection with an existing value
@@ -2062,7 +2079,7 @@ _items.remove(key);
 
 ```dart
 // Some List Methods
-// Insert new items at first index 
+// Insert new items at first index
 // 0 means insert at 0 index
 _orders.insert(
   0,
@@ -2154,7 +2171,7 @@ Scaffold.of(context).openDrawer();
 // Snackbar : popup that slides from bottom, whenever something happens on screen
 Scaffold.of(context).hideCurrentSnackBar(); // hides previous SnackBar immediately if new one is requested
 Scaffold.of(context).showSnackBar(SnackBar(
-  content: Text('Added item to cart!'), 
+  content: Text('Added item to cart!'),
   duration: Duration(seconds: 2),
   action: SnackBarAction(
     label: 'UNDO',
@@ -2333,7 +2350,7 @@ var _editedProduct = Product(
 );
 
 void _saveForm() {
-  final isValid = _form.currentState!.validate(); // runs onValidate on all Field
+  final isValid = _form.currentState!.validate(); // runs Validator on all Field
   if (!isValid) {
     return;
   }
@@ -2346,7 +2363,7 @@ void _saveForm() {
 Widget build(BuildContext context) {
   return Form(
     autovalidateMode: AutovalidateMode.onUserInteraction, // auto-validate Form and FormField only after each User Interaction
-    // AutovalidateMode.always to auto-validate without any userInteraction, .disabled to disable 
+    // AutovalidateMode.always to auto-validate without any userInteraction, .disabled to disable
     key: _form;
     child: ListView(
       children: [
@@ -2363,7 +2380,7 @@ Widget build(BuildContext context) {
           },
           // Validating inputs
           validator: (value) {
-            if(value!.isEmpty()){
+            if(value!.isEmpty){
               return 'This is wrong!'; // text is treated as error text which is shown to user
             }
             return null; // null means input is correct
