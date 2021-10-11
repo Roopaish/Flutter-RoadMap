@@ -2237,6 +2237,7 @@ Form(
   child: ListView(
     children: [
       TextFormField(
+        initialValue: 'Initial text written on the field', // initialValue and controller can't be used simultaneously
         decoration: InputDecoration(labelText: 'Title'), // placeholder + title
         textInputAction: TextInputAction.next, // Adds next key on bottom right corner of soft keyboard
         // Shifting focus to next Input field with focusNode = _priceFocusNode, on enter or next button is pressed
