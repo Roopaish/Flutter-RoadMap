@@ -2308,10 +2308,69 @@ Widget build(BuildContext context) {
             textInputAction: TextInputAction.done,
             controller: _imageUrlController,
             focusNode: _imageUrlFocusNode,
+            onFieldSubmitted: (_) {
+              // Save Form or any thing
+            },
           ),
         ),
       ],
     ),
   )
+}
+```
+
+```dart
+// Saving and Validating Form
+
+// defining a global key for Form, so to access Form Widget in the code
+final _form = GlobalKey<FormState>();
+var _editedProduct = Product(
+  id: '',
+  title: '',
+  price: 0,
+  description: '',
+  imageUrl: '',
+);
+
+void _saveForm() {
+  final isValid = _form.currentState!.validate(); // runs onValidate on all Field
+  if (!isValid) {
+    return;
+  }
+  _form.currentState!.save();
+  // .save() will trigger a method 'onSaved' on every FormField which allows to take the value entered in the FormField
+  // and do whatever we want
+}
+
+@override
+Widget build(BuildContext context) {
+  return Form(
+    autovalidateMode: AutovalidateMode.onUserInteraction, // auto-validate Form and FormField only after each User Interaction
+    // AutovalidateMode.always to auto-validate without any userInteraction, .disabled to disable 
+    key: _form;
+    child: ListView(
+      children: [
+        TextFormField(
+          ....
+          onSaved: (value) {
+            _editedProduct = Product(
+              id: _editedProduct.id,
+              title: value.toString(),
+              description: _editedProduct.description,
+              price: _editedProduct.price,
+              imageUrl: _editedProduct.imageUrl,
+            );
+          },
+          // Validating inputs
+          validator: (value) {
+            if(value!.isEmpty()){
+              return 'This is wrong!'; // text is treated as error text which is shown to user
+            }
+            return null; // null means input is correct
+          },
+        ),
+      ],
+    ),
+  );
 }
 ```
