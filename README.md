@@ -88,7 +88,13 @@
 
 [User Inputs and Forms (Shop App)](#user-inputs-and-forms-shop-app)
 
-- [Snackbars]
+- [Snackbar](#snackbar)
+- [AlertDialog](#alertdialog)
+- [Forms](#forms)
+
+## 8
+
+[Sending HTTP Requests (Shop App)](#sending-http-requests-shop-app)
 
 ## Notes
 
@@ -2186,6 +2192,8 @@ ScaffoldMessenger.of(context).hideCurrentSnackBar(); // hides previous SnackBar 
 ScaffoldMessenger.of(context).showSnackBar(SnackBar());
 ```
 
+**[⬆ Back to Index](#7)**
+
 - ### AlertDialog
 
 ```dart
@@ -2217,7 +2225,9 @@ Dismissible(
 )
 ```
 
-- ### Form
+**[⬆ Back to Index](#7)**
+
+- ### Forms
 
 ```dart
 // FocusNode to shift focus from one Field to another
@@ -2391,4 +2401,54 @@ Widget build(BuildContext context) {
     ),
   );
 }
+```
+
+**[⬆ Back to Index](#7)**
+
+## Sending HTTP Requests (Shop App)
+
+- ### Setting up Firebase Realtime Database
+
+Create a Firebase Project, then create a realtime database by selecting a server. Choose Start in test mode, to enable all read and writes to your database.
+
+Then we will be presented to a Data screen containing the URL which is used to talk to the web server that runs query on Database.
+
+- ### How to send http requests
+
+Typically, we will be communicating with the REST(or RESTful) APIs when working with backend in flutter app. REST is a common way of communicating in most frontend apps.  
+REST APIs follow a default approach regarding how incoming requests should be structured/set up.
+
+Convention: `Http Endpoint (URL) + Http Verb = Action`  
+Http Endpoint is the URL which connects to server that we talk to. Http Verb are request methods on data.
+
+Common Request Methods:  
+GET (Fetch data), POST (Store data), PATCH (Update data), PUT (Replace data), DELETE (Delete data)
+
+- ### Firebase + Requests
+
+To make http requests, 'http' package is needed, which is available at pub.dev.
+```dart
+import 'package:http/http.dart' as http;
+```
+
+```dart
+// Creating a collection of products in Database
+
+// this url will create a database collection for products (applicable just for firebase)
+const url = Uri.https('https://dummy.firebaseio.com','/products.json');
+
+http.post(
+  url, // where to append new data
+  // headers: , // To provide metadata attach to http request
+
+  // body receives a json and stores it in the database
+  // json.encode (provided by import 'dart:convert';) converts a map (which in here, is made up of product object properties) to json 
+  body: json.encode({
+    'title': product.title,
+    'description': product.description,
+    'imageUrl': product.imageUrl,
+    'price': product.price,
+    'isFavorite': product.isFavorite,
+  }),
+  );
 ```
