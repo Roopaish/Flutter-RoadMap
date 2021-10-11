@@ -2424,7 +2424,7 @@ Http Endpoint is the URL which connects to server that we talk to. Http Verb are
 Common Request Methods:  
 GET (Fetch data), POST (Store data), PATCH (Update data), PUT (Replace data), DELETE (Delete data)
 
-- ### Firebase + Requests
+- ### Sending POST Requests
 
 To make http requests, 'http' package is needed, which is available at pub.dev.
 ```dart
@@ -2434,6 +2434,9 @@ import 'package:http/http.dart' as http;
 ```dart
 // Creating a collection of products in Database
 
+// dart:covert provides some methods for json (instance of JsonCodec)
+import 'dart:convert';
+
 // this url will create a database collection for products (applicable just for firebase)
 const url = Uri.https('https://dummy.firebaseio.com','/products.json');
 
@@ -2442,7 +2445,7 @@ http.post(
   // headers: , // To provide metadata attach to http request
 
   // body receives a json and stores it in the database
-  // json.encode (provided by import 'dart:convert';) converts a map (which in here, is made up of product object properties) to json 
+  // json.encode converts a map (which in here, is made up of product object properties) to json 
   body: json.encode({
     'title': product.title,
     'description': product.description,
@@ -2450,5 +2453,10 @@ http.post(
     'price': product.price,
     'isFavorite': product.isFavorite,
   }),
-  );
+  )
+    .then((response) {
+      print(json.decode(response.body)); 
+      // response is sent by firebase after post is finished
+      // response.body = {'name':'Uniquely Generated entry name'}
+    }
 ```
