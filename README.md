@@ -1407,6 +1407,7 @@ void initState(){
   super.initState(); // runs initState() of parent State
   // execute as soon as State Object is created
   // used for fetching initial data for app
+  // context can't be accessed but there's a workaround using Future (see in 'Fetching data' part)
 }
 
 @override
@@ -1428,7 +1429,8 @@ void dispose(){
 @override
   void didChangeDependencies() {
     // can be used instead of initState when we require context of State
-    // cause initState runs before build, so context is not available
+    // cause initState runs immediately and all the configuration is not wired up properly
+    // so context is not available
     // this fxn also runs before build, but we can access context anyway
     super.didChangeDependencies();
   }
@@ -2516,7 +2518,92 @@ Provider.of<Products>(context).addProduct(_editedProduct)
 
 // showDialog also returns a Future, so after we click ok, .then() will execute 
 ```
+
 ```dart
 // Widget to show loading spinner
 CircularProgressIndicator()
+```
+
+```dart
+// Async and Await
+// ALternative code but same functionality
+// More readable
+
+try{
+  // code that might fail
+} catch{
+  // code to execute when try block fail
+} finally{
+  // code that always executes, no matter the success or failure.
+}
+
+// Comparing code changes
+// Using .then().catchError()
+Future<void> addProduct(Product product) {
+  final url = Uri.https(
+      'dummy.firebasedatabase.app',
+      '/products.json',
+      {'q': '{https}'});
+
+  return http
+      .post(url, body: ,)
+      .then((response) => print(json.decode(response.body));)
+      .catchError((error) {
+        throw error;
+      });
+  }
+
+// Using async, and try catch block
+// async makes the whole block Future, so no need to return any Future
+Future<void> addProduct(Product product) async {
+  final url = Uri.https(
+      'dummy.firebasedatabase.app',
+      '/products.json',
+      {'q': '{https}'});
+
+  try {
+    final response = await http.post(url, body:); // await will stop the execution of following lines until its finished
+    print(json.decode(response.body))
+  } catch (error) {
+    throw error;
+  }
+}
+```
+
+- ### Fetching Data 
+
+Typically data is fetched in initState() as it runs immediately and only once as soon as we enter a Widget.
+
+```dart
+// Using Provider in initState() with listen: false
+void initState(){
+  Provider.of<Products>(context, listen: false).fetchAndSetProducts(); // this works
+  super.initState();
+}
+
+// Using Provider in initState() without listen: false
+void initState(){
+  Provider.of<Products>(context).fetchAndSetProducts(); // this does not work
+  super.initState();
+}
+
+// Workaround to use Provider without listen: false, in initState()
+// Using Future.delayed(), the order of execution is different, so we can access context
+void initState() {
+  Future.delayed(Duration.zero).then((_) {
+    Provider.of<Products>(context).fetchAndSetProducts();
+  });
+  super.initState();
+}
+
+// Another Workaround using didChangedDependencies()
+// Unlike initState(), didChangedDependencies() runs more often 
+// When using this, use a helper(_isInit) so to execute the code only once
+var _isInit = true;
+void didChangedDependencies(){
+  if(_isInit){
+    // this code will run only once, as initState();
+  }
+  _isInit = false;
+}
 ```
