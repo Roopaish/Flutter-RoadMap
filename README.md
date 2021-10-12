@@ -2223,6 +2223,9 @@ Dismissible(
     );
   },
 )
+
+// We remove any kind of overlay with
+Navigator.of(context).pop();
 ```
 
 **[⬆ Back to Index](#7)**
@@ -2488,8 +2491,30 @@ http.get().then((response){});
 myFuture.then((response){}).then((_){});
 
 // Futures can also fail returning error
-// catching error in then block
-myFuture.then((_){}).catchError((error){})
+// catching error after then block
+myFuture.then((_){}).catchError((error){}); // Here, catchError also wil catch error of myFuture and .then(), if error is caught in myFuture, .then() will not execute
+
+myFuture.catchError((error){}).then((_){}); // Here, even if error is caught on myFuture, .then() will execute
+```
+
+```dart
+// throwing error
+myFuture.then((_){}).catchError((error){
+  throw error;
+});
+
+// catching above error from another part of code, where above fxn is used
+Provider.of<Products>(context).addProduct(_editedProduct)
+  .catchError((error){
+    return showDialog<Null>(context: context, builder: (ctx)=>AlertDialog(
+      title: Text('An error occurred!'),
+      content: Text(error.toString()), // error.toString() makes the error readable
+        );
+      )
+    }
+  ).then((_){})
+
+// showDialog also returns a Future, so after we click ok, .then() will execute 
 ```
 ```dart
 // Widget to show loading spinner

@@ -92,6 +92,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
     setState(() {
       _isLoading = true;
     });
+    // Updating existing Product
     if (_editedProduct.id != '') {
       Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
@@ -100,13 +101,31 @@ class _EditProductScreenState extends State<EditProductScreen> {
       });
       Navigator.of(context).pop();
     } else {
+      // Adding new Product
       Provider.of<Products>(context, listen: false)
           .addProduct(_editedProduct)
-          .then((_) {});
-      setState(() {
-        _isLoading = false;
+          .catchError((error) {
+        return showDialog<Null>(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            title: Text('An error occured!'),
+            content: Text('Something went wrong!'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text('Okay'),
+              ),
+            ],
+          ),
+        );
+      }).then((_) {
+        setState(() {
+          _isLoading = false;
+        });
+        Navigator.of(context).pop();
       });
-      Navigator.of(context).pop();
     }
   }
 
