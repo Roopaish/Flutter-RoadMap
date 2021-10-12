@@ -2078,7 +2078,7 @@ if (_items.containsKey(productId)) {
   }
 }
 
-// Loop through every element of map
+// Loop through every element of map or list
 _items.forEach((key, value) {});
 
 // Remove a key-value pair from map where key is matched
@@ -2606,4 +2606,19 @@ void didChangedDependencies(){
   }
   _isInit = false;
 }
+```
+
+- ### Pull-to-Refresh
+
+```dart
+// Asynchronous function to fetch data
+Future<void> _refreshProducts(BuildContext context) async {
+  await Provider.of<Products>(context, listen: false).fetchAndSetProducts();
+}
+
+// Typically used in body of scaffold
+RefreshIndicator(
+  onRefresh: () => _refreshProducts(context), // wait until data is fetched
+  child: Text('shown after refresh'), // shown when Future fxn is completed
+)
 ```
