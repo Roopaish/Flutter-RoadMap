@@ -1932,13 +1932,14 @@ void main(){
   person.sitDown();
 }
 
-// Not much of difference
-
 // Mixin is just to get utility methods
 // Mixin doesn't define a stronger connection like Inheritance
 
 // Multiple mixin can be added in one class
 // Multiple inheritance is not supported in dart
+
+// Mixins allows reusing a class’s code in multiple class hierarchies.
+// If class a extends class b all properties, variables, functions implemented in class b are also available in class a. Additionally you can override functions etc.
 ```
 
 **[⬆ Back to Index](#6)**
@@ -2427,7 +2428,16 @@ Convention: `Http Endpoint (URL) + Http Verb = Action`
 Http Endpoint is the URL which connects to server that we talk to. Http Verb are request methods on data.
 
 Common Request Methods:  
-GET (Fetch data), POST (Store data), PATCH (Update data), PUT (Replace data), DELETE (Delete data)
+GET (Fetch data), POST (Store data), PATCH (Update data), PUT (Replace data), DELETE (Delete data)  
+  
+Server sends status code to tell if the operation succeeded or not.  
+Status Codes:  
+200, 201 -> everything works
+300 -> redirected
+400 -> Something went wrong
+500 -> Something went wrong  
+  
+http package throws an error if we receive status code greater or equal to 400.
 
 - ### Sending POST Requests
 
@@ -2502,7 +2512,7 @@ myFuture.catchError((error){}).then((_){}); // Here, even if error is caught on 
 ```dart
 // throwing error
 myFuture.then((_){}).catchError((error){
-  throw error;
+  throw error; // throw is like return, which stops the execution of following lines
 });
 
 // catching above error from another part of code, where above fxn is used
@@ -2565,7 +2575,7 @@ Future<void> addProduct(Product product) async {
     final response = await http.post(url, body:); // await will stop the execution of following lines until its finished
     print(json.decode(response.body))
   } catch (error) {
-    throw error;
+    throw error; 
   }
 }
 ```
@@ -2623,7 +2633,7 @@ RefreshIndicator(
 )
 ```
 
-- ### Updating Data (PATCH)
+- ### Updating(PATCH) & Deleting(DELETE) Data
 
 ```dart
 // under products collection, the url will go to each item, where id = uniquely generated name of item in firebase
@@ -2640,3 +2650,82 @@ http.patch(url,
     'price': newProduct.price,
   }));
 ```
+
+```dart
+// To delete an item
+http.delete(url);
+
+// Optimistic updating
+// if product failed to delete, it will be re-added to the _items List
+final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
+final existingProduct = _items[existingProductIndex]; // reference to product in memory 
+_items.removeAt(existingProductIndex);
+notifyListeners();
+
+http.delete(url).then((_) {
+    existingProduct = null as Product; // clearing the reference if no error occurs
+  }).catchError((_) {
+  _items.insert(existingProductIndex, existingProduct); // re-adding product if error occurs
+  notifyListeners();
+});
+
+// Here for delete, the http package doesn't throw an error, so catchError() will not execute
+```
+
+```dart
+// Solution: Throwing error made by delete
+
+// We can throw Exception like this, after delete is completed
+if (response.statusCode >= 400) {
+  throw Exception('Could not delete product');
+}
+// But dart team discourage to directly use it, instead you should build your custom exception class based on Exception class
+
+// Creating a class that implements Exception
+// Implements can be used if you want to create your own implementation of another class or interface.
+// We don't inherit class code, but we only inherit the class type
+// We should implement all functions defined in the class(which we are implementing) to a new class(where we are implementing)
+class HttpException implements Exception {
+  final String message;
+
+  HttpException(this.message);
+
+  @override
+  String toString() {
+    return message;
+  }
+}
+
+// Now we can use the custom Exception class
+if (response.statusCode >= 400) {
+  throw HttpException('Could not delete product');
+}
+
+// Catching the error
+// Problem arises while using 'context' inside a Future block
+
+// We need to store ScaffoldMessenger.of(context) as a reference
+// Cause context can't be resolved anymore, after the code block is made async (i.e. Future)
+// Due to how Flutter works internally, it's already updating the widget tree by the time
+// So it's not sure if the context still refers to the same context it did before
+
+// defined in build method
+final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+IconButton(
+  icon: Icon(Icons.delete),
+  onPressed: () async {
+    try {
+      await Provider.of<Products>(context, listen: false)
+          .deleteProduct(id);
+    } catch (error) {
+      scaffoldMessenger.showSnackBar(SnackBar(
+        content: Text(
+          'Deleting failed!',
+          textAlign: TextAlign.center,
+        ),
+      ));
+    }
+  },
+```
+ 
