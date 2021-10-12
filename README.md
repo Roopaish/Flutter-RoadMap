@@ -2491,4 +2491,7 @@ myFuture.then((response){}).then((_){});
 // catching error in then block
 myFuture.then((_){}).catchError((error){})
 ```
-
+```dart
+// Widget to show loading spinner
+CircularProgressIndicator()
+```

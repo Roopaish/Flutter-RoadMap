@@ -53,11 +53,11 @@ class Products with ChangeNotifier {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
-  void addProduct(Product product) {
+  Future<void> addProduct(Product product) {
     final url = Uri.https(
         'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
         '/products.json',{'q': '{https}'});
-    http
+    return http
         .post(
       url,
       body: json.encode({
@@ -75,7 +75,7 @@ class Products with ChangeNotifier {
         price: product.price,
         imageUrl: product.imageUrl,
         id: json.decode(response.body)['name'],
-      );
+      ); 
       _items.insert(0, newProduct);
       notifyListeners();
     });
