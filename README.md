@@ -2570,7 +2570,7 @@ Future<void> addProduct(Product product) async {
 }
 ```
 
-- ### Fetching Data 
+- ### Fetching Data (GET)
 
 Typically data is fetched in initState() as it runs immediately and only once as soon as we enter a Widget.
 
@@ -2621,4 +2621,22 @@ RefreshIndicator(
   onRefresh: () => _refreshProducts(context), // wait until data is fetched
   child: Text('shown after refresh'), // shown when Future fxn is completed
 )
+```
+
+- ### Updating Data (PATCH)
+
+```dart
+// under products collection, the url will go to each item, where id = uniquely generated name of item in firebase
+final url = Uri.https(
+          'dummy.firebasedatabase.app',
+          '/products/$id.json',
+          {'q': '{https}'});
+
+http.patch(url,
+  body: json.encode({
+    'title': newProduct.title,
+    'description': newProduct.description,
+    'imageUrl': newProduct.imageUrl,
+    'price': newProduct.price,
+  }));
 ```
