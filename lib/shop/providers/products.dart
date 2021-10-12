@@ -55,8 +55,8 @@ class Products with ChangeNotifier {
 
   void addProduct(Product product) {
     final url = Uri.https(
-        'https://flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app/',
-        '/products.json');
+        'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
+        '/products.json',{'q': '{https}'});
     http
         .post(
       url,

@@ -2427,6 +2427,7 @@ GET (Fetch data), POST (Store data), PATCH (Update data), PUT (Replace data), DE
 - ### Sending POST Requests
 
 To make http requests, 'http' package is needed, which is available at pub.dev.
+
 ```dart
 import 'package:http/http.dart' as http;
 ```
@@ -2437,15 +2438,16 @@ import 'package:http/http.dart' as http;
 // dart:covert provides some methods for json (instance of JsonCodec)
 import 'dart:convert';
 
-// this url will create a database collection for products (applicable just for firebase)
-const url = Uri.https('https://dummy.firebaseio.com','/products.json');
+// this url will create a database collection for products
+// 'https://dummy.firebasedatabase.app/products.json' this creates products collection (firebase specific)
+final url = Uri.https('dummy.firebasedatabase.app', '/products.json', {'q': '{https}'});
 
 http.post(
   url, // where to append new data
   // headers: , // To provide metadata attach to http request
 
   // body receives a json and stores it in the database
-  // json.encode converts a map (which in here, is made up of product object properties) to json 
+  // json.encode converts a map (which in here, is made up of product object properties) to json
   body: json.encode({
     'title': product.title,
     'description': product.description,
@@ -2455,8 +2457,38 @@ http.post(
   }),
   )
     .then((response) {
-      print(json.decode(response.body)); 
+      print(json.decode(response.body));
       // response is sent by firebase after post is finished
       // response.body = {'name':'Uniquely Generated entry name'}
     }
 ```
+
+- ### Future and Async Code
+
+```dart
+var result = 1 + 1; // this is immediately available
+
+// Future class (In JS, it's called Promise)
+// Future runs a fxn, that when done, executes .then() fxn
+// However, dart executes .then() fxn on Future, which is a asynchronous code, only after going through all synchronous code, even if the Future's fxn is done
+var myFuture = Future((){
+    return 'hello';
+  });
+print('This runs first');
+myFuture.then((result){
+  print(result);
+});
+print('This also runs before future is done!');
+
+// Alternative code
+// http.get() returns a Future, (http package)
+http.get().then((response){});
+
+// .then() also returns a new Future, so we can add other .then() block
+myFuture.then((response){}).then((_){});
+
+// Futures can also fail returning error
+// catching error in then block
+myFuture.then((_){}).catchError((error){})
+```
+
