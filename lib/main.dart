@@ -24,6 +24,7 @@ import 'shop/providers/orders.dart';
 import 'shop/screens/orders_screen.dart';
 import 'shop/screens/user_products_screen.dart';
 import 'shop/screens/edit_product_screen.dart';
+import 'shop/screens/auth_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -124,6 +125,7 @@ class _MyAppState extends State<MyApp> {
           OrdersScreen.routeName: (context) => OrdersScreen(),
           UserProductsScreen.routeName: (context) => UserProductsScreen(),
           EditProductScreen.routeName: (context) => EditProductScreen(),
+          AuthScreen.routeName: (context) => AuthScreen(),
         },
         debugShowCheckedModeBanner: false,
         home: ShopApp(),

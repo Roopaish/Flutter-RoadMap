@@ -495,6 +495,11 @@ ElevatedButton(
   style: ElevatedButton.styleFrom(
       primary: Colors.red, // bg (for elevated btn bg is primary thing)
       onPrimary: Colors.white, // foreground (what should be on primary)
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30),
+      ),
+      padding:
+          EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
     ),
 ),
 
@@ -509,6 +514,7 @@ TextButton(
   // Alternative style property
   style: TextButton.styleFrom(
     primary: Colors.orange, // text (primary thing is text in TextButton)
+    tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap target size to the minimum provided by the Material specification.
   ),
 ),
 
@@ -723,6 +729,13 @@ Container(
       color: Colors.purple,
       width: 2,
     ),
+  // transform container, rotating element in Z axis
+  // transform wants a Matrix4, but translate returns void
+  // In dart, the last method return value is taken
+  // by applying .., we make sure that the return value of method after .. isn't accountable but the method before is accountable to return a value
+  // and here rotationZ returns a Matrix4
+  transform: Matrix4.rotationZ(-8 * pi / 180)
+    ..translate(-10.0),
   ),
   padding: EdgeInsets.all(10),
   child: Text(
@@ -2275,6 +2288,7 @@ Form(
         },
       ),
       TextFormField(
+        // obscureText: true, // hides the info, used for passwords
         decoration: InputDecoration(labelText: 'Price'),
         textInputAction: TextInputAction.next,
         keyboardType: TextInputType.number,
@@ -2803,3 +2817,17 @@ So even if app restarts, we would still be able to log in.
   
 Now for every http request, we should provide token.
 
+- ### Preparing backend
+
+```json
+// Configuring Firebase Real time Database rules
+// auth != null tells firebase that, only authenticated users will be able to send requests to database
+{
+  "rules": {
+    ".read": "auth != null",  // 2021-11-10
+    ".write": "auth != null",  // 2021-11-10
+  }
+}
+```
+
+Now in Authentication, choose a sign-in method. For eg: Email/Password and enable Email then save it.
