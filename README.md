@@ -468,6 +468,7 @@ Column(
 
 // RaisedButton(), FlatButton(), OutlineButton() are deprecated but can be used
 // New Buttons are pre-styled but can be overwritten
+// onPressed: null disables the buttons
 
 // RaisedButton() to ElevatedButton()
 ElevatedButton(
