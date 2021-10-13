@@ -2652,34 +2652,26 @@ http.patch(url,
 ```
 
 ```dart
-// To delete an item
-http.delete(url);
-
 // Optimistic updating
+
 // if product failed to delete, it will be re-added to the _items List
 final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
-final existingProduct = _items[existingProductIndex]; // reference to product in memory 
+var existingProduct = _items[existingProductIndex]; // reference to product in memory 
 _items.removeAt(existingProductIndex);
 notifyListeners();
 
-http.delete(url).then((_) {
-    existingProduct = null as Product; // clearing the reference if no error occurs
-  }).catchError((_) {
+try {
+  await http.delete(url);
+} catch (error) {
   _items.insert(existingProductIndex, existingProduct); // re-adding product if error occurs
   notifyListeners();
-});
-
-// Here for delete, the http package doesn't throw an error, so catchError() will not execute
+  throw error;
+}
 ```
 
 ```dart
-// Solution: Throwing error made by delete
-
-// We can throw Exception like this, after delete is completed
-if (response.statusCode >= 400) {
-  throw Exception('Could not delete product');
-}
-// But dart team discourage to directly use it, instead you should build your custom exception class based on Exception class
+// Implements
+// Custom Exception class (not really needed, only for demonstration of implements)
 
 // Creating a class that implements Exception
 // Implements can be used if you want to create your own implementation of another class or interface.
@@ -2700,32 +2692,5 @@ class HttpException implements Exception {
 if (response.statusCode >= 400) {
   throw HttpException('Could not delete product');
 }
-
-// Catching the error
-// Problem arises while using 'context' inside a Future block
-
-// We need to store ScaffoldMessenger.of(context) as a reference
-// Cause context can't be resolved anymore, after the code block is made async (i.e. Future)
-// Due to how Flutter works internally, it's already updating the widget tree by the time
-// So it's not sure if the context still refers to the same context it did before
-
-// defined in build method
-final scaffoldMessenger = ScaffoldMessenger.of(context);
-
-IconButton(
-  icon: Icon(Icons.delete),
-  onPressed: () async {
-    try {
-      await Provider.of<Products>(context, listen: false)
-          .deleteProduct(id);
-    } catch (error) {
-      scaffoldMessenger.showSnackBar(SnackBar(
-        content: Text(
-          'Deleting failed!',
-          textAlign: TextAlign.center,
-        ),
-      ));
-    }
-  },
 ```
  

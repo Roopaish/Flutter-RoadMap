@@ -73,10 +73,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
       final value = _imageUrlController.text;
-      if (!value.startsWith('http') && !value.startsWith('https') ||
-          !value.endsWith('.png') &&
-              !value.endsWith('.jpg') &&
-              !value.endsWith('.jpeg')) {
+      if (!value.startsWith('http') && !value.startsWith('https')) {
         return;
       }
       setState(() {});
@@ -118,11 +115,12 @@ class _EditProductScreenState extends State<EditProductScreen> {
           ),
         );
       }
-      setState(() {
-        _isLoading = false;
-      });
-      Navigator.of(context).pop();
     }
+
+    setState(() {
+      _isLoading = false;
+    });
+    Navigator.of(context).pop();
   }
 
   @override
