@@ -26,6 +26,37 @@ class Orders with ChangeNotifier {
     return [..._orders];
   }
 
+  Future<void> fetchAndSetOrders() async {
+    final url = Uri.https(
+        'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
+        '/orders.json',
+        {'q': '{https}'});
+
+    try {
+      final response = await http.get(url);
+      final extractedData = json.decode(response.body) as Map<String, dynamic>;
+
+      final List<OrderItem> loadedOrders = [];
+      extractedData.forEach((orderId, orderData) {
+        loadedOrders.add(OrderItem(
+            id: orderId,
+            amount: orderData['amount'],
+            dateTime: DateTime.parse(orderData['dateTime']),
+            products: (orderData['products'] as List<dynamic>)
+                .map((item) => CartItem(
+                      id: item['id'],
+                      price: item['price'],
+                      quantity: item['quantity'],
+                      title: item['title'],
+                    ))
+                .toList()));
+      });
+      _orders = loadedOrders.reversed.toList();
+    } catch (error) {
+      throw error;
+    }
+  }
+
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url = Uri.https(
         'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',

@@ -2599,7 +2599,9 @@ void initState(){
 }
 
 // Workaround to use Provider without listen: false, in initState()
-// Using Future.delayed(), the order of execution is different, so we can access context
+// Using Future.delayed(), the order of execution is different
+// So that Future.delayed() is set to execute at last after initialization
+// so we can access context
 void initState() {
   Future.delayed(Duration.zero).then((_) {
     Provider.of<Products>(context).fetchAndSetProducts();
