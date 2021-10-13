@@ -2429,15 +2429,15 @@ Convention: `Http Endpoint (URL) + Http Verb = Action`
 Http Endpoint is the URL which connects to server that we talk to. Http Verb are request methods on data.
 
 Common Request Methods:  
-GET (Fetch data), POST (Store data), PATCH (Update data), PUT (Replace data), DELETE (Delete data)  
-  
+GET (Fetch data), POST (Store data), PATCH (Update data), PUT (Replace data), DELETE (Delete data)
+
 Server sends status code to tell if the operation succeeded or not.  
 Status Codes:  
 200, 201 -> everything works
 300 -> redirected
 400 -> Something went wrong
-500 -> Something went wrong  
-  
+500 -> Something went wrong
+
 http package throws an error if we receive status code greater or equal to 400.
 
 - ### Sending POST Requests
@@ -2527,7 +2527,7 @@ Provider.of<Products>(context).addProduct(_editedProduct)
     }
   ).then((_){})
 
-// showDialog also returns a Future, so after we click ok, .then() will execute 
+// showDialog also returns a Future, so after we click ok, .then() will execute
 ```
 
 ```dart
@@ -2576,7 +2576,7 @@ Future<void> addProduct(Product product) async {
     final response = await http.post(url, body:); // await will stop the execution of following lines until its finished
     print(json.decode(response.body))
   } catch (error) {
-    throw error; 
+    throw error;
   }
 }
 ```
@@ -2610,7 +2610,7 @@ void initState() {
 }
 
 // Another Workaround using didChangedDependencies()
-// Unlike initState(), didChangedDependencies() runs more often 
+// Unlike initState(), didChangedDependencies() runs more often
 // When using this, use a helper(_isInit) so to execute the code only once
 var _isInit = true;
 void didChangedDependencies(){
@@ -2660,7 +2660,7 @@ http.patch(url,
 
 // if product failed to delete, it will be re-added to the _items List
 final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
-var existingProduct = _items[existingProductIndex]; // reference to product in memory 
+var existingProduct = _items[existingProductIndex]; // reference to product in memory
 _items.removeAt(existingProductIndex);
 notifyListeners();
 
@@ -2697,4 +2697,67 @@ if (response.statusCode >= 400) {
   throw HttpException('Could not delete product');
 }
 ```
- 
+
+- ### FutureBuilder
+
+```dart
+// Use FutureBuilder instead of initState()
+// So that we can use StatelessWidget to fetch data and change State using provider
+// To fetch data
+// defined inside build method of StatelessWidget
+FutureBuilder(
+ future:
+     Provider.of<Orders>(context, listen: false).fetchAndSetOrders(), // future from where we send requests
+ builder: (ctx, dataSnapshot) {
+   // dataSnapshot is data currently returned by the future, is async
+   if (dataSnapshot.connectionState == ConnectionState.waiting) {
+     // Runs while the future is getting data
+     return Center(
+       child: CircularProgressIndicator(),
+     );
+   } else {
+     // When future is done getting data
+     if (dataSnapshot.error != null) {
+       // If future returns a error
+       return Center(
+         child: Text('No orders placed yet!'),
+       );
+     } else {
+       // When everything is fine
+       return Consumer<Orders>(
+         // Consumer to build only this portion if data changes
+         builder: (ctx, orderData, child) => ListView.builder(
+           itemCount: orderData.orders.length,
+           itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
+         ),
+       );
+     }
+   }
+ },
+)
+
+// However if other part of UI needs to be updated, the future will run again and again whenever UI change i.e. build method is called
+// This creates multiple futures which is not good
+
+// Solution
+// Convert the Widget to StatefulWidget
+// We now store the future to a reference variable as a property of State class, and use that reference in FutureBuilder
+// so that it will be free from build method and won't create multiple futures
+// Add these to state class
+Future _ordersFuture;
+Future _obtainOrdersFuture(){
+ return Provider.of<Orders>(context, listen: false).fetchAndSetOrders();
+}
+
+@override
+void initState((){
+ _ordersFuture = _obtainOrdersFuture;
+ super.initState();
+});
+
+// defined in build method of StatefulWidget
+FutureBuilder(
+ future: _ordersFuture;
+ builder: ....
+)
+```
