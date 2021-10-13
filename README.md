@@ -2637,6 +2637,7 @@ RefreshIndicator(
 
 ```dart
 // under products collection, the url will go to each item, where id = uniquely generated name of item in firebase
+// We can change any key-value pair in database
 final url = Uri.https(
           'dummy.firebasedatabase.app',
           '/products/$id.json',
