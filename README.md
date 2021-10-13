@@ -37,7 +37,7 @@
 
 ## 3
 
-[Responsive and Adaptive UI](#responsive-and-adaptive-ui)
+[Responsive and Adaptive UI(Personal Expense App)](#responsive-and-adaptive-uipersonal-expense-app)
 
 - [Media Query](#media-query)
 - [Orientation](#orientation)
@@ -71,7 +71,7 @@
 
 ## 6
 
-[State Management (Shop App)](#state-management-shop-app)
+[State Management(Shop App)](#state-managementshop-app)
 
 - [Problem with routes](#problem-with-routes)
 - [State Management](#state-management)
@@ -86,7 +86,7 @@
 
 ## 7
 
-[User Inputs and Forms (Shop App)](#user-inputs-and-forms-shop-app)
+[User Inputs and Forms(Shop App)](#user-inputs-and-formsshop-app)
 
 - [Snackbar](#snackbar)
 - [AlertDialog](#alertdialog)
@@ -94,7 +94,19 @@
 
 ## 8
 
-[Sending HTTP Requests (Shop App)](#sending-http-requests-shop-app)
+[Sending HTTP Requests(Shop App)](#sending-http-requestsshop-app)
+- [Setting up Firebase Realtime Database](#setting-up-firebase-realtime-database)
+- [How to send http requests](#how-to-send-http-requests)
+- [Sending POST Requests](#sending-post-requests)
+- [Future and Async Code](#future-and-async-code)
+- [Fetching Data (GET)](#fetching-data-get)
+- [Pull-to-Refresh](#pull-to-refresh)
+- [Updating(PATCH) & Deleting(DELETE) Data](#updatingpatch-&-Deletingdelete-data)
+- [FutureBuilder](#futurebuilder)
+
+## 9
+
+[Authentication(Shop App)](#authenticationshop-app)
 
 ## Notes
 
@@ -1211,7 +1223,7 @@ switch (compexity) {
 
 **[⬆ Back to Index](#2)**
 
-## Responsive and Adaptive UI
+## Responsive and Adaptive UI(Personal Expense App)
 
 Responsive for different screen sizes.
 Adaptive for different operating system.
@@ -1825,7 +1837,7 @@ FiltersScreen(this.saveFilters)
 
 **[⬆ Back to Index](#5)**
 
-## State Management (Shop App)
+## State Management(Shop App)
 
 - ### Problem with routes
 
@@ -2167,7 +2179,7 @@ Dismissible(
 
 **[⬆ Back to Index](#6)**
 
-## User Inputs and Forms (Shop App)
+## User Inputs and Forms(Shop App)
 
 - ### Snackbar
 
@@ -2412,13 +2424,15 @@ Widget build(BuildContext context) {
 
 **[⬆ Back to Index](#7)**
 
-## Sending HTTP Requests (Shop App)
+## Sending HTTP Requests(Shop App)
 
 - ### Setting up Firebase Realtime Database
 
 Create a Firebase Project, then create a realtime database by selecting a server. Choose Start in test mode, to enable all read and writes to your database.
 
 Then we will be presented to a Data screen containing the URL which is used to talk to the web server that runs query on Database.
+
+**[⬆ Back to Index](#8)**
 
 - ### How to send http requests
 
@@ -2433,12 +2447,14 @@ GET (Fetch data), POST (Store data), PATCH (Update data), PUT (Replace data), DE
 
 Server sends status code to tell if the operation succeeded or not.  
 Status Codes:  
-200, 201 -> everything works
-300 -> redirected
-400 -> Something went wrong
-500 -> Something went wrong
-
+200, 201 -> everything works  
+300 -> redirected  
+400 -> Something went wrong  
+500 -> Something went wrong  
+  
 http package throws an error if we receive status code greater or equal to 400.
+
+**[⬆ Back to Index](#8)**
 
 - ### Sending POST Requests
 
@@ -2478,6 +2494,8 @@ http.post(
       // response.body = {'name':'Uniquely Generated entry name'}
     }
 ```
+
+**[⬆ Back to Index](#8)**
 
 - ### Future and Async Code
 
@@ -2581,6 +2599,8 @@ Future<void> addProduct(Product product) async {
 }
 ```
 
+**[⬆ Back to Index](#8)**
+
 - ### Fetching Data (GET)
 
 Typically data is fetched in initState() as it runs immediately and only once as soon as we enter a Widget.
@@ -2621,6 +2641,8 @@ void didChangedDependencies(){
 }
 ```
 
+**[⬆ Back to Index](#8)**
+
 - ### Pull-to-Refresh
 
 ```dart
@@ -2635,6 +2657,8 @@ RefreshIndicator(
   child: Text('shown after refresh'), // shown when Future fxn is completed
 )
 ```
+
+**[⬆ Back to Index](#8)**
 
 - ### Updating(PATCH) & Deleting(DELETE) Data
 
@@ -2697,6 +2721,8 @@ if (response.statusCode >= 400) {
   throw HttpException('Could not delete product');
 }
 ```
+
+**[⬆ Back to Index](#8)**
 
 - ### FutureBuilder
 
@@ -2761,3 +2787,19 @@ FutureBuilder(
  builder: ....
 )
 ```
+**[⬆ Back to Index](#8)**
+
+## Authentication(Shop App)
+
+- ### How Authentication works
+
+In web development, session is created in server to make entry in database that logs user with given id. In browser, we store cookies that identifies that session, so we can check the data in browser and session to know that the user is logged in.  
+  
+But in flutter and many web apps, it works differently with the help of Stateless RESTful APIs. Stateless means, the server does not care about the individual client connected to it. The server doesn't store anything that tells a certain user or app is authenticated.  
+The API's job is to provide endpoint to send requests and return an answer. We don't care about who is authenticated and who is not.  
+  
+When an user is logged in, a token is generated on the server and is only known to the server. So token can't be faked. And that token is sent to the app which then is stored in user's device.  
+So even if app restarts, we would still be able to log in.  
+  
+Now for every http request, we should provide token.
+
