@@ -29,8 +29,7 @@ class Orders with ChangeNotifier {
   Future<void> fetchAndSetOrders() async {
     final url = Uri.https(
         'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/orders.json',
-        {'q': '{https}'});
+        '/orders.json');
 
     try {
       final response = await http.get(url);
@@ -60,8 +59,7 @@ class Orders with ChangeNotifier {
   Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     final url = Uri.https(
         'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/orders.json',
-        {'q': '{https}'});
+        '/orders.json');
     final timestamp = DateTime.now();
 
     final response = await http.post(

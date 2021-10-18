@@ -2485,8 +2485,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 // this url will create a database collection for products
-// 'https://dummy.firebasedatabase.app/products.json' this creates products collection (firebase specific)
-final url = Uri.https('dummy.firebasedatabase.app', '/products.json', {'q': '{https}'});
+// 'url = https://dummy.firebasedatabase.app/products.json' this creates products collection (firebase specific)
+final url = Uri.https('dummy.firebasedatabase.app', '/products.json');
 
 http.post(
   url, // where to append new data
@@ -2585,8 +2585,7 @@ try{
 Future<void> addProduct(Product product) {
   final url = Uri.https(
       'dummy.firebasedatabase.app',
-      '/products.json',
-      {'q': '{https}'});
+      '/products.json');
 
   return http
       .post(url, body: ,)
@@ -2601,8 +2600,7 @@ Future<void> addProduct(Product product) {
 Future<void> addProduct(Product product) async {
   final url = Uri.https(
       'dummy.firebasedatabase.app',
-      '/products.json',
-      {'q': '{https}'});
+      '/products.json');
 
   try {
     final response = await http.post(url, body:); // await will stop the execution of following lines until its finished
@@ -2681,8 +2679,7 @@ RefreshIndicator(
 // We can change any key-value pair in database
 final url = Uri.https(
           'dummy.firebasedatabase.app',
-          '/products/$id.json',
-          {'q': '{https}'});
+          '/products/$id.json');
 
 http.patch(url,
   body: json.encode({
@@ -2831,3 +2828,48 @@ Now for every http request, we should provide token.
 ```
 
 Now in Authentication, choose a sign-in method. For eg: Email/Password and enable Email then save it.
+
+- ### Adding User SignUp
+
+[Firebase Auth REST API](#https://firebase.google.com/docs/reference/rest/auth)  
+  
+For Email/Password signUp, we should send request to following url with api_key provided by firebase available in project setting.  
+`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]`  
+It's ok to expose Firebase API_KEY.  
+  
+  
+```dart
+// url = https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBzC5D7xlUXuNJRFYfbdcuMmcPieefDA1s
+// we add {'key':'api_key'} for url followed by ?key=api_key
+
+final url = Uri.https(
+    'identitytoolkit.googleapis.com',
+    '/v1/accounts:signUp',
+    {'key': 'api_key'});
+
+final response = await http.post(url,
+    body: json.encode({
+      "email": email,
+      "password": password,
+      "returnSecureToken": true,
+    }));
+
+print(json.decode(response.body));
+
+// Following data is the response, we get
+{ 
+  kind: identitytoolkit#SignupNewUserResponse,
+  idToken: too-long-token, 
+  email: test@test.com, 
+  refreshToken: long-refresh-token, 
+  expiresIn: 3600, 
+  localId: some-local-id
+}
+```
+  
+- Using environment variables at run time  
+`flutter run --dart-define=API_KEY=SOME_VALUE`  
+Now it will be replaced here,  
+```dart
+final API_KEY = String.fromEnvironment('API_KEY', defaultValue: '');
+```

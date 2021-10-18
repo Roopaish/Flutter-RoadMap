@@ -19,6 +19,7 @@ import 'shop/shop.dart';
 import 'shop/screens/product_detail_screen.dart';
 import 'shop/providers/products.dart';
 import 'shop/providers/cart.dart';
+import 'shop/providers/auth.dart';
 import 'shop/screens/cart_screen.dart';
 import 'shop/providers/orders.dart';
 import 'shop/screens/orders_screen.dart';
@@ -100,6 +101,9 @@ class _MyAppState extends State<MyApp> {
         ),
         ChangeNotifierProvider(
           create: (ctx) => Orders(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Auth(),
         )
       ],
       child: MaterialApp(
