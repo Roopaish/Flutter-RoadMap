@@ -2829,34 +2829,44 @@ Now for every http request, we should provide token.
 
 Now in Authentication, choose a sign-in method. For eg: Email/Password and enable Email then save it.
 
-- ### Adding User SignUp
+- ### User SignUp/SignIn
 
 [Firebase Auth REST API](#https://firebase.google.com/docs/reference/rest/auth)  
   
 For Email/Password signUp, we should send request to following url with api_key provided by firebase available in project setting.  
-`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]`  
+url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=api_key` to sign up  
+url =  `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=api_key ` to sign in   
 It's ok to expose Firebase API_KEY.  
   
   
 ```dart
-// url = https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBzC5D7xlUXuNJRFYfbdcuMmcPieefDA1s
 // we add {'key':'api_key'} for url followed by ?key=api_key
 
-final url = Uri.https(
-    'identitytoolkit.googleapis.com',
-    '/v1/accounts:signUp',
-    {'key': 'api_key'});
+Future<void> _authenticate(
+    String email, String password, String urlSegment) async {
+  final url = Uri.https(
+      'identitytoolkit.googleapis.com',
+      '/v1/accounts:$urlSegment',
+      {'key': 'api_key'});
 
-final response = await http.post(url,
-    body: json.encode({
-      "email": email,
-      "password": password,
-      "returnSecureToken": true,
-    }));
+  final response = await http.post(url,
+      body: json.encode({
+        "email": email,
+        "password": password,
+        "returnSecureToken": true,
+      }));
+}
 
-print(json.decode(response.body));
+Future<void> signup(String email, String password) async {
+  return _authenticate(email, password, 'signUp');
+}
 
-// Following data is the response, we get
+Future<void> login(String email, String password) async {
+  return _authenticate(email, password, 'signInWithPassword');
+}
+
+
+// Following data is the response, we get when signing up
 { 
   kind: identitytoolkit#SignupNewUserResponse,
   idToken: too-long-token, 
@@ -2864,6 +2874,18 @@ print(json.decode(response.body));
   refreshToken: long-refresh-token, 
   expiresIn: 3600, 
   localId: some-local-id
+}
+
+// Following data is the response, we get when logging in
+{
+  kind: identitytoolkit#VerifyPasswordResponse, 
+  localId: local-id, 
+  email: test@test.com, 
+  displayName: , 
+  idToken: long-token,
+  registered: true, 
+  refreshToken: refresh-token, 
+  expiresIn: 3600
 }
 ```
   
