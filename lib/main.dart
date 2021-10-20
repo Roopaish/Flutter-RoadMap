@@ -94,7 +94,12 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => Products(),
+          create: (ctx) => Auth(),
+        ),
+        ChangeNotifierProxyProvider<Auth, Products>(
+          update: (ctx, auth, previousProducts) => Products(auth.token,
+              previousProducts == null ? [] : previousProducts.items),
+          create: (_) => Products('',[]),
         ),
         ChangeNotifierProvider(
           create: (ctx) => Cart(),
@@ -102,9 +107,6 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(
           create: (ctx) => Orders(),
         ),
-        ChangeNotifierProvider(
-          create: (ctx) => Auth(),
-        )
       ],
       child: MaterialApp(
         title: 'Flutter RoadMap',

@@ -2986,3 +2986,26 @@ Consumer<Auth>(
       auth.isAuth ? ProductsOverviewScreen() : AuthScreen(),
 );
 ```
+
+- ### Attaching token to outgoing requests
+
+```dart
+// Using ChangeNotifierProxyProvider
+// It allows us to use previous provider in a new provider
+MultiProvider(
+  providers: [
+    ChangeNotifierProvider(
+      create: (ctx) => Auth(),
+    ),
+    // Auth -> Provider from where we need data
+    // Products -> Provider where we need data
+    ChangeNotifierProxyProvider<Auth, Products>(
+      // update function takes context, Instance of Auth, and previous instance of Providers(which is null at first)
+      // Here, auth (an instance of Auth) can be used as argument for Products provider
+      update: (ctx, auth, previousProducts) => Products(auth.token,
+          previousProducts == null ? [] : previousProducts.items),
+      create: (_) => Products('',[]),
+    ),
+  ]
+)
+```
