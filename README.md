@@ -2895,3 +2895,94 @@ Now it will be replaced here,
 ```dart
 final API_KEY = String.fromEnvironment('API_KEY', defaultValue: '');
 ```
+
+- ### Handling Authentication error
+
+```dart
+// sending http request and throwing errors
+try {
+  final response = await http.post(url,
+      body: json.encode({
+        "email": email,
+        "password": password,
+        "returnSecureToken": true,
+      }));
+  final responseData = json.decode(response.body);
+  if (responseData['error'] != null) { // checking if error key exist in response
+    throw HttpException(responseData['error']['message']);  // when the statusCode is below 400 but error like 'email exists', 'invalid passwords', 'weak passwords' etc. occurs
+  }
+} catch (error) {
+  throw error;
+}
+
+// Authenticating and Showing errors if any
+try {
+  if (_authMode == AuthMode.Login) {
+    // Log user in
+    await Provider.of<Auth>(context, listen: false).login(
+      _authData['email'] as String,
+      _authData['password'] as String,
+    );
+  } else {
+    // Sign user up
+    await Provider.of<Auth>(context, listen: false).signup(
+      _authData['email'] as String,
+      _authData['password'] as String,
+    );
+  }
+} on HttpException catch (error) {
+  var errorMessage = 'Authentication failed';
+  if (error.toString().contains('EMAIL_EXISTS')) {
+    errorMessage = 'This email address is already in use.';
+  } else if (error.toString().contains('INVALID_EMAIL')) {
+    errorMessage = 'This is not a valid email address.';
+  } else if (error.toString().contains('WEAK_PASSWORD')) {
+    errorMessage = 'This password is too weak';
+  } else if (error.toString().contains('EMAIL_NOT_FOUND')) {
+    errorMessage = 'Could not find a user with that email.';
+  } else if (error.toString().contains('INVALID_PASSWORD')) {
+    errorMessage = 'Invalid password.';
+  }
+  _showErrorDialog(errorMessage);
+} catch (error) {
+  var errorMessage = 'Could not authenticate you. Please try again later!';
+  _showErrorDialog(errorMessage);
+}
+```
+
+- ### Storing token locally(in app)
+
+```dart
+// defined after http request is successful
+_token = responseData['idToken'];
+_userId = responseData['localId'];
+_expiryDate = DateTime.now().add(
+  Duration(
+    seconds: int.parse(responseData['expiresIn']),
+  ),
+);
+notifyListeners();
+
+// Storing token on Authentication
+String get token {
+  if (_expiryDate != DateTime(0) &&
+      _expiryDate.isAfter(DateTime.now()) &&
+      _token != '') {
+    return _token;
+  }
+  return '';
+}
+
+// check if user is Authenticated
+bool get isAuth {
+  return token != '';
+}
+```
+
+```dart
+// Switching between different screen on the basis of authorization
+Consumer<Auth>(
+  builder: (ctx, auth, _) =>
+      auth.isAuth ? ProductsOverviewScreen() : AuthScreen(),
+);
+```
