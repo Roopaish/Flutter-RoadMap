@@ -3096,6 +3096,7 @@ await http.get(url);
 - ### Logout
 
 ```dart
+// Logout manually
 void logout() {
   _token = '';
   _userId = '';
@@ -3103,3 +3104,37 @@ void logout() {
   notifyListeners();
 }
 ```
+
+```dart
+// Logout automatically when token expires
+import 'dart:async';
+
+Timer _authTimer = Timer(Duration(seconds: 0), () {});
+
+Future<void> _authenticate(){
+  ...
+  _autoLogout();
+}
+
+void logout() {
+  _token = '';
+  _userId = '';
+  _expiryDate = DateTime(0);
+  if (_authTimer != Timer(Duration(seconds: 0), () {})) {
+    _authTimer.cancel();
+    _authTimer = Timer(Duration(seconds: 0), () {});
+  }
+  notifyListeners();
+}
+
+void _autoLogout() {
+  if (_authTimer != Timer(Duration(seconds: 0), () {})) {
+    _authTimer.cancel();
+  }
+  final timeToExpire = _expiryDate.difference(DateTime.now()).inSeconds;
+  _authTimer = Timer(Duration(seconds: timeToExpire), logout);
+}
+```
+
+- ### Users auto-login
+
