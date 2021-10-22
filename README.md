@@ -3093,3 +3093,13 @@ var url = Uri.https(
 await http.get(url);
 ```
 
+- ### Logout
+
+```dart
+void logout() {
+  _token = '';
+  _userId = '';
+  _expiryDate = DateTime(0);
+  notifyListeners();
+}
+```
