@@ -107,9 +107,9 @@ class _MyAppState extends State<MyApp> {
           create: (ctx) => Cart(),
         ),
         ChangeNotifierProxyProvider<Auth, Orders>(
-          create: (_) => Orders('', []),
+          create: (_) => Orders('','', []),
           update: (_, auth, previousOrder) => Orders(
-            auth.token,
+            auth.token, auth.userId,
             previousOrder == null ? [] : previousOrder.orders,
           ),
         ),
