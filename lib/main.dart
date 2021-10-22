@@ -97,8 +97,10 @@ class _MyAppState extends State<MyApp> {
           create: (ctx) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-          create: (_) => Products('', []),
-          update: (ctx, auth, previousProducts) => Products(auth.token,
+          create: (_) => Products('', '', []),
+          update: (ctx, auth, previousProducts) => Products(
+              auth.token,
+              auth.userId,
               previousProducts == null ? [] : previousProducts.items),
         ),
         ChangeNotifierProvider(

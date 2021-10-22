@@ -95,6 +95,7 @@
 ## 8
 
 [Sending HTTP Requests(Shop App)](#sending-http-requestsshop-app)
+
 - [Setting up Firebase Realtime Database](#setting-up-firebase-realtime-database)
 - [How to send http requests](#how-to-send-http-requests)
 - [Sending POST Requests](#sending-post-requests)
@@ -2464,8 +2465,8 @@ Status Codes:
 200, 201 -> everything works  
 300 -> redirected  
 400 -> Something went wrong  
-500 -> Something went wrong  
-  
+500 -> Something went wrong
+
 http package throws an error if we receive status code greater or equal to 400.
 
 **[⬆ Back to Index](#8)**
@@ -2798,20 +2799,21 @@ FutureBuilder(
  builder: ....
 )
 ```
+
 **[⬆ Back to Index](#8)**
 
 ## Authentication(Shop App)
 
 - ### How Authentication works
 
-In web development, session is created in server to make entry in database that logs user with given id. In browser, we store cookies that identifies that session, so we can check the data in browser and session to know that the user is logged in.  
-  
+In web development, session is created in server to make entry in database that logs user with given id. In browser, we store cookies that identifies that session, so we can check the data in browser and session to know that the user is logged in.
+
 But in flutter and many web apps, it works differently with the help of Stateless RESTful APIs. Stateless means, the server does not care about the individual client connected to it. The server doesn't store anything that tells a certain user or app is authenticated.  
-The API's job is to provide endpoint to send requests and return an answer. We don't care about who is authenticated and who is not.  
-  
+The API's job is to provide endpoint to send requests and return an answer. We don't care about who is authenticated and who is not.
+
 When an user is logged in, a token is generated on the server and is only known to the server. So token can't be faked. And that token is sent to the app which then is stored in user's device.  
-So even if app restarts, we would still be able to log in.  
-  
+So even if app restarts, we would still be able to log in.
+
 Now for every http request, we should provide token.
 
 - ### Preparing backend
@@ -2821,8 +2823,8 @@ Now for every http request, we should provide token.
 // auth != null tells firebase that, only authenticated users will be able to send requests to database
 {
   "rules": {
-    ".read": "auth != null",  // 2021-11-10
-    ".write": "auth != null",  // 2021-11-10
+    ".read": "auth != null", // 2021-11-10
+    ".write": "auth != null" // 2021-11-10
   }
 }
 ```
@@ -2831,14 +2833,13 @@ Now in Authentication, choose a sign-in method. For eg: Email/Password and enabl
 
 - ### User SignUp/SignIn
 
-[Firebase Auth REST API](#https://firebase.google.com/docs/reference/rest/auth)  
-  
+[Firebase Auth REST API](#https://firebase.google.com/docs/reference/rest/auth)
+
 For Email/Password signUp, we should send request to following url with api_key provided by firebase available in project setting.  
 url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=api_key` to sign up  
-url =  `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=api_key ` to sign in   
-It's ok to expose Firebase API_KEY.  
-  
-  
+url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=api_key ` to sign in  
+It's ok to expose Firebase API_KEY.
+
 ```dart
 // we add {'key':'api_key'} for url followed by ?key=api_key
 
@@ -2867,31 +2868,32 @@ Future<void> login(String email, String password) async {
 
 
 // Following data is the response, we get when signing up
-{ 
+{
   kind: identitytoolkit#SignupNewUserResponse,
-  idToken: too-long-token, 
-  email: test@test.com, 
-  refreshToken: long-refresh-token, 
-  expiresIn: 3600, 
+  idToken: too-long-token,
+  email: test@test.com,
+  refreshToken: long-refresh-token,
+  expiresIn: 3600,
   localId: some-local-id
 }
 
 // Following data is the response, we get when logging in
 {
-  kind: identitytoolkit#VerifyPasswordResponse, 
-  localId: local-id, 
-  email: test@test.com, 
-  displayName: , 
+  kind: identitytoolkit#VerifyPasswordResponse,
+  localId: local-id,
+  email: test@test.com,
+  displayName: ,
   idToken: long-token,
-  registered: true, 
-  refreshToken: refresh-token, 
+  registered: true,
+  refreshToken: refresh-token,
   expiresIn: 3600
 }
 ```
-  
+
 - Using environment variables at run time  
-`flutter run --dart-define=API_KEY=SOME_VALUE`  
-Now it will be replaced here,  
+  `flutter run --dart-define=API_KEY=SOME_VALUE`  
+  Now it will be replaced here,
+
 ```dart
 final API_KEY = String.fromEnvironment('API_KEY', defaultValue: '');
 ```
@@ -3008,4 +3010,48 @@ MultiProvider(
     ),
   ]
 )
+```
+
+- ### Setting favorite status per user
+
+```dart
+// Saving favorite status per user
+
+final url = Uri.https(
+    'dummy.firebasedatabase.app',
+    '/userFavorites/$userId/$id.json', {'auth':authToken});
+
+await http.put(
+  url,
+  body: json.encode(isFavorite), // equivalent to json.encode({$id: isFavorite})
+);
+
+// Here, new userFavorites entry will be created, with userId entries containing productId: boolean
+```
+
+```dart
+// Fetching the favorite status per user
+
+// extracted Data is data received from another url dummy.firebasedatabase.app/products.json?auth=authToken
+
+url = Uri.https(
+    'dummy.firebasedatabase.app',
+    '/userFavorites/$userId.json',
+    {'auth': authToken});
+final favoriteResponse = await http.get(url);
+final favoriteData = json.decode(favoriteResponse.body);
+
+final List<Product> loadedProducts = [];
+extractedData.forEach((prodId, prodData) {
+  loadedProducts.insert(
+      0,
+      Product(
+        id: prodId,
+        title: prodData['title'],
+        price: prodData['price'],
+        description: prodData['description'],
+        imageUrl: prodData['imageUrl'],
+        isFavorite: favoriteData == null ? false : favoriteData[prodId] ?? false,
+      ));
+});
 ```
