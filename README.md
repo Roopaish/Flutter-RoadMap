@@ -3055,3 +3055,41 @@ extractedData.forEach((prodId, prodData) {
       ));
 });
 ```
+
+- ### Filtering Products by creator
+
+```json
+// Attach creatorId to each product when adding to database
+// Only applicable for firebase
+// Add a rule
+
+// Add node that needs to be filtered as key
+// Specify a list of keys by which filtering is applied, creatorId
+{
+  "rules": {
+    ".read": "auth != null", // 2021-11-10
+    ".write": "auth != null", // 2021-11-10
+    "products": {
+      ".indexOn": ["creatorId"]
+    }
+  }
+}
+```
+
+```dart
+// Fetching products based on user/creatorId
+// url = dummy.firebasedatabase.app/products.json?auth=authToken&orderBy="creatorId"&equalTo="userId"
+
+var url = Uri.https(
+  'dummy.firebasedatabase.app',
+  '/products.json',
+  {
+    'auth': authToken,
+    'orderBy': "\"creatorId\"",
+    'equalTo': "\"$userId\"",
+  }
+);
+
+await http.get(url);
+```
+
