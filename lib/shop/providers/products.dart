@@ -56,7 +56,7 @@ class Products with ChangeNotifier {
   Future<void> addProduct(Product product) async {
     final url = Uri.https(
         'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/products.json');
+        '/products.json', {'auth':authToken});
     try {
       final response = await http.post(
         url,
@@ -87,7 +87,7 @@ class Products with ChangeNotifier {
     if (prodIndex >= 0) {
       final url = Uri.https(
           'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
-          '/products/$id.json');
+          '/products/$id.json', {'auth':authToken});
 
       await http.patch(url,
           body: json.encode({
@@ -104,7 +104,7 @@ class Products with ChangeNotifier {
   Future<void> deleteProduct(String id) async {
     final url = Uri.https(
         'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/products/$id.json');
+        '/products/$id.json', {'auth':authToken});
 
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
     var existingProduct = _items[existingProductIndex];

@@ -20,14 +20,14 @@ class Product with ChangeNotifier {
     this.isFavorite = false,
   });
 
-  Future<void> toggleFavoriteStatus() async {
+  Future<void> toggleFavoriteStatus(String authToken) async {
     final odlStatus = isFavorite;
     isFavorite = !isFavorite;
     notifyListeners();
 
     final url = Uri.https(
         'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
-        '/products/$id.json');
+        '/products/$id.json', {'auth':authToken});
 
     try {
       await http.patch(
