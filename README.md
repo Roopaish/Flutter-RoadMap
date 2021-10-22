@@ -109,6 +109,16 @@
 
 [Authentication(Shop App)](#authenticationshop-app)
 
+- [How Authentication works](#how-authentication-works)
+- [Preparing backend](#preparing-backend)
+- [Handling Authentication error](#handling-authentication-error)
+- [Storing token locally(in app)](#storing-token-locallyin-app)
+- [Attaching token to outgoing requests](#attaching-token-to-outgoing-requests)
+- [Setting favorite status per user](#setting-favorite-status-per-user)
+- [Filtering Products by creator](#filtering-products-by-creator)
+- [Logout](#logout)
+- [Auto-login users](#auto-login-users)
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -2816,6 +2826,8 @@ So even if app restarts, we would still be able to log in.
 
 Now for every http request, we should provide token.
 
+**[⬆ Back to Index](#9)**
+
 - ### Preparing backend
 
 ```json
@@ -2830,6 +2842,8 @@ Now for every http request, we should provide token.
 ```
 
 Now in Authentication, choose a sign-in method. For eg: Email/Password and enable Email then save it.
+
+**[⬆ Back to Index](#9)**
 
 - ### User SignUp/SignIn
 
@@ -2898,6 +2912,9 @@ Future<void> login(String email, String password) async {
 final API_KEY = String.fromEnvironment('API_KEY', defaultValue: '');
 ```
 
+**[⬆ Back to Index](#9)**
+
+
 - ### Handling Authentication error
 
 ```dart
@@ -2952,6 +2969,9 @@ try {
 }
 ```
 
+**[⬆ Back to Index](#9)**
+
+
 - ### Storing token locally(in app)
 
 ```dart
@@ -2989,6 +3009,9 @@ Consumer<Auth>(
 );
 ```
 
+**[⬆ Back to Index](#9)**
+
+
 - ### Attaching token to outgoing requests
 
 ```dart
@@ -3011,6 +3034,9 @@ MultiProvider(
   ]
 )
 ```
+
+**[⬆ Back to Index](#9)**
+
 
 - ### Setting favorite status per user
 
@@ -3056,6 +3082,9 @@ extractedData.forEach((prodId, prodData) {
 });
 ```
 
+**[⬆ Back to Index](#9)**
+
+
 - ### Filtering Products by creator
 
 ```json
@@ -3092,6 +3121,9 @@ var url = Uri.https(
 
 await http.get(url);
 ```
+
+**[⬆ Back to Index](#9)**
+
 
 - ### Logout
 
@@ -3136,5 +3168,96 @@ void _autoLogout() {
 }
 ```
 
-- ### Users auto-login
+**[⬆ Back to Index](#9)**
 
+
+- ### Auto-login users
+
+[Shared Preference](#https://pub.dev/packages/shared_preferences/install)
+
+```dart
+// Saving data when authenticating
+import 'package:shared_preferences/shared_preferences.dart';
+
+final prefs = await SharedPreferences.getInstance();
+final userData = json.encode({
+  'token': _token,
+  'userId': _userId,
+  'expiryDate': _expiryDate.toIso8601String(),
+});
+prefs.setString('userData', userData);
+```
+
+```dart
+// Try to login when app launches
+Future<bool> tryAutoLogin() async {
+  final prefs = await SharedPreferences.getInstance();
+  print(prefs.getString('userData'));
+  if (!prefs.containsKey('userData')) {
+    return false;
+  }
+
+  final extractedUserData = json.decode(prefs.getString('userData') as String)
+      as Map<String, dynamic>;
+
+  final expiryDate =
+      DateTime.parse(extractedUserData['expiryDate'].toString());
+
+  if (expiryDate.isBefore(DateTime.now())) {
+    return false;
+  }
+
+  _token = extractedUserData['token'] as String;
+  _userId = extractedUserData['userId'] as String;
+  _expiryDate = expiryDate;
+
+  print(_token);
+  print(_userId);
+  print(_expiryDate);
+
+  notifyListeners();
+  _autoLogout();
+
+  return true;
+}
+
+// Clearing preferences when logged out
+Future<void> logout() async {
+  _token = '';
+  _userId = '';
+  _expiryDate = DateTime(0);
+  if (_authTimer != Timer(Duration(seconds: 0), () {})) {
+    _authTimer.cancel();
+    _authTimer = Timer(Duration(seconds: 0), () {});
+  }
+  notifyListeners();
+  final prefs = await SharedPreferences.getInstance();
+  // prefs.remove('userData');
+  prefs.clear();
+}
+```
+
+```dart
+// Showing different screen based on the shared preferences data and authentication
+
+class ShopApp extends StatelessWidget {
+  const ShopApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<Auth>(
+      builder: (ctx, auth, _) => auth.isAuth
+          ? ProductsOverviewScreen()
+          : FutureBuilder(
+              future: auth.tryAutoLogin(),
+              builder: (ctx, authResultSnapshot) =>
+                  authResultSnapshot.connectionState == ConnectionState.waiting
+                      ? SplashScreen()
+                      : AuthScreen(),
+            ),
+    );
+  }
+}
+```
+
+**[⬆ Back to Index](#9)**
