@@ -26,6 +26,7 @@ import 'shop/screens/orders_screen.dart';
 import 'shop/screens/user_products_screen.dart';
 import 'shop/screens/edit_product_screen.dart';
 import 'shop/screens/auth_screen.dart';
+import 'shop/helpers/custom-route.dart';
 
 void main() {
   runApp(MyApp());
@@ -107,9 +108,10 @@ class _MyAppState extends State<MyApp> {
           create: (ctx) => Cart(),
         ),
         ChangeNotifierProxyProvider<Auth, Orders>(
-          create: (_) => Orders('','', []),
+          create: (_) => Orders('', '', []),
           update: (_, auth, previousOrder) => Orders(
-            auth.token, auth.userId,
+            auth.token,
+            auth.userId,
             previousOrder == null ? [] : previousOrder.orders,
           ),
         ),
@@ -167,6 +169,13 @@ class _MyAppState extends State<MyApp> {
                   color: Color.fromRGBO(20, 51, 51, 1),
                 ),
               ),
+          pageTransitionsTheme: PageTransitionsTheme(builders: {
+            TargetPlatform.android: CustomPageTransitionBuilder(),
+            TargetPlatform.iOS: CustomPageTransitionBuilder(),
+            TargetPlatform.windows: CustomPageTransitionBuilder(),
+            TargetPlatform.linux: CustomPageTransitionBuilder(),
+            TargetPlatform.macOS: CustomPageTransitionBuilder(),
+          }),
         ),
       ),
     );

@@ -123,6 +123,13 @@
 
 [Animations(Shop App)](#animationsshop-app)
 
+- [Manually controlled animation](#manually-controlled-animation)
+- [AnimatedBuilder](#animatedbuilder)
+- [AnimatedContainer](#animatedcontainer)
+- [More built-in animation widget](#more-built-in-animation-widget)
+- [Slivers](#slivers)
+- [Custom Route Transition](#custom-route-transition)
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -3337,6 +3344,7 @@ class _AuthCardState extends State<AuthCard>
 
 // Flaw: build re-runs for every frames, everything inside container changes for every frame
 ```
+**[⬆ Back to Index](#10)**
 
 - ### AnimatedBuilder
 
@@ -3358,6 +3366,7 @@ Widget build(BuildContext context) {
   )
 }
 ```
+**[⬆ Back to Index](#10)**
 
 - ### AnimatedContainer
 
@@ -3373,6 +3382,7 @@ AnimatedContainer(
   child: ...
 )
 ```
+**[⬆ Back to Index](#10)**
 
 - ### More built-in animation widget
 
@@ -3449,6 +3459,7 @@ Hero(
 
 // product.id should be equal to loadedProduct.id
 ```
+**[⬆ Back to Index](#10)**
 
 - ### Slivers
 
@@ -3505,3 +3516,71 @@ Scaffold(
   ),
 )
 ```
+**[⬆ Back to Index](#10)**
+
+- ### Custom Route Transition
+
+```dart
+// Create CustomRoute class
+import 'package:flutter/material.dart';
+
+class CustomRoute<T> extends MaterialPageRoute<T> {
+  CustomRoute({
+    required WidgetBuilder builder,
+  }) : super(
+          builder: builder,
+        );
+
+  @override
+  Widget buildTransitions(
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return FadeTransition(
+      opacity: animation,
+      child: child,
+    ); // override return with any transition
+  }
+}
+```
+
+```dart
+// Apply on single routing
+Navigator.of(context).pushReplacement(
+  CustomRoute(
+    builder: (ctx) => OrdersScreen(),
+  ),
+);
+```
+
+```dart
+// Apply on all routing
+class CustomPageTransitionBuilder extends PageTransitionsBuilder {
+  @override
+  Widget buildTransitions<T>(
+    PageRoute<T> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return FadeTransition(
+      opacity: animation,
+      child: child,
+    );
+  }
+}
+
+// Now add this as a property of themedata
+pageTransitionsTheme: PageTransitionsTheme(builders: {
+  // All works for web and checks the underlying OS
+  TargetPlatform.android: CustomPageTransitionBuilder(),
+  TargetPlatform.iOS: CustomPageTransitionBuilder(),
+  TargetPlatform.windows: CustomPageTransitionBuilder(), 
+  TargetPlatform.linux: CustomPageTransitionBuilder(),
+  TargetPlatform.macOS: CustomPageTransitionBuilder(),
+}),
+```
+**[⬆ Back to Index](#10)**
