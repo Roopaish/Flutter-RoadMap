@@ -3366,3 +3366,65 @@ Widget build(BuildContext context) {
   )
 }
 ```
+
+- ### AnimatedContainer
+
+```dart
+// Built-in widget that controls and animates every change inside the container
+AnimatedContainer(
+  duration: Duration(milliseconds: 300),
+  curve: Curves.easeIn,
+  height: _authMode == AuthMode.Signup ? 320 : 260,
+  constraints:
+      BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
+
+  child: ...
+)
+```
+
+- ### FadeTransition & SlideTransition
+
+>Note: Don't use too much animation, it can hamper the performance
+```dart
+late Animation<Offset> _slideAnimation;
+late Animation<double> _opacityAnimation;
+
+@override
+void initState() {
+  _slideAnimation = Tween<Offset>(
+    begin: Offset(0, -1),
+    end: Offset(0, 0),
+  ).animate(
+    CurvedAnimation(
+      parent: _controller,
+      curve: Curves.linear,
+    ),
+  );
+
+  _opacityAnimation = Tween(
+    begin: 0.0,
+    end: 1.0,
+  ).animate(
+    CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeIn,
+    ),
+  );
+}
+
+AnimatedContainer(
+  // Just to get rid of empty space left by opacity of 0 from FadeTransition
+  duration: Duration(milliseconds: 300),
+  constraints: BoxConstraints(
+      minHeight: _authMode == AuthMode.Signup ? 60 : 0,
+      maxHeight: _authMode == AuthMode.Signup ? 120 : 0),
+  curve: Curves.easeIn,
+  child: FadeTransition(
+    opacity: _opacityAnimation,
+    child: SlideTransition(
+      position: _slideAnimation,
+      child: TextFormField()
+    )
+  )
+)
+```
