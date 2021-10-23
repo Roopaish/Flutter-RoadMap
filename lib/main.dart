@@ -196,7 +196,7 @@ class _AppListState extends State<AppList> {
       'https://i.postimg.cc/fbSHj92Q/quiz-app.png',
       'https://i.postimg.cc/13jCqHKK/expense-app.png',
       'https://i.postimg.cc/C5V7HMdh/meals-app.png',
-      'https://i.postimg.cc/RFJqDdqH/shop-app.png',
+      'https://i.postimg.cc/vH8R3B4r/shop-app.png',
     ],
     'title': ['Quiz App', 'Expense App', 'Meals App', 'Shop App'],
     'routes': ['/quiz-app', '/expense-app', '/meals-app', '/shop-app']
