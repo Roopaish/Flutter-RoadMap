@@ -119,6 +119,11 @@
 - [Logout](#logout)
 - [Auto-login users](#auto-login-users)
 
+
+## 10
+
+[Animations(Shop App)](#animationsshop-app)
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -3261,3 +3266,83 @@ class ShopApp extends StatelessWidget {
 ```
 
 **[⬆ Back to Index](#9)**
+
+## Animations(Shop App)
+
+Animations in flutter happens at 60fps changing the UI, so StatefulWidget is required.
+
+- ### Manually controlled animation
+
+```dart
+// State Class connected to StatefulWidget
+
+// SingleTickerProviderStateMixin is used for vsync:this to work
+// Also it lets our widgets know when a 'frame update is due', which is needed by animations to play smoothly
+class _AuthCardState extends State<AuthCard>
+    with SingleTickerProviderStateMixin{
+
+  late AnimationController _controller; // Controlling animation
+  late Animation<Size> _heightAnimation; // What to animate
+
+  // initializing above variables
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this, 
+      // this is pointer to _AuthCardState, it watches it and only play animation when _AuthCard is visible
+      // vsync is the [TickerProvider] for the current context. It can be changed by calling [resync]. 
+      duration: Duration(milliseconds: 300), // how long animation lasts
+    );
+
+    _heightAnimation = Tween<Size>(
+      // Tween between Sizes
+      // What to animate
+      begin: Size(double.infinity, 260), // Size(width,height)
+      end: Size(double.infinity, 320),
+    ).animate(
+      // How to animate
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.linear, // how duration is split or managed
+      ),
+    );
+
+    _heightAnimation.addListener(() => setState(() {})); // Listener to call setState whenever _heightAnimation updates
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose(); // disposing controller when widget exits
+    super.dispose();
+  }
+
+  void _switchAuthMode() {
+    if (_authMode == AuthMode.Login) {
+      setState(() {
+        _authMode = AuthMode.Signup;
+      });
+      _controller.forward(); // animation starts
+    } else {
+      setState(() {
+        _authMode = AuthMode.Login;
+      });
+      _controller.reverse(); // animation reverses
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: _heightAnimation.value.height,
+      constraints: BoxConstraints(minHeight: _heightAnimation.value.height),
+      ...
+      // Some button to call _switchAuthMode
+    );
+  }
+}
+
+// Flaw: build re-runs for every frames
+```
+
