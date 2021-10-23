@@ -139,7 +139,9 @@ class _EditProductScreenState extends State<EditProductScreen> {
           ? Center(
               child: CircularProgressIndicator(),
             )
-          : Padding(
+          : Container(
+            constraints: BoxConstraints(maxWidth: 1000),
+            child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
                 // autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -151,7 +153,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       decoration: InputDecoration(labelText: 'Title'),
                       textInputAction: TextInputAction.next,
                       onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_priceFocusNode);
+                        FocusScope.of(context)
+                            .requestFocus(_priceFocusNode);
                       },
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -252,7 +255,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            decoration: InputDecoration(labelText: 'Image URL'),
+                            decoration:
+                                InputDecoration(labelText: 'Image URL'),
                             keyboardType: TextInputType.url,
                             textInputAction: TextInputAction.done,
                             controller: _imageUrlController,
@@ -288,6 +292,7 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 ),
               ),
             ),
+          ),
     );
   }
 }

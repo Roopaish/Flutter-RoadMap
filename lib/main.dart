@@ -142,7 +142,7 @@ class _MyAppState extends State<MyApp> {
           AuthScreen.routeName: (context) => AuthScreen(),
         },
         debugShowCheckedModeBanner: false,
-        home: ShopApp(),
+        home: AppList(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,
@@ -196,9 +196,10 @@ class _AppListState extends State<AppList> {
       'https://i.postimg.cc/fbSHj92Q/quiz-app.png',
       'https://i.postimg.cc/13jCqHKK/expense-app.png',
       'https://i.postimg.cc/C5V7HMdh/meals-app.png',
+      'https://i.postimg.cc/RFJqDdqH/shop-app.png',
     ],
-    'title': ['Quiz App', 'Expense App', 'Meals App'],
-    'routes': ['/quiz-app', '/expense-app', '/meals-app']
+    'title': ['Quiz App', 'Expense App', 'Meals App', 'Shop App'],
+    'routes': ['/quiz-app', '/expense-app', '/meals-app', '/shop-app']
   };
 
   @override

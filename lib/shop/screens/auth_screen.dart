@@ -231,9 +231,11 @@ class _AuthCardState extends State<AuthCard>
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         curve: Curves.easeIn,
-        height: _authMode == AuthMode.Signup ? 320 : 260,
-        constraints:
-            BoxConstraints(minHeight: _authMode == AuthMode.Signup ? 320 : 260),
+        height: _authMode == AuthMode.Signup ? 280 : 220,
+        constraints: BoxConstraints(
+          minHeight: _authMode == AuthMode.Signup ? 280 : 220,
+          maxWidth: 400,
+        ),
         width: deviceSize.width * 0.75,
         padding: EdgeInsets.all(16.0),
         child: Form(
@@ -270,8 +272,9 @@ class _AuthCardState extends State<AuthCard>
                 AnimatedContainer(
                   duration: Duration(milliseconds: 300),
                   constraints: BoxConstraints(
-                      minHeight: _authMode == AuthMode.Signup ? 60 : 0,
-                      maxHeight: _authMode == AuthMode.Signup ? 120 : 0),
+                    minHeight: _authMode == AuthMode.Signup ? 60 : 0,
+                    maxHeight: _authMode == AuthMode.Signup ? 120 : 0,
+                  ),
                   curve: Curves.easeIn,
                   child: FadeTransition(
                     opacity: _opacityAnimation,
