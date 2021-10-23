@@ -119,7 +119,6 @@
 - [Logout](#logout)
 - [Auto-login users](#auto-login-users)
 
-
 ## 10
 
 [Animations(Shop App)](#animationsshop-app)
@@ -2919,7 +2918,6 @@ final API_KEY = String.fromEnvironment('API_KEY', defaultValue: '');
 
 **[⬆ Back to Index](#9)**
 
-
 - ### Handling Authentication error
 
 ```dart
@@ -2976,7 +2974,6 @@ try {
 
 **[⬆ Back to Index](#9)**
 
-
 - ### Storing token locally(in app)
 
 ```dart
@@ -3016,7 +3013,6 @@ Consumer<Auth>(
 
 **[⬆ Back to Index](#9)**
 
-
 - ### Attaching token to outgoing requests
 
 ```dart
@@ -3041,7 +3037,6 @@ MultiProvider(
 ```
 
 **[⬆ Back to Index](#9)**
-
 
 - ### Setting favorite status per user
 
@@ -3089,7 +3084,6 @@ extractedData.forEach((prodId, prodData) {
 
 **[⬆ Back to Index](#9)**
 
-
 - ### Filtering Products by creator
 
 ```json
@@ -3128,7 +3122,6 @@ await http.get(url);
 ```
 
 **[⬆ Back to Index](#9)**
-
 
 - ### Logout
 
@@ -3174,7 +3167,6 @@ void _autoLogout() {
 ```
 
 **[⬆ Back to Index](#9)**
-
 
 - ### Auto-login users
 
@@ -3288,9 +3280,9 @@ class _AuthCardState extends State<AuthCard>
   @override
   void initState() {
     _controller = AnimationController(
-      vsync: this, 
+      vsync: this,
       // this is pointer to _AuthCardState, it watches it and only play animation when _AuthCard is visible
-      // vsync is the [TickerProvider] for the current context. It can be changed by calling [resync]. 
+      // vsync is the [TickerProvider] for the current context. It can be changed by calling [resync].
       duration: Duration(milliseconds: 300), // how long animation lasts
     );
 
@@ -3349,7 +3341,7 @@ class _AuthCardState extends State<AuthCard>
 - ### AnimatedBuilder
 
 ```dart
-// Includes above code without listener: _heightAnimation.addListener(() => setState(() {})); 
+// Includes above code without listener: _heightAnimation.addListener(() => setState(() {}));
 // Only height of container will change on every frame
 @override
 Widget build(BuildContext context) {
@@ -3382,9 +3374,10 @@ AnimatedContainer(
 )
 ```
 
-- ### FadeTransition & SlideTransition
+- ### More built-in animation widget
 
->Note: Don't use too much animation, it can hamper the performance
+> Note: Don't use too much animation, it can hamper the performance
+
 ```dart
 late Animation<Offset> _slideAnimation;
 late Animation<double> _opacityAnimation;
@@ -3426,5 +3419,14 @@ AnimatedContainer(
       child: TextFormField()
     )
   )
+)
+```
+
+```dart
+// fades in from placeholder to image when image is fetched
+FadeInImage(
+  placeholder: AssetImage('assets/images/product-placeholder.png'),
+  image: NetworkImage(product.imageUrl),
+  fit: BoxFit.cover,
 )
 ```
