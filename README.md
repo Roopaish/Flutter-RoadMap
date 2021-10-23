@@ -3343,6 +3343,26 @@ class _AuthCardState extends State<AuthCard>
   }
 }
 
-// Flaw: build re-runs for every frames
+// Flaw: build re-runs for every frames, everything inside container changes for every frame
 ```
 
+- ### AnimatedBuilder
+
+```dart
+// Includes above code without listener: _heightAnimation.addListener(() => setState(() {})); 
+// Only height of container will change on every frame
+@override
+Widget build(BuildContext context) {
+  return AnimatedBuilder(
+      animation: _heightAnimation,
+      builder: (ctx, child) => Container(
+        height: _heightAnimation.value.height,
+        constraints: BoxConstraints(minHeight: _heightAnimation.value.height),
+        width: deviceSize.width * 0.75,
+        padding: EdgeInsets.all(16.0),
+        child: child, // Widget that should not change
+      ),
+      child: Text('Widget that should not change on animation'),
+  )
+}
+```
