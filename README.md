@@ -3,10 +3,10 @@
 ## Contents
 
 - [Flutter Notes](#notes)
-- [Quiz App](https://roopaish.github.io/Ultimate-Flutter-App/#/quiz-app)
-- [Personal Expense App](https://roopaish.github.io/Ultimate-Flutter-App/#/expense-app)
-- [Meals App](https://roopaish.github.io/Ultimate-Flutter-App/#/meals-app)
-- Shop App
+- [Quiz App](https://flutter-roadmap.netlify.app/#/quiz-app)
+- [Personal Expense App](https://flutter-roadmap.netlify.app/#/expense-app)
+- [Meals App](https://flutter-roadmap.netlify.app/#/meals-app)
+- [Shop App](https://flutter-roadmap.netlify.app/#/shop-app)
 - Great Places App
 - Chat App
 
