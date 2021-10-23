@@ -3496,7 +3496,7 @@ Scaffold(
               ),
             ),
             SizedBox(
-              height: 1200,
+              height: 800,
             )
           ],
         ),
