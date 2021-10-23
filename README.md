@@ -3430,3 +3430,19 @@ FadeInImage(
   fit: BoxFit.cover,
 )
 ```
+
+```dart
+// From where to animate
+Hero(
+  tag: product.id, // should be unique
+  child: Image.network()
+)
+
+// To where to animate
+Hero(
+  tag: loadedProduct.id,
+  child: Image.network()
+)
+
+// product.id should be equal to loadedProduct.id
+```
