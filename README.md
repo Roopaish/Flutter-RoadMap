@@ -3432,6 +3432,9 @@ FadeInImage(
 ```
 
 ```dart
+// Behavior: List of items with images(products), one item when click takes you to another screen with that image(product detail)
+// Now with Hero, the item image will expand and shift to another screen with big image(product detail)
+
 // From where to animate
 Hero(
   tag: product.id, // should be unique
@@ -3446,3 +3449,4 @@ Hero(
 
 // product.id should be equal to loadedProduct.id
 ```
+
