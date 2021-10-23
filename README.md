@@ -3450,3 +3450,58 @@ Hero(
 // product.id should be equal to loadedProduct.id
 ```
 
+- ### Slivers
+
+```dart
+// When scrolled, the image at top will gradually become smaller, until it transforms into an appBar with given title
+
+// Defined as body of Scaffold
+Scaffold(
+  body: CustomScrollView(
+    slivers: [
+      SliverAppBar(
+        expandedHeight: 300, // height of appBar when not scrolled, maxHeight
+        pinned: true, // appBar will be always visible, stick to top
+        flexibleSpace: FlexibleSpaceBar(
+          title: Text(loadedProduct.title),
+          background: Hero(
+            tag: loadedProduct.id,
+            child: Image.network(
+              loadedProduct.imageUrl,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ), // what should be inside appbar and how it should change
+      ),
+      SliverList(
+        delegate: SliverChildListDelegate(
+          [
+            SizedBox(height: 10),
+            Text(
+              '\$${loadedProduct.price}',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              width: double.infinity,
+              child: Text(
+                loadedProduct.description,
+                textAlign: TextAlign.center,
+                softWrap: true,
+              ),
+            ),
+            SizedBox(
+              height: 1200,
+            )
+          ],
+        ),
+      ),
+    ],
+  ),
+)
+```
