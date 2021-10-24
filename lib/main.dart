@@ -1,11 +1,10 @@
-// import needed packages from Flutter
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'quiz/quiz.dart';
+
 import 'expense/expense.dart';
 
 import 'meals/meals.dart';
@@ -28,6 +27,10 @@ import 'shop/screens/edit_product_screen.dart';
 import 'shop/screens/auth_screen.dart';
 import 'shop/helpers/custom-route.dart';
 
+import 'great_places/great_places.dart';
+import 'great_places/providers/great_places.dart';
+import 'great_places/screens/add_place_screen.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -38,7 +41,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // For Meals App
+  // Meals App
   Map<String, bool> _filters = {
     'gluten': false,
     'lactose': false,
@@ -91,9 +94,9 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // Providers (for Shop App only)
     return MultiProvider(
       providers: [
+        // Shop App
         ChangeNotifierProvider(
           create: (ctx) => Auth(),
         ),
@@ -115,6 +118,10 @@ class _MyAppState extends State<MyApp> {
             previousOrder == null ? [] : previousOrder.orders,
           ),
         ),
+        // Great Places App
+        ChangeNotifierProvider(
+          create: (ctx) => GreatPlaces(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter RoadMap',
@@ -140,9 +147,12 @@ class _MyAppState extends State<MyApp> {
           UserProductsScreen.routeName: (context) => UserProductsScreen(),
           EditProductScreen.routeName: (context) => EditProductScreen(),
           AuthScreen.routeName: (context) => AuthScreen(),
+          // Greate Places App
+          'greate-places-app': (context) => GreatPlacesApp(),
+          AddPlaceScreen.routeName: (context) => AddPlaceScreen(),
         },
         debugShowCheckedModeBanner: false,
-        home: AppList(),
+        home: GreatPlacesApp(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,

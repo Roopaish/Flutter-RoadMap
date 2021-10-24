@@ -130,6 +130,10 @@
 - [Slivers](#slivers)
 - [Custom Route Transition](#custom-route-transition)
 
+## 11
+
+[Using Native Device Features like Camera, Maps, Location(Great Places App)](#using-native-device-features-like-camera-maps-locationgreat-places-app)
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -536,7 +540,7 @@ TextButton(
   // Alternative style property
   style: TextButton.styleFrom(
     primary: Colors.orange, // text (primary thing is text in TextButton)
-    tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap target size to the minimum provided by the Material specification.
+    tapTargetSize: MaterialTapTargetSize.shrinkWrap, // Shrinks the tap target size to the minimum provided by the Material specification.(removes extra margin)
   ),
 ),
 
@@ -1769,9 +1773,7 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title'] as String),
       ),
-      drawer: Drawer(
-
-      ),
+      drawer: Drawer(),
       body: _pages[_selectedPageIndex]['page'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
@@ -3344,6 +3346,7 @@ class _AuthCardState extends State<AuthCard>
 
 // Flaw: build re-runs for every frames, everything inside container changes for every frame
 ```
+
 **[⬆ Back to Index](#10)**
 
 - ### AnimatedBuilder
@@ -3366,6 +3369,7 @@ Widget build(BuildContext context) {
   )
 }
 ```
+
 **[⬆ Back to Index](#10)**
 
 - ### AnimatedContainer
@@ -3382,6 +3386,7 @@ AnimatedContainer(
   child: ...
 )
 ```
+
 **[⬆ Back to Index](#10)**
 
 - ### More built-in animation widget
@@ -3459,6 +3464,7 @@ Hero(
 
 // product.id should be equal to loadedProduct.id
 ```
+
 **[⬆ Back to Index](#10)**
 
 - ### Slivers
@@ -3516,6 +3522,7 @@ Scaffold(
   ),
 )
 ```
+
 **[⬆ Back to Index](#10)**
 
 - ### Custom Route Transition
@@ -3578,9 +3585,45 @@ pageTransitionsTheme: PageTransitionsTheme(builders: {
   // All works for web and checks the underlying OS
   TargetPlatform.android: CustomPageTransitionBuilder(),
   TargetPlatform.iOS: CustomPageTransitionBuilder(),
-  TargetPlatform.windows: CustomPageTransitionBuilder(), 
+  TargetPlatform.windows: CustomPageTransitionBuilder(),
   TargetPlatform.linux: CustomPageTransitionBuilder(),
   TargetPlatform.macOS: CustomPageTransitionBuilder(),
 }),
 ```
+
 **[⬆ Back to Index](#10)**
+
+## Using Native Device Features like Camera, Maps, Location(Great Places App)
+
+- ### Place Class
+
+```dart
+import 'dart:io'; // To access File
+
+class PlaceLocation {
+  final double latitude;
+  final double longitude;
+  final String address;
+
+  PlaceLocation({
+    required this.latitude,
+    required this.longitude,
+    this.address = '',
+  });
+}
+
+class Place {
+  final String id;
+  final String title;
+  final PlaceLocation location;
+  final File image;
+
+  Place({
+    required this.id,
+    required this.title,
+    required this.location,
+    required this.image,
+  });
+}
+```
+
