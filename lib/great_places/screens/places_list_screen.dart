@@ -19,8 +19,18 @@ class PlacesListScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: CircularProgressIndicator(),
+      body: Column(
+        children: [
+          Text(
+            'Please note that this app is made to access native device features. Since Web doesn\'t have any standard filesystem, the app might not work as expected on web.',
+            textAlign: TextAlign.center,
+          ),
+          Expanded(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          )
+        ],
       ),
     );
   }

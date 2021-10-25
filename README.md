@@ -3615,7 +3615,7 @@ class PlaceLocation {
 class Place {
   final String id;
   final String title;
-  final PlaceLocation location;
+  final PlaceLocation? location;
   final File image;
 
   Place({
@@ -3627,3 +3627,73 @@ class Place {
 }
 ```
 
+- ### ImagePicker
+
+We use [ImagePicker](https://pub.dev/packages/image_picker) package for this.
+
+There are some extra configuration to be made when using it with ios.  
+Add following keys to Info.plist located at:
+`<project root>/ios/Runner/Info.plist`  
+`NSMicrophoneUsageDescription` is not required as we are not taking videos.
+
+```plist
+<dict>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need to access gallery!</string>
+
+	<key>NSCameraUsageDescription</key>
+	<string>We need to take a picture!</string>
+
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need to record audio!</string>
+</dict>
+```
+
+```dart
+import 'dart:io';
+
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/foundation.dart';
+
+// Taking picture
+Widget? image;
+
+Future<void> _takePicture() async {
+  // pickImage should be called with instance of ImagePicker
+  final imageFile = await ImagePicker().pickImage(
+    source: ImageSource.camera,
+    maxWidth: 600,
+  );
+
+  setState(() {
+    if (kIsWeb) {
+      image = Image.network(
+        imageFile!.path,
+        fit: BoxFit.cover,
+        width: double.infinity,
+      );
+    } else {
+      image = Image.file(
+        File(imageFile!.path),
+        fit: BoxFit.cover,
+        width: double.infinity,
+      );
+    }
+  });
+}
+```
+
+- ### Storing Image on the Filesystem
+
+Two packages required:  
+[Path Provider](https://pub.dev/packages/path_provider) helps with finding path.   
+[Path](https://pub.dev/packages/path) helps with constructing path.  
+  
+```dart
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as syspath;
+
+final appDir = await syspath.getApplicationDocumentsDirectory(); // app directory
+final fileName = path.basename(imageFile!.path); // .basename returns image-filename with extension from file path 
+final savedImage = await (imageFile as File).copy('$appDir/$fileName'); // copy imageFile to app directory 
+```
