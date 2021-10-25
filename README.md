@@ -2050,7 +2050,7 @@ Widget build(BuildContext context) {
 // With Consumer
 Widget build(BuildContext context) {
   return Consumer<Product>(
-    builder: (ctx, product, child) => Text(product.title)]
+    builder: (ctx, product, child) => Text(product.title),
   );
 }
 ```
@@ -3693,7 +3693,15 @@ Two packages required:
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspath;
 
-final appDir = await syspath.getApplicationDocumentsDirectory(); // app directory
-final fileName = path.basename(imageFile!.path); // .basename returns image-filename with extension from file path 
-final savedImage = await (imageFile as File).copy('$appDir/$fileName'); // copy imageFile to app directory 
+final appDir = await syspath.getApplicationDocumentsDirectory(); // default app directory
+
+final fileName = path.basename(imageFile!.path); 
+// .basename returns image-filename with extension from file path 
+
+final savedImage =
+    await File(imageFile.path).copy('${appDir.path}/$fileName'); 
+// copy imageFile to app directory 
+
+// previous location: /data/user/0/com.example.ultimate_flutter_app/cache/image-01.jpg
+// current location: /data/user/0/com.example.ultimate_flutter_app/app_flutter/image-01.jpg
 ```
