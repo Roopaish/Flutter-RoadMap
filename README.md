@@ -3711,42 +3711,64 @@ final savedImage =
 We use [SQLite plugin for Flutter.](https://pub.dev/packages/sqflite) to work with sql database for android and ios.  
   
 ```dart
-import 'package:sqflite/sqflite.dart' as sql;
+import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
 
 class DBHelper {
 
-  static Future<void> insert(String table, Map<String, Object> data) async {
-
+  // Creating database
+  static Future<Database> database() async {
     // finds path for both ios and android
-    final dbPath =
-        await sql.getDatabasesPath(); 
+    final dbPath = await getDatabasesPath();
 
-    // Opening or Creating database if not exist
+    // Opening or Creating database places.db if not exist
     // onCreate runs only when creating database i.e. only one time at first
-    final sqlDb = await sql.openDatabase(path.join(dbPath, 'places.db'),
+    return openDatabase(path.join(dbPath, 'places.db'),
         onCreate: (db, version) {
-      
-      // running query to create table
+      // Creating table user_places
       return db.execute(
           'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT)');
-
     }, version: 1); // We can have multiple versions of same database
+  }
 
-    // finally inserting data
-    await sqlDb.insert(
+  // Function to insert data
+  static Future<void> insert(String table, Map<String, Object> data) async {
+    final db = await DBHelper.database();
+    db.insert(
       table,
       data,
-      conflictAlgorithm: sql.ConflictAlgorithm.replace, // overwrite existing entries if changes are coming for same id
+      conflictAlgorithm: ConflictAlgorithm.replace, // overwrite existing entries if changes are coming for same id
     );
+  }
+
+  // Function to retrieve data
+  static Future<List<Map<String, dynamic>>> getData(String table) async {
+    final db = await DBHelper.database();
+    return db.query(table);
   }
 }
 
-// Calling the function
-DBHelper.insert('places', {
+// We used DBHelper. to access the static fxn even if we are inside the class cause its static
+```
+
+```dart
+// Inserting data to user_places table
+DBHelper.insert('user_places', {
   'id': newPlace.id,
   'title': newPlace.title,
   'image': newPlace.image.path
 });
-```
 
+// Retrieving data from user_places table
+Future<void> fetchAndSetPlaces() async {
+    final dataList = await DBHelper.getData('user_places');
+    _items = dataList
+        .map((item) => Place(
+              id: item['id'],
+              title: item['title'],
+              image: File(item['image']),
+              location: null,
+            ))
+        .toList();
+  }
+```

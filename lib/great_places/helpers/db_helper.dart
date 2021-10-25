@@ -1,23 +1,28 @@
-import 'package:sqflite/sqflite.dart' as sql;
+import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
 
 class DBHelper {
-  static Future<void> insert(String table, Map<String, Object> data) async {
-    final dbPath =
-        await sql.getDatabasesPath(); // finds path for both ios and android
-    final sqlDb = await sql.openDatabase(path.join(dbPath, 'places.db'),
+  static Future<Database> database() async {
+    final dbPath = await getDatabasesPath();
+    return openDatabase(path.join(dbPath, 'places.db'),
         onCreate: (db, version) {
       return db.execute(
-          'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT)'); // run query
+          'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT)');
     }, version: 1);
-    // opens or create
-    // onCreate runs frst time
+  }
 
-    await sqlDb.insert(
+  static Future<void> insert(String table, Map<String, Object> data) async {
+    final db = await DBHelper.database();
+    db.insert(
       table,
       data,
-      conflictAlgorithm: sql
-          .ConflictAlgorithm.replace, // overwrite existing entries for same id
+      conflictAlgorithm:
+          ConflictAlgorithm.replace, // overwrite existing entries for same id
     );
+  }
+
+  static Future<List<Map<String, dynamic>>> getData(String table) async {
+    final db = await DBHelper.database();
+    return db.query(table);
   }
 }

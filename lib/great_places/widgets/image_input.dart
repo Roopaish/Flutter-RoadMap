@@ -31,13 +31,13 @@ class _ImageInputState extends State<ImageInput> {
     setState(() {
       if (kIsWeb) {
         image = Image.network(
-          imageFile!.path,
+          imageFile.path,
           fit: BoxFit.cover,
           width: double.infinity,
         );
       } else {
         image = Image.file(
-          File(imageFile!.path),
+          File(imageFile.path),
           fit: BoxFit.cover,
           width: double.infinity,
         );
@@ -45,7 +45,7 @@ class _ImageInputState extends State<ImageInput> {
     });
 
     final appDir = await syspath.getApplicationDocumentsDirectory();
-    final fileName = path.basename(imageFile!.path);
+    final fileName = path.basename(imageFile.path);
     final savedImage =
         await File(imageFile.path).copy('${appDir.path}/$fileName');
     print(savedImage);
