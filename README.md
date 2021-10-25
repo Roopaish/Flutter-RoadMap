@@ -3683,7 +3683,7 @@ Future<void> _takePicture() async {
 }
 ```
 
-- ### Storing Image on the Filesystem
+- ### Storing Image on the Filesystem(Memory)
 
 Two packages required:  
 [Path Provider](https://pub.dev/packages/path_provider) helps with finding path.   
@@ -3705,3 +3705,48 @@ final savedImage =
 // previous location: /data/user/0/com.example.ultimate_flutter_app/cache/image-01.jpg
 // current location: /data/user/0/com.example.ultimate_flutter_app/app_flutter/image-01.jpg
 ```
+
+- ### Storing Image in Filesystem using SQLlite(Permanent)
+
+We use [SQLite plugin for Flutter.](https://pub.dev/packages/sqflite) to work with sql database for android and ios.  
+  
+```dart
+import 'package:sqflite/sqflite.dart' as sql;
+import 'package:path/path.dart' as path;
+
+class DBHelper {
+
+  static Future<void> insert(String table, Map<String, Object> data) async {
+
+    // finds path for both ios and android
+    final dbPath =
+        await sql.getDatabasesPath(); 
+
+    // Opening or Creating database if not exist
+    // onCreate runs only when creating database i.e. only one time at first
+    final sqlDb = await sql.openDatabase(path.join(dbPath, 'places.db'),
+        onCreate: (db, version) {
+      
+      // running query to create table
+      return db.execute(
+          'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT)');
+
+    }, version: 1); // We can have multiple versions of same database
+
+    // finally inserting data
+    await sqlDb.insert(
+      table,
+      data,
+      conflictAlgorithm: sql.ConflictAlgorithm.replace, // overwrite existing entries if changes are coming for same id
+    );
+  }
+}
+
+// Calling the function
+DBHelper.insert('places', {
+  'id': newPlace.id,
+  'title': newPlace.title,
+  'image': newPlace.image.path
+});
+```
+
