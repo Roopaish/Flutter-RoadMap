@@ -3826,3 +3826,7 @@ final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
 );
 ```
 
+- ### Rendering a Dynamic Map
+
+With Google Maps😑. No credit card -> No Api Key -> Not implementing   
+If you want to implement using Google Maps, you will need [Google Maps Flutter](https://pub.dev/packages/google_maps_flutter) package is needed. There are some configurations to be made, which are explained in README there.  

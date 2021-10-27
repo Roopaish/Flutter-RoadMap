@@ -24,6 +24,54 @@ class _LocationInputState extends State<LocationInput> {
     });
   }
 
+  Future<void> _findWithCoordinate() async {
+    final longitude = TextEditingController();
+    final latitude = TextEditingController();
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        content: Container(
+          width: 300,
+          height: 200,
+          child: Column(
+            children: [
+              TextField(
+                  decoration: InputDecoration(labelText: 'Longitude'),
+                  controller: longitude,
+                  keyboardType: TextInputType.number),
+              TextField(
+                  decoration: InputDecoration(labelText: 'Latitude'),
+                  controller: latitude,
+                  keyboardType: TextInputType.number),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            child: Text('Ok'),
+            onPressed: () {
+              final staticMapImageUrl =
+                  LocationHelper.generateLocationPreviewImage(
+                latitude: double.parse(latitude.text),
+                longitude: double.parse(longitude.text),
+              );
+              setState(() {
+                _previewImageUrl = staticMapImageUrl;
+              });
+              Navigator.of(ctx).pop();
+            },
+          ),
+          TextButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
@@ -58,8 +106,8 @@ class _LocationInputState extends State<LocationInput> {
           ),
           TextButton.icon(
             icon: Icon(Icons.map),
-            label: Text('Select on Map'),
-            onPressed: () {},
+            label: Text('Enter Coordinates'),
+            onPressed: _findWithCoordinate,
             style: TextButton.styleFrom(
               primary: Theme.of(context).primaryColor,
             ),
