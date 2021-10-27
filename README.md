@@ -3631,7 +3631,7 @@ class Place {
 
 We use [ImagePicker](https://pub.dev/packages/image_picker) package for this.
 
-There are some extra configuration to be made when using it with ios.  
+There are some extra configuration (for version 0.8.4+3) to be made when using it with ios.  
 Add following keys to Info.plist located at:
 `<project root>/ios/Runner/Info.plist`  
 `NSMicrophoneUsageDescription` is not required as we are not taking videos.
@@ -3686,21 +3686,21 @@ Future<void> _takePicture() async {
 - ### Storing Image on the Filesystem(Memory)
 
 Two packages required:  
-[Path Provider](https://pub.dev/packages/path_provider) helps with finding path.   
-[Path](https://pub.dev/packages/path) helps with constructing path.  
-  
+[Path Provider](https://pub.dev/packages/path_provider) helps with finding path.  
+[Path](https://pub.dev/packages/path) helps with constructing path.
+
 ```dart
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspath;
 
 final appDir = await syspath.getApplicationDocumentsDirectory(); // default app directory
 
-final fileName = path.basename(imageFile!.path); 
-// .basename returns image-filename with extension from file path 
+final fileName = path.basename(imageFile!.path);
+// .basename returns image-filename with extension from file path
 
 final savedImage =
-    await File(imageFile.path).copy('${appDir.path}/$fileName'); 
-// copy imageFile to app directory 
+    await File(imageFile.path).copy('${appDir.path}/$fileName');
+// copy imageFile to app directory
 
 // previous location: /data/user/0/com.example.ultimate_flutter_app/cache/image-01.jpg
 // current location: /data/user/0/com.example.ultimate_flutter_app/app_flutter/image-01.jpg
@@ -3708,8 +3708,8 @@ final savedImage =
 
 - ### Storing Image in Filesystem using SQLlite(Permanent)
 
-We use [SQLite plugin for Flutter.](https://pub.dev/packages/sqflite) to work with sql database for android and ios.  
-  
+We use [SQLite plugin for Flutter.](https://pub.dev/packages/sqflite) to work with sql database for android and ios.
+
 ```dart
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart' as path;
@@ -3772,3 +3772,57 @@ Future<void> fetchAndSetPlaces() async {
         .toList();
   }
 ```
+
+- ### Location Input
+
+For this, we use [Location](https://pub.dev/packages/location) package.  
+Configurations(for package version 4.2.0):  
+Android: Add the following to AndroidManifest.xml located at: android\app\src\main\AndroidManifest.xml inside of manifest and outside of application
+
+```xml
+<manifest ...>
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+  <application ...>...</application>
+</manifest>
+```
+
+IOS: Add the following to info.plist located at ios\Runner\Info.plist
+
+```plist
+<dict>
+  <key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need to get a location!</string>
+
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>We need to get a location!</string>
+</dict>
+```
+
+NSLocationWhenInUseUsageDescription -> This is probably the only one you need. Background location is supported
+by this -- the caveat is that a blue badge is shown in the status bar
+when the app is using location service while in the background. I'm using this only.  
+  
+NSLocationAlwaysAndWhenInUseUsageDescription -> Use this very carefully. This key is required only if your iOS app
+uses APIs that access the user’s location information at all times,
+even if the app isn't running.  
+  
+Using Api to generate Static Map Image using longitude and latitude. Since Google Cloud Platform requires credit card, I used [MapBox](https://www.mapbox.com/).
+
+```dart
+// get token from MapBox after signing up for free
+// This static function returns a Image URL containing map with given coordinates
+class LocationHelper {
+  static String generateLocationPreviewImage(
+      {required double latitude, required double longitude}) {
+    return 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/$longitude,$latitude,16,0/500x200?access_token=$token';
+  }
+}
+
+// Calling the function
+final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
+  latitude: locData.latitude as double,
+  longitude: locData.longitude as double,
+);
+```
+
