@@ -4,7 +4,8 @@ import 'package:location/location.dart';
 import '../helpers/location_helper.dart';
 
 class LocationInput extends StatefulWidget {
-  const LocationInput({Key? key}) : super(key: key);
+  final Function onSelectPlace;
+  LocationInput(this.onSelectPlace);
 
   @override
   _LocationInputState createState() => _LocationInputState();
@@ -16,17 +17,19 @@ class _LocationInputState extends State<LocationInput> {
   Future<void> _getCurrentLocation() async {
     final locData = await Location().getLocation();
     final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
-      latitude: locData.latitude as double,
-      longitude: locData.longitude as double,
+      lat: locData.latitude as double,
+      lng: locData.longitude as double,
     );
     setState(() {
       _previewImageUrl = staticMapImageUrl;
     });
+    widget.onSelectPlace(locData.latitude, locData.longitude);
   }
 
-  Future<void> _findWithCoordinate() async {
+  Future<void> _getEnteredLocation() async {
     final longitude = TextEditingController();
     final latitude = TextEditingController();
+    final placeName = TextEditingController();
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -36,29 +39,44 @@ class _LocationInputState extends State<LocationInput> {
           child: Column(
             children: [
               TextField(
-                  decoration: InputDecoration(labelText: 'Longitude'),
-                  controller: longitude,
-                  keyboardType: TextInputType.number),
-              TextField(
                   decoration: InputDecoration(labelText: 'Latitude'),
                   controller: latitude,
                   keyboardType: TextInputType.number),
+              TextField(
+                  decoration: InputDecoration(labelText: 'Longitude'),
+                  controller: longitude,
+                  keyboardType: TextInputType.number),
+              Expanded(child: Text('Or')),
+              TextField(
+                decoration: InputDecoration(labelText: 'Place Name'),
+                controller: placeName,
+              ),
             ],
           ),
         ),
         actions: [
           TextButton(
             child: Text('Ok'),
-            onPressed: () {
+            onPressed: () async {
+              if (placeName.text.isNotEmpty) {
+                final coordinates =
+                    await LocationHelper.getPlaceCoordinates(placeName.text);
+                latitude.text = coordinates[0].toString();
+                longitude.text = coordinates[1].toString();
+              }
+
               final staticMapImageUrl =
                   LocationHelper.generateLocationPreviewImage(
-                latitude: double.parse(latitude.text),
-                longitude: double.parse(longitude.text),
+                lat: double.parse(latitude.text),
+                lng: double.parse(longitude.text),
               );
               setState(() {
                 _previewImageUrl = staticMapImageUrl;
               });
+
               Navigator.of(ctx).pop();
+              widget.onSelectPlace(
+                  double.parse(latitude.text), double.parse(longitude.text));
             },
           ),
           TextButton(
@@ -106,8 +124,8 @@ class _LocationInputState extends State<LocationInput> {
           ),
           TextButton.icon(
             icon: Icon(Icons.map),
-            label: Text('Enter Coordinates'),
-            onPressed: _findWithCoordinate,
+            label: Text('Enter Location'),
+            onPressed: _getEnteredLocation,
             style: TextButton.styleFrom(
               primary: Theme.of(context).primaryColor,
             ),

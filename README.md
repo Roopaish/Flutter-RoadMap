@@ -3773,7 +3773,7 @@ Future<void> fetchAndSetPlaces() async {
   }
 ```
 
-- ### Location Input
+- ### Current Location Input
 
 For this, we use [Location](https://pub.dev/packages/location) package.  
 Configurations(for package version 4.2.0):  
@@ -3811,22 +3811,129 @@ Using Api to generate Static Map Image using longitude and latitude. Since Googl
 
 ```dart
 // get token from MapBox after signing up for free
-// This static function returns a Image URL containing map with given coordinates
+// This static function returns a Image URL containing map with marker 'A', with given coordinates
+// Preview Image => https://api.mapbox.com/styles/v1/mapbox/streets-v11/static//pin-s-a+a724cc($lng,$lat)/${lng},${lat},17/1080x600?access_token=$accessToken
+
 class LocationHelper {
   static String generateLocationPreviewImage(
-      {required double latitude, required double longitude}) {
-    return 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/$longitude,$latitude,16,0/500x200?access_token=$token';
+      {required double lat, required double lng}) {
+    return 'https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/pin-s-a+a724cc($lng,$lat)/$lng,$lat,17/1080x600?access_token=$accessToken';
   }
 }
 
 // Calling the function
+final locData = await Location().getLocation(); // get currentLocation from location package
 final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
-  latitude: locData.latitude as double,
-  longitude: locData.longitude as double,
+  lat: locData.latitude as double,
+  lng: locData.longitude as double,
 );
 ```
 
-- ### Rendering a Dynamic Map
+- ### Entering Location
 
-With Google Maps😑. No credit card -> No Api Key -> Not implementing   
-If you want to implement using Google Maps, you will need [Google Maps Flutter](https://pub.dev/packages/google_maps_flutter) package is needed. There are some configurations to be made, which are explained in README there.  
+Render dynamic maps with Google Maps😑. But I have no credit card -> No Api Key -> Not implementing   
+If you want to implement using Google Maps, you will need [Google Maps Flutter](https://pub.dev/packages/google_maps_flutter) package. There are some configurations to be made, which are explained in README there.  
+
+Instead I will give the user the choice to input location address or coordinates.  
+I'll be using [MapBox](https://www.mapbox.com/) API again to change address to coordinates and vice-versa.  
+
+```dart
+// Get Place Address => https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=$accessToken
+// Get Place Coordinates => https://api.mapbox.com/geocoding/v5/mapbox.places/${place}.json?access_token=$accessToken
+
+// This will be used to show place address on places_list_screen, and also to save to sqlite
+static Future<String> getPlaceAddress(double lat, double lng) async {
+  final url = Uri.https(
+      "api.mapbox.com", "/geocoding/v5/mapbox.places/$lng,$lat.json", {
+    'access_token': '$accessToken',
+  });
+  final response = await http.get(url);
+  final place = json.decode(response.body)['features'][0]['place_name'];
+  return place;
+}
+
+// This can be used if the user enter place name instead of coordinates
+// So, this will generate coordinates which will be helpful, to generateLocationPreviewImage 
+static Future<List> getPlaceCoordinates(String place) async {
+  final url =
+      Uri.https("api.mapbox.com", "/geocoding/v5/mapbox.places/$place.json", {
+    'access_token': '$accessToken',
+  });
+  final response = await http.get(url);
+  final coordinates =
+      json.decode(response.body)['features'][0]['geometry']['coordinates'];
+  return [coordinates[1], coordinates[0]];
+}
+```
+
+- ### Saving location to SQLite
+
+We have to modify our [previous sqlite](#storing-image-in-filesystem-using-sqllitepermanent) in order to accept location. 
+
+```dart
+// We have to add certain fields to table
+// REAL is for double
+static Future<Database> database() async {
+  final dbPath = await getDatabasesPath();
+  return openDatabase(path.join(dbPath, 'places.db'),
+      onCreate: (db, version) {
+    return db.execute(
+        'CREATE TABLE user_places(id TEXT PRIMARY KEY, title TEXT, image TEXT, loc_lat REAL, loc_lng REAL, address TEXT)');
+  }, version: 1);
+}
+```
+
+```dart
+// Changing how I added and fetch data
+Future<void> addPlace(
+  String pickedTitle,
+  File pickedImage,
+  PlaceLocation pickedLocation,
+) async {
+  // Getting a readable address from coordinates
+  final address = await LocationHelper.getPlaceAddress(
+      pickedLocation.latitude, pickedLocation.longitude);
+
+  // updating location to add address argument, as only latitude and longitude were available at first
+  final updatedLocation = PlaceLocation(
+    latitude: pickedLocation.latitude,
+    longitude: pickedLocation.longitude,
+    address: address,
+  );
+
+  final newPlace = Place(
+    id: DateTime.now().toString(),
+    image: pickedImage,
+    title: pickedTitle,
+    location: updatedLocation,
+  );
+
+  _items.add(newPlace);
+  notifyListeners();
+
+  DBHelper.insert('user_places', {
+    'id': newPlace.id,
+    'title': newPlace.title,
+    'image': newPlace.image.path,
+    'loc_lat': newPlace.location!.latitude, // storing each location property separately
+    'loc_lng': newPlace.location!.longitude,
+    'address': newPlace.location!.address,
+  });
+}
+
+Future<void> fetchAndSetPlaces() async {
+  final dataList = await DBHelper.getData('user_places');
+  _items = dataList
+      .map((item) => Place(
+            id: item['id'],
+            title: item['title'],
+            image: File(item['image']),
+            location: PlaceLocation(
+              latitude: item['loc_lat'],
+              longitude: item['loc_lng'],
+              address: item['address'],
+            ), // Fetching location by making PlaceLocation object
+          ))
+      .toList();
+}
+```
