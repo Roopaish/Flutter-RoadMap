@@ -41,6 +41,7 @@ class Products with ChangeNotifier {
 
     try {
       final response = await http.get(url);
+
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
 
       url = Uri.https(
@@ -57,13 +58,14 @@ class Products with ChangeNotifier {
             Product(
               id: prodId,
               title: prodData['title'],
-              price: prodData['price'],
+              price: prodData['price'].toDouble(),
               description: prodData['description'],
               imageUrl: prodData['imageUrl'],
               isFavorite:
                   favoriteData == null ? false : favoriteData[prodId] ?? false,
             ));
       });
+
       _items = loadedProducts;
       notifyListeners();
     } catch (error) {

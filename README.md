@@ -7,7 +7,7 @@
 - [Personal Expense App](https://flutter-roadmap.netlify.app/#/expense-app)
 - [Meals App](https://flutter-roadmap.netlify.app/#/meals-app)
 - [Shop App](https://flutter-roadmap.netlify.app/#/shop-app)
-- Great Places App
+- [Great Places App](https://flutter-roadmap.netlify.app/#/great-places-app)
 - Chat App
 
 ## Index
@@ -2639,6 +2639,44 @@ Future<void> addProduct(Product product) async {
 
 - ### Fetching Data (GET)
 
+```dart
+// Function to fetch products, 
+// While fetching add a method .toDouble(), for double values else error will be thrown on android.
+// However, it worked fine without double in web
+
+Future<void> fetchAndSetProducts() async {
+  var url = Uri.https(
+      'flutter-roadmap-default-rtdb.asia-southeast1.firebasedatabase.app',
+      '/products.json');
+
+  try {
+    final response = await http.get(url);
+
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+
+    final List<Product> loadedProducts = [];
+    extractedData.forEach((prodId, prodData) {
+      loadedProducts.insert(
+          0,
+          Product(
+            id: prodId,
+            title: prodData['title'],
+            price: prodData['price'].toDouble(),
+            description: prodData['description'],
+            imageUrl: prodData['imageUrl'],
+            isFavorite:
+                favoriteData == null ? false : favoriteData[prodId] ?? false,
+          ));
+    });
+
+    _items = loadedProducts;
+    notifyListeners();
+  } catch (error) {
+    throw error;
+  }
+}
+```
+
 Typically data is fetched in initState() as it runs immediately and only once as soon as we enter a Widget.
 
 ```dart
@@ -3083,7 +3121,7 @@ extractedData.forEach((prodId, prodData) {
       Product(
         id: prodId,
         title: prodData['title'],
-        price: prodData['price'],
+        price: prodData['price'].toDouble(),
         description: prodData['description'],
         imageUrl: prodData['imageUrl'],
         isFavorite: favoriteData == null ? false : favoriteData[prodId] ?? false,

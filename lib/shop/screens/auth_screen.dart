@@ -231,13 +231,13 @@ class _AuthCardState extends State<AuthCard>
       child: AnimatedContainer(
         duration: Duration(milliseconds: 300),
         curve: Curves.easeIn,
-        height: _authMode == AuthMode.Signup ? 280 : 220,
+        height: _authMode == AuthMode.Signup ? 300 : 240,
         constraints: BoxConstraints(
-          minHeight: _authMode == AuthMode.Signup ? 280 : 220,
+          minHeight: _authMode == AuthMode.Signup ? 300 : 240,
           maxWidth: 400,
         ),
         width: deviceSize.width * 0.75,
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(8.0),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
