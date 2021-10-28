@@ -15,15 +15,19 @@ class _LocationInputState extends State<LocationInput> {
   String? _previewImageUrl;
 
   Future<void> _getCurrentLocation() async {
-    final locData = await Location().getLocation();
-    final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
-      lat: locData.latitude as double,
-      lng: locData.longitude as double,
-    );
-    setState(() {
-      _previewImageUrl = staticMapImageUrl;
-    });
-    widget.onSelectPlace(locData.latitude, locData.longitude);
+    try {
+      final locData = await Location().getLocation();
+      final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
+        lat: locData.latitude as double,
+        lng: locData.longitude as double,
+      );
+      setState(() {
+        _previewImageUrl = staticMapImageUrl;
+      });
+      widget.onSelectPlace(locData.latitude, locData.longitude);
+    } catch (error) {
+      return;
+    }
   }
 
   Future<void> _getEnteredLocation() async {

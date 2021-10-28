@@ -49,44 +49,49 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
       appBar: AppBar(
         title: Text('Add a New Place'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Column(
-                  children: [
-                    TextField(
-                      decoration: InputDecoration(labelText: 'Title'),
-                      controller: _titleController,
+      body: Center(
+        child: Container(
+          constraints: BoxConstraints(maxWidth: 600),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(labelText: 'Title'),
+                          controller: _titleController,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        ImageInput(_selectImage),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        LocationInput(_selectPlace),
+                      ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    ImageInput(_selectImage),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    LocationInput(_selectPlace),
-                  ],
+                  ),
                 ),
               ),
-            ),
+              ElevatedButton.icon(
+                onPressed: _savePlace,
+                icon: Icon(Icons.add),
+                label: Text('Add Place'),
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  primary: Theme.of(context).colorScheme.secondary,
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                ),
+              ),
+            ],
           ),
-          ElevatedButton.icon(
-            onPressed: _savePlace,
-            icon: Icon(Icons.add),
-            label: Text('Add Place'),
-            style: ElevatedButton.styleFrom(
-              elevation: 0,
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              primary: Theme.of(context).colorScheme.secondary,
-              padding: EdgeInsets.symmetric(vertical: 15),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

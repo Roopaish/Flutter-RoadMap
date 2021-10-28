@@ -46,32 +46,34 @@ class OrdersScreen extends StatelessWidget {
           title: Text('Your Orders'),
         ),
         drawer: AppDrawer(),
-        body: Container(
-          constraints: BoxConstraints(maxWidth: 600),
-          child: FutureBuilder(
-            future: Provider.of<Orders>(context, listen: false)
-                .fetchAndSetOrders(),
-            builder: (ctx, dataSnapshot) {
-              if (dataSnapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                if (dataSnapshot.error != null) {
-                  // Do error handling
+        body: Center(
+          child: Container(
+            constraints: BoxConstraints(maxWidth: 700),
+            child: FutureBuilder(
+              future: Provider.of<Orders>(context, listen: false)
+                  .fetchAndSetOrders(),
+              builder: (ctx, dataSnapshot) {
+                if (dataSnapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: Text('No orders placed yet!'),
+                    child: CircularProgressIndicator(),
                   );
                 } else {
-                  return Consumer<Orders>(
-                    builder: (ctx, orderData, child) => ListView.builder(
-                      itemCount: orderData.orders.length,
-                      itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
-                    ),
-                  );
+                  if (dataSnapshot.error != null) {
+                    // Do error handling
+                    return Center(
+                      child: Text('No orders placed yet!'),
+                    );
+                  } else {
+                    return Consumer<Orders>(
+                      builder: (ctx, orderData, child) => ListView.builder(
+                        itemCount: orderData.orders.length,
+                        itemBuilder: (ctx, i) => OrderItem(orderData.orders[i]),
+                      ),
+                    );
+                  }
                 }
-              }
-            },
+              },
+            ),
           ),
         )
         //  _isEmpty

@@ -30,6 +30,7 @@ import 'shop/helpers/custom-route.dart';
 import 'great_places/great_places.dart';
 import 'great_places/providers/great_places.dart';
 import 'great_places/screens/add_place_screen.dart';
+import 'great_places/screens/place_detail_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -150,9 +151,10 @@ class _MyAppState extends State<MyApp> {
           // Greate Places App
           'greate-places-app': (context) => GreatPlacesApp(),
           AddPlaceScreen.routeName: (context) => AddPlaceScreen(),
+          PlaceDetailScreen.routeName: (context) => PlaceDetailScreen(),
         },
         debugShowCheckedModeBanner: false,
-        home: GreatPlacesApp(),
+        home: AppList(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,
@@ -207,9 +209,22 @@ class _AppListState extends State<AppList> {
       'https://i.postimg.cc/13jCqHKK/expense-app.png',
       'https://i.postimg.cc/C5V7HMdh/meals-app.png',
       'https://i.postimg.cc/vH8R3B4r/shop-app.png',
+      'https://i.postimg.cc/MK5WL2Tq/great-places-app.png',
     ],
-    'title': ['Quiz App', 'Expense App', 'Meals App', 'Shop App'],
-    'routes': ['/quiz-app', '/expense-app', '/meals-app', '/shop-app']
+    'title': [
+      'Quiz App',
+      'Expense App',
+      'Meals App',
+      'Shop App',
+      'Great Places App'
+    ],
+    'routes': [
+      '/quiz-app',
+      '/expense-app',
+      '/meals-app',
+      '/shop-app',
+      'greate-places-app'
+    ]
   };
 
   @override
