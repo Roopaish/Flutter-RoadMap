@@ -4073,7 +4073,7 @@ Also add firebase cdns with same version before this script. The packages should
 
 Now add a package [Cloud Firestore](https://pub.dev/packages/cloud_firestore) ^2.5.4, which helps to communicate with firestore database.
 
-Now Go to firebase console, and create database in 'firestore database'. Add a collection, then a document(piece of data in collection). For eg: 'chats' collection with 'chat-rooms document',each chat-rooms document cah have a collection named 'messages' containing 'individual messaging document'. So its like nesting of Collection > Document > Collection > Document and so on. Document can have fields and collection. Collection has a name, Document has a ID.
+Now Go to firebase console, and create database in 'firestore database'. Add a collection, then a document(piece of data in collection). For eg: 'chats' collection with 'chat-rooms document',each chat-rooms document cah have a collection named 'messages' containing 'individual messaging document'. So its like nesting of Collection > Documents > Collections > Documents and so on. Document can have fields and collection. Collection has a name, Document has a ID.
 
 ```dart
 // How to if everything is working?
@@ -4112,3 +4112,31 @@ dependencies{
 }
 ```
 
+- ### Rendering stream data with StreamBuilder()
+
+```dart
+StreamBuilder<QuerySnapshot>(
+  stream: FirebaseFirestore.instance
+      .collection('chats/doc-id/messages')
+      .snapshots(), // Stream of data
+
+  builder: (ctx, streamSnapshot) {
+    // This runs every time the stream changes
+
+    if (streamSnapshot.connectionState == ConnectionState.waiting) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    final docs = streamSnapshot.data!.docs; // access the documents from the stream
+    return ListView.builder(
+      itemCount: docs.length,
+      itemBuilder: (ctx, index) => Container(
+        padding: EdgeInsets.all(8),
+        child: Text(docs[index]['text']), // Getting field 'text', one by one from each documents
+      ),
+    );
+  },
+),
+```
