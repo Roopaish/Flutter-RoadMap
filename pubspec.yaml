@@ -36,6 +36,7 @@ dependencies:
   path: ^1.8.0
   sqflite: ^2.0.0+4
   location: ^4.3.0
+  cloud_firestore: ^2.5.4
 
 dev_dependencies:
   flutter_test:

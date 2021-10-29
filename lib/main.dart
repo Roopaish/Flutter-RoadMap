@@ -32,6 +32,8 @@ import 'great_places/providers/great_places.dart';
 import 'great_places/screens/add_place_screen.dart';
 import 'great_places/screens/place_detail_screen.dart';
 
+import 'chat/chat.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -152,9 +154,11 @@ class _MyAppState extends State<MyApp> {
           'greate-places-app': (context) => GreatPlacesApp(),
           AddPlaceScreen.routeName: (context) => AddPlaceScreen(),
           PlaceDetailScreen.routeName: (context) => PlaceDetailScreen(),
+          // Chat App
+          'chat-app': (context) => ChatApp(),
         },
         debugShowCheckedModeBanner: false,
-        home: AppList(),
+        home: ChatApp(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.blueGrey,

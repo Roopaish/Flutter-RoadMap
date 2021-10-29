@@ -134,6 +134,18 @@
 
 [Using Native Device Features like Camera, Maps, Location(Great Places App)](#using-native-device-features-like-camera-maps-locationgreat-places-app)
 
+- [Place Class](#place-class)
+- [ImagePicker](#imagepicker)
+- [Storing Image on the Filesystem(Memory)](storing-image-on-the-filesystemmemory)
+- [Storing Image in Filesystem using SQLlite(Permanent)](#storingimageinfilesystemusingsqllitepermanent)
+- [Current Location Input](#current-location-input)
+- [Entering Location](#entering-location)
+- [Saving location to SQLite](#saving-location-to-sqlite)
+
+## 12
+
+[Firebase, Image Upload, Push Notifications(Chat App)](#firebase-image-upload-push-notificationschat-app)
+
 ## Notes
 
 ## Flutter Basics(Quiz App)
@@ -2640,7 +2652,7 @@ Future<void> addProduct(Product product) async {
 - ### Fetching Data (GET)
 
 ```dart
-// Function to fetch products, 
+// Function to fetch products,
 // While fetching add a method .toDouble(), for double values else error will be thrown on android.
 // However, it worked fine without double in web
 
@@ -3665,6 +3677,8 @@ class Place {
 }
 ```
 
+**[⬆ Back to Index](#11)**
+
 - ### ImagePicker
 
 We use [ImagePicker](https://pub.dev/packages/image_picker) package for this.
@@ -3721,6 +3735,8 @@ Future<void> _takePicture() async {
 }
 ```
 
+**[⬆ Back to Index](#11)**
+
 - ### Storing Image on the Filesystem(Memory)
 
 Two packages required:  
@@ -3743,6 +3759,8 @@ final savedImage =
 // previous location: /data/user/0/com.example.ultimate_flutter_app/cache/image-01.jpg
 // current location: /data/user/0/com.example.ultimate_flutter_app/app_flutter/image-01.jpg
 ```
+
+**[⬆ Back to Index](#11)**
 
 - ### Storing Image in Filesystem using SQLlite(Permanent)
 
@@ -3811,6 +3829,8 @@ Future<void> fetchAndSetPlaces() async {
   }
 ```
 
+**[⬆ Back to Index](#11)**
+
 - ### Current Location Input
 
 For this, we use [Location](https://pub.dev/packages/location) package.  
@@ -3839,12 +3859,12 @@ IOS: Add the following to info.plist located at ios\Runner\Info.plist
 
 NSLocationWhenInUseUsageDescription -> This is probably the only one you need. Background location is supported
 by this -- the caveat is that a blue badge is shown in the status bar
-when the app is using location service while in the background. I'm using this only.  
-  
+when the app is using location service while in the background. I'm using this only.
+
 NSLocationAlwaysAndWhenInUseUsageDescription -> Use this very carefully. This key is required only if your iOS app
 uses APIs that access the user’s location information at all times,
-even if the app isn't running.  
-  
+even if the app isn't running.
+
 Using Api to generate Static Map Image using longitude and latitude. Since Google Cloud Platform requires credit card, I used [MapBox](https://www.mapbox.com/).
 
 ```dart
@@ -3867,13 +3887,15 @@ final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
 );
 ```
 
+**[⬆ Back to Index](#11)**
+
 - ### Entering Location
 
-Render dynamic maps with Google Maps😑. But I have no credit card -> No Api Key -> Not implementing   
-If you want to implement using Google Maps, you will need [Google Maps Flutter](https://pub.dev/packages/google_maps_flutter) package. There are some configurations to be made, which are explained in README there.  
+Render dynamic maps with Google Maps😑. But I have no credit card -> No Api Key -> Not implementing  
+If you want to implement using Google Maps, you will need [Google Maps Flutter](https://pub.dev/packages/google_maps_flutter) package. There are some configurations to be made, which are explained in README there.
 
 Instead I will give the user the choice to input location address or coordinates.  
-I'll be using [MapBox](https://www.mapbox.com/) API again to change address to coordinates and vice-versa.  
+I'll be using [MapBox](https://www.mapbox.com/) API again to change address to coordinates and vice-versa.
 
 ```dart
 // Get Place Address => https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=$accessToken
@@ -3891,7 +3913,7 @@ static Future<String> getPlaceAddress(double lat, double lng) async {
 }
 
 // This can be used if the user enter place name instead of coordinates
-// So, this will generate coordinates which will be helpful, to generateLocationPreviewImage 
+// So, this will generate coordinates which will be helpful, to generateLocationPreviewImage
 static Future<List> getPlaceCoordinates(String place) async {
   final url =
       Uri.https("api.mapbox.com", "/geocoding/v5/mapbox.places/$place.json", {
@@ -3904,9 +3926,11 @@ static Future<List> getPlaceCoordinates(String place) async {
 }
 ```
 
+**[⬆ Back to Index](#11)**
+
 - ### Saving location to SQLite
 
-We have to modify our [previous sqlite](#storing-image-in-filesystem-using-sqllitepermanent) in order to accept location. 
+We have to modify our [previous sqlite](#storing-image-in-filesystem-using-sqllitepermanent) in order to accept location.
 
 ```dart
 // We have to add certain fields to table
@@ -3974,4 +3998,92 @@ Future<void> fetchAndSetPlaces() async {
           ))
       .toList();
 }
+```
+
+**[⬆ Back to Index](#11)**
+
+## Firebase, Image Upload, Push Notifications(Chat App)
+
+- ### Firebase Setup
+
+Using Rest API, We can't use all its services efficiently. So firebase, provides us with SDK to make it easier. Behind the scene, sdk manages all the http requests. Find more about firebase with flutter in [here](https://firebase.flutter.dev/docs/overview/).
+
+Firebase is a fully managed backend service. Firebase consists of services like Database, File Storage, Authentication, Push Notifications, Analytics, On-demand Server-Side Code(Cloud Functions) etc. It also provides APIs and SDK(which can be installed in flutter app to simplify things)
+
+Create a new project in [firebase](https://console.firebase.google.com/).
+
+> For [Android](https://firebase.flutter.dev/docs/installation/android):
+
+Add an app, android, fill the form with  
+Android Package Name: com.example.ultimate_flutter_app can be found in android/app/build.gradle and register the app.  
+Add the provided `google_services.json` file in android/app.
+
+Click continue, Now inside android/build.gradle, add lines as provided. Again in android/app/build.gradle, add the lines provided.
+
+> For [Web](https://firebase.flutter.dev/docs/installation/web):
+
+Add a web app. Choose config and Copy the given script and go to web/index.html. Paste the code inside body tag before any other script, then initialize firebase using this command `firebase.initializeApp(firebaseConfig);`. Wrap this code with script tag.  
+Also add firebase cdns with same version before this script. The packages should also be installed through pubspec.yaml to use the cdn.
+
+```html
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+
+<!-- Add for Cloud Firestore: https://pub.dev/packages/cloud_firestore-->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+<!-- Add for Firebase Storage: https://pub.dev/packages/firebase_storage
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+ -->
+
+<!-- Add for Firebase Auth: https://pub.dev/packages/firebase_auth 
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+-->
+
+<!-- Add for Firebase Messaging: https://pub.dev/packages/firebase_messaging
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>
+-->
+
+<!-- Add for Firebase Analytics: https://pub.dev/packages/firebase_analytics
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+-->
+
+<!-- Add for Cloud Functions: https://pub.dev/packages/cloud_functions
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-functions.js"></script>
+-->
+
+<script type="module">
+  const firebaseConfig = {
+    apiKey: "...",
+    authDomain: "[PROJECT_NAME].firebaseapp.com",
+    databaseURL: "https://[PROJECT_NAME].firebasedatabase.app",
+    projectId: "[PROJECT_NAME]",
+    storageBucket: "[PROJECT_NAME].appspot.com",
+    messagingSenderId: "...",
+    appId: "...",
+    measurementId: "G-...",
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+```
+
+Now add a package [Cloud Firestore](https://pub.dev/packages/cloud_firestore) ^2.5.4, which helps to communicate with firestore database.
+
+Now Go to firebase console, and create database in 'firestore database'. Add a collection, then a document(piece of data in collection). For eg: 'chats' collection with 'chat-rooms document',each chat-rooms document cah have a collection named 'messages' containing 'individual messaging document'. So its like nesting of Collection > Document > Collection > Document and so on. Document can have fields and collection. Collection has a name, Document has a ID.
+
+```dart
+// How to if everything is working?
+// Fetching the data from firestore
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+FirebaseFirestore.instance
+    .collection('chats/') // Access the collection
+    .snapshots() // returns a stream, emits new values whenever data changes
+    .listen((data) { // setting up listener for snapshots
+  print(data);
+});
+
+// If Instance of '_JsonQuerySnapshot' or alike is printed on the debug, then everything is fine
 ```
