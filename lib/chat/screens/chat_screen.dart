@@ -8,7 +8,7 @@ class ChatScreen extends StatelessWidget {
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection('chats/P9NaRGedC3a1Z7SeSBlR/messages')
+            .collection('/chats/sPQvJz5lfUzyF6xz9l5g/messages')
             .snapshots(),
         builder: (ctx, streamSnapshot) {
           if (streamSnapshot.connectionState == ConnectionState.waiting) {
@@ -29,7 +29,13 @@ class ChatScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          FirebaseFirestore.instance
+              .collection('/chats/sPQvJz5lfUzyF6xz9l5g/messages')
+              .add({
+                'text': 'This was added by user',
+              });
+        },
       ),
     );
   }

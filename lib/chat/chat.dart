@@ -9,7 +9,7 @@ class ChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+    // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
     // return FutureBuilder(
     //   // Initialize FlutterFire:
     //   future: _initialization,

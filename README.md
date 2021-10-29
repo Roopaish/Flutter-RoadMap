@@ -4140,3 +4140,14 @@ StreamBuilder<QuerySnapshot>(
   },
 ),
 ```
+
+- ### Adding data
+
+```dart
+// Adding new documents inside messages collection with text field
+FirebaseFirestore.instance
+  .collection('/chats/doc-id/messages')
+  .add({
+    'text': 'This was added by user',
+  });
+```
