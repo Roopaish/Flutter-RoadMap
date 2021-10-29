@@ -4162,3 +4162,8 @@ FirebaseFirestore.instance
     'text': 'This was added by user',
   });
 ```
+
+```dart
+// Hide the soft keyboard, or shift the focus from inputfields to nothing
+FocusScope.of(context).unfocus();
+```
