@@ -1097,8 +1097,19 @@ InkWell(
 // ThemeData()
 // Global theme for flutter app, declared inside MaterialApp widget with theme property
 ThemeData(
-  primarySwatch: Colors.blue, // Takes a color and auto-generate similar colors(shades) for other widgets
-  accentColor: Colors.amberAccent,
+  primarySwatch: Colors.indigo, // Takes a color and auto-generate similar colors(shades) for other widgets
+  backgroundColor: Colors.deepPurple,
+  accentColor: Colors.blueGrey,
+  accentColorBrightness: Brightness.dark,
+  buttonTheme: ButtonTheme.of(context).copyWith(
+    buttonColor: Colors.indigo,
+    textTheme: ButtonTextTheme.primary,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(20),
+    ),
+  ),
+  canvasColor: Color.fromRGBO(255, 255, 255, 1),
+  fontFamily: 'Raleway',
   appBarTheme: AppBarTheme(
     textTheme: ThemeData.light().textTheme.copyWith(
           headline6: TextStyle(

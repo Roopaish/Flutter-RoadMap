@@ -161,7 +161,16 @@ class _MyAppState extends State<MyApp> {
         home: ChatApp(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
+          backgroundColor: Colors.deepPurple,
           accentColor: Colors.blueGrey,
+          accentColorBrightness: Brightness.dark,
+          buttonTheme: ButtonTheme.of(context).copyWith(
+            buttonColor: Colors.indigo,
+            textTheme: ButtonTextTheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
           canvasColor: Color.fromRGBO(255, 255, 255, 1),
           fontFamily: 'Raleway',
           appBarTheme: AppBarTheme(
