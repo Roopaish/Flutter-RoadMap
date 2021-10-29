@@ -4020,6 +4020,8 @@ Add the provided `google_services.json` file in android/app.
 
 Click continue, Now inside android/build.gradle, add lines as provided. Again in android/app/build.gradle, add the lines provided.
 
+> Scroll a bit for the fix of the error that might occur with android
+
 > For [Web](https://firebase.flutter.dev/docs/installation/web):
 
 Add a web app. Choose config and Copy the given script and go to web/index.html. Paste the code inside body tag before any other script, then initialize firebase using this command `firebase.initializeApp(firebaseConfig);`. Wrap this code with script tag.  
@@ -4087,3 +4089,26 @@ FirebaseFirestore.instance
 
 // If Instance of '_JsonQuerySnapshot' or alike is printed on the debug, then everything is fine
 ```
+
+If you get an error like this in android:  
+`com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:`
+
+Go to android/app/build.gradle. Inside defaultConfig, add this line at the end `multiDexEnabled true`.  
+Also inside dependencies, add this at the end `implementation 'com.android.support:multidex:1.0.3'`. Save and re-run.
+
+```.gradle
+android{
+  ...
+  defaultConfig{
+    ...
+    multiDexEnabled true
+  }
+  ...
+}
+
+dependencies{
+  ...
+  implementation 'com.android.support:multidex:1.0.3'
+}
+```
+
