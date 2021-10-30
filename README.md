@@ -2924,7 +2924,6 @@ Now for every http request, we should provide token.
     },
   }
 }
-}
 ```
 
 Now in Authentication, choose a sign-in method. For eg: Email/Password and enable Email then save it.
