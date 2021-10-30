@@ -4299,3 +4299,45 @@ StreamBuilder(
   },
 );
 ```
+
+- ### Firebase Security Rules
+
+Locking database down to authenticated users. 
+
+```js
+// Rough look at rules
+match path-to-which-requests-are-send{
+  rules applied to such a requests
+}
+
+// Match any request to /chats,
+match /chats{
+  // allow read and write if user is authenticated
+  allow read, write: if request.auth != null
+}
+```
+
+```js
+// Setting up rules
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Allowing write access to the user if authData is not null 
+    // And {uid}, i.e. doc-id under collection 'users', should be equal to auth userId
+    // Here matching uid is possible, cause when creating doc-id for 'users', I used auth userId
+  	match /users/{uid}{
+    	allow write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Allowing read access to all authenticated users
+    match /users/{uid}{
+    	allow read: if request.auth != null;
+    }
+
+    // Allowing all authenticated users to read and create all documents(also nested) in chats collection
+    match /chats/{document=**} {
+    	allow read, create: if request.auth != null;
+    }
+  }
+}
+```
