@@ -2881,14 +2881,39 @@ Now for every http request, we should provide token.
 
 - ### Preparing backend
 
+> Do this at last.
 ```json
 // Configuring Firebase Real time Database rules
 // auth != null tells firebase that, only authenticated users will be able to send requests to database
 {
-  "rules": {
-    ".read": "auth != null", // 2021-11-10
-    ".write": "auth != null" // 2021-11-10
+ "rules": {
+  "products": {
+  // Read access for only authenticated users
+    ".read": "auth != null",
+  // Specifying a child to index to support ordering and querying.
+    ".indexOn": ["creatorId"],
+  // Giving write access to authenticated users with user id equal to 'creatorId' field, something like: /products/prod-id['creatorId'] == userId
+    "$prodId":{
+      	".write": "root.child('products').child($prodId).child('creatorId').val() === auth.uid"
+      }
+   },
+   
+   // Giving read and write access to authenticated users with user id = orders/some-id
+   "orders":{
+     "$uid":{
+       ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    
+    "userFavorites":{
+      "$uid":{
+        ".read": "$uid === auth.uid",
+         ".write": "$uid === auth.uid"
+      }
+    },
   }
+}
 }
 ```
 
