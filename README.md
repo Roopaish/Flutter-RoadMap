@@ -2881,10 +2881,20 @@ Now for every http request, we should provide token.
 
 - ### Preparing backend
 
-> Do this at last.
 ```json
 // Configuring Firebase Real time Database rules
-// auth != null tells firebase that, only authenticated users will be able to send requests to database
+// auth != null tells firebase that, only authenticated users will be able to read/write data
+{
+ "rules": {
+  ".read": "auth != null",
+  ".write”: "auth != null"
+ }
+}
+```
+
+> Do this at last.
+```json
+// Implying full security
 {
  "rules": {
   "products": {
