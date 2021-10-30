@@ -2887,7 +2887,7 @@ Now for every http request, we should provide token.
 {
  "rules": {
   ".read": "auth != null",
-  ".write”: "auth != null"
+  ".write": "auth != null"
  }
 }
 ```
