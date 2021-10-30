@@ -20,7 +20,7 @@ class _AuthFormState extends State<AuthForm> {
   final _formKey = GlobalKey<FormState>();
   var _isLogin = true;
   var _userEmail = '';
-  var _userName = '';
+  var _username = '';
   var _userPassword = '';
 
   void _trySubmit() {
@@ -33,7 +33,7 @@ class _AuthFormState extends State<AuthForm> {
       widget.submitFn(
         _userEmail.trim(),
         _userPassword.trim(),
-        _userName.trim(),
+        _username.trim(),
         _isLogin,
         context,
       );
@@ -80,7 +80,7 @@ class _AuthFormState extends State<AuthForm> {
                         },
                         decoration: InputDecoration(labelText: 'Username'),
                         onSaved: (value) {
-                          _userName = value.toString();
+                          _username = value.toString();
                         },
                       ),
                     TextFormField(

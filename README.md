@@ -4153,6 +4153,8 @@ StreamBuilder<QuerySnapshot>(
 ),
 ```
 
+> Use FutureBuilder with return type DocumentSnapshot to work with firestore. `FutureBuilder<DocumentSnapshot>`
+
 - ### Adding data
 
 ```dart
@@ -4374,10 +4376,14 @@ StreamBuilder<QuerySnapshot>(
 ```dart
 // Send message
 final user = await FirebaseAuth.instance.currentUser;
-
+final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get();
 FirebaseFirestore.instance.collection('chat').add({
   'text': _eneteredMessage,
   'createdAt': Timestamp.now(), // To sort by time, Timestamp is made available by cloud_firestore
   'userId': user!.uid, // To know if the message is send by us or not, so to render UI differently
+  'username': userData['username'], // username is stored along with message, so that we can fetch and render username only once, rather than fetching it in a FutureBuilder
 });
 ```
