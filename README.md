@@ -4160,10 +4160,87 @@ FirebaseFirestore.instance
   .collection('/chats/doc-id/messages')
   .add({
     'text': 'This was added by user',
-  });
+  }); // doc-id will auto generated
 ```
 
 ```dart
 // Hide the soft keyboard, or shift the focus from inputfields to nothing
 FocusScope.of(context).unfocus();
+```
+
+- ### User Authentication
+
+We need [firebase_auth](https://pub.dev/packages/firebase_auth/) package for this. Also, In firebase console, go to Authentication and add a sign-in method. I chose Email/Password. As mentioned above in [Firebase Setup](#firebase-setup) for web, add the `firebase-auth` script to index.html.
+
+```dart
+// AuthScreen
+// Token will be received and added to requests automatically by firebase sdk
+final _auth = FirebaseAuth.instance;
+
+void _submitAuthForm(
+  String email,
+  String password,
+  String userName,
+  bool isLogin,
+  BuildContext ctx, // Receiving context of a Widget which has a Scaffold surrounding it, so to show SnackBar
+) async {
+  UserCredential userCredential;
+
+  try {
+    if (isLogin) {
+      // Signing in existing user
+      userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      
+    } else {
+      // Creating new account
+      userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    }
+    // For firebase specific exception
+  } on FirebaseException catch (err) {
+    var message = 'An error occured, Please check you credentials';
+
+    if (err.message != null) {
+      message = err.message.toString();
+    }
+
+    // Showing a snackbar to display errors
+    ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+      content: Text(message),
+      backgroundColor: Theme.of(ctx).errorColor,
+    ));
+  } catch (err) {
+    // any exception, except that of firebase
+    print(err);
+  }
+}
+
+AuthForm(_submitAuthForm); // Passing refrence to Auth widget
+```
+
+```dart
+AuthForm(this.submitFn); // Receiving the fxn refrence
+
+// Above received fxn will bound to below function submitFn
+final void Function(
+  String email,
+  String password,
+  String userName,
+  bool isLogin,
+  BuildContext ctx,
+) submitFn;
+
+// Passing data to submitFn -> _submitAuthForm from State class
+widget.submitFn(
+  _userEmail.trim(), // trim() removes whitespaces before and after
+  _userPassword.trim(),
+  _userName.trim(),
+  _isLogin,
+  context, // Passing context to AuthScreen, cause this widget is inside the Scaffold of AuthScreen
+);
 ```
