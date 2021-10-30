@@ -929,6 +929,7 @@ Card(
 ListView(children:[])
 
 ListView.builder(
+  reverse: true, // In reverse order
   itemBuilder: (ctx,index){
     return text(transaction[index].title); // build Children Widgets
   }
@@ -1064,7 +1065,7 @@ TextField(
   keyboardType: TextInputType.number, // only accepts numbers
   onSubmitted:(_)=>submitData, //_ means it takes argument but not needed
 ),
-
+amountController.clear(); // To clear the input field
 print(double.parse(amountController.text)); // prints text stored in controller as a double
 
 // Buttons
@@ -4344,13 +4345,14 @@ service cloud.firestore {
 }
 ```
 
-- ### Listening to messages
+- ### Sending/Listening messages
 
 ```dart
 // Whenever new doc with text field is added in the chat collection of database
 // Changes will appear automatically with the help of StreamBuilder
-  StreamBuilder<QuerySnapshot>(
-  stream: FirebaseFirestore.instance.collection('chat').snapshots(),
+// Sorted the documents by the filed 'createdAt' in descending order
+StreamBuilder<QuerySnapshot>(
+  stream: FirebaseFirestore.instance.collection('chat').orderBy('createdAt', descending:true,).snapshots(),
   builder: (ctx, chatSnapshot) {
     if (chatSnapshot.connectionState == ConnectionState.waiting) {
       return Center(
@@ -4367,4 +4369,12 @@ service cloud.firestore {
     );
   },
 )
+```
+
+```dart
+// Send message
+FirebaseFirestore.instance.collection('chat').add({
+  'text': _eneteredMessage,
+  'createdAt': Timestamp.now(), // To sort by time, Timestamp is made available by cloud_firestore
+});
 ```
