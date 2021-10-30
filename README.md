@@ -4373,8 +4373,11 @@ StreamBuilder<QuerySnapshot>(
 
 ```dart
 // Send message
+final user = await FirebaseAuth.instance.currentUser;
+
 FirebaseFirestore.instance.collection('chat').add({
   'text': _eneteredMessage,
   'createdAt': Timestamp.now(), // To sort by time, Timestamp is made available by cloud_firestore
+  'userId': user!.uid, // To know if the message is send by us or not, so to render UI differently
 });
 ```
