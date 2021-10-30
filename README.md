@@ -4160,7 +4160,7 @@ FirebaseFirestore.instance
   .collection('/chats/doc-id/messages')
   .add({
     'text': 'This was added by user',
-  }); // doc-id will auto generated
+  }); // doc-id will auto generate
 ```
 
 ```dart
@@ -4302,7 +4302,7 @@ StreamBuilder(
 
 - ### Firebase Security Rules
 
-Locking database down to authenticated users. 
+Locking database down to authenticated users.
 
 ```js
 // Rough look at rules
@@ -4317,12 +4317,14 @@ match /chats{
 }
 ```
 
+> App will be a group chat. So Database path looks like: /chat/docs/
+
 ```js
 // Setting up rules
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    // Allowing write access to the user if authData is not null 
+    // Allowing write access to the user if authData is not null
     // And {uid}, i.e. doc-id under collection 'users', should be equal to auth userId
     // Here matching uid is possible, cause when creating doc-id for 'users', I used auth userId
   	match /users/{uid}{
@@ -4335,9 +4337,34 @@ service cloud.firestore {
     }
 
     // Allowing all authenticated users to read and create all documents(also nested) in chats collection
-    match /chats/{document=**} {
+    match /chat/{document=**} {
     	allow read, create: if request.auth != null;
     }
   }
 }
+```
+
+- ### Listening to messages
+
+```dart
+// Whenever new doc with text field is added in the chat collection of database
+// Changes will appear automatically with the help of StreamBuilder
+  StreamBuilder<QuerySnapshot>(
+  stream: FirebaseFirestore.instance.collection('chat').snapshots(),
+  builder: (ctx, chatSnapshot) {
+    if (chatSnapshot.connectionState == ConnectionState.waiting) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    final chatDocs = chatSnapshot.data!.docs;
+    return ListView.builder(
+      itemCount: chatDocs.length,
+      itemBuilder: (ctx, index) {
+        return Text(chatDocs[index]['text']);
+      },
+    );
+  },
+)
 ```
