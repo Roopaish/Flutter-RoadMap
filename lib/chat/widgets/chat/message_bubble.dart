@@ -31,7 +31,7 @@ class MessageBubble extends StatelessWidget {
                   bottomRight: isMe ? Radius.circular(0) : Radius.circular(12),
                 ),
               ),
-              width: 140,
+              width: MediaQuery.of(context).size.width * 0.45,
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
               margin: EdgeInsets.symmetric(vertical: 16, horizontal: 8),
               child: Column(
@@ -59,8 +59,8 @@ class MessageBubble extends StatelessWidget {
         ),
         Positioned(
           top: 0,
-          left: isMe ? null : 120,
-          right: isMe ? 120 : null,
+          left: isMe ? null : MediaQuery.of(context).size.width * 0.45 - 20,
+          right: isMe ? MediaQuery.of(context).size.width * 0.45 - 20 : null,
           child: CircleAvatar(
             backgroundImage: NetworkImage(userImage),
           ),
