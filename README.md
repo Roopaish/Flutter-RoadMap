@@ -4294,15 +4294,22 @@ DropdownButton(
 ```dart
 // Switch between two screens, based on Authdata
 // Logout will emit a signal, and stream will be known that token is not available, so AuthScreen() will be seen
-StreamBuilder(
-  stream: FirebaseAuth.instance.authStateChanges(), // Listens to auth data changes
-  builder: (ctx, userSnapshot) {
-    if (userSnapshot.hasData) {
-      return ChatScreen();
-    }
-    return AuthScreen();
-  },
-);
+final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization, // Listen to auth data changes
+      builder: (context, appSnapshot) {
+        return StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (ctx, userSnapshot) {
+            if (userSnapshot.hasData) {
+              return ChatScreen();
+            }
+            return AuthScreen();
+          },
+        );
+      },
+    );
 ```
 
 - ### Firebase Security Rules

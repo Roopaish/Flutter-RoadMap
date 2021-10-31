@@ -10,21 +10,21 @@ class ChatApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
-    // return FutureBuilder(
-    //   // Initialize FlutterFire:
-    //   future: _initialization,
-    //   builder: (context, appSnapshot) {
-    return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (ctx, userSnapshot) {
-        if (userSnapshot.hasData) {
-          return ChatScreen();
-        }
-        return AuthScreen();
+    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+    return FutureBuilder(
+      // Initialize FlutterFire:
+      future: _initialization,
+      builder: (context, appSnapshot) {
+        return StreamBuilder(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (ctx, userSnapshot) {
+            if (userSnapshot.hasData) {
+              return ChatScreen();
+            }
+            return AuthScreen();
+          },
+        );
       },
     );
-    // },
-    // );
   }
 }
