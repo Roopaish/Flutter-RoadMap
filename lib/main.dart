@@ -151,14 +151,14 @@ class _MyAppState extends State<MyApp> {
           EditProductScreen.routeName: (context) => EditProductScreen(),
           AuthScreen.routeName: (context) => AuthScreen(),
           // Greate Places App
-          'greate-places-app': (context) => GreatPlacesApp(),
+          '/greate-places-app': (context) => GreatPlacesApp(),
           AddPlaceScreen.routeName: (context) => AddPlaceScreen(),
           PlaceDetailScreen.routeName: (context) => PlaceDetailScreen(),
           // Chat App
-          'chat-app': (context) => ChatApp(),
+          '/chat-app': (context) => ChatApp(),
         },
         debugShowCheckedModeBanner: false,
-        home: ChatApp(),
+        home: AppList(),
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           backgroundColor: Colors.deepPurple,
@@ -223,20 +223,23 @@ class _AppListState extends State<AppList> {
       'https://i.postimg.cc/C5V7HMdh/meals-app.png',
       'https://i.postimg.cc/vH8R3B4r/shop-app.png',
       'https://i.postimg.cc/MK5WL2Tq/great-places-app.png',
+      'https://i.postimg.cc/7LTXsTTL/chat-app.png',
     ],
     'title': [
       'Quiz App',
       'Expense App',
       'Meals App',
       'Shop App',
-      'Great Places App'
+      'Great Places App',
+      'Chat App'
     ],
     'routes': [
       '/quiz-app',
       '/expense-app',
       '/meals-app',
       '/shop-app',
-      'greate-places-app'
+      '/greate-places-app',
+      '/chat-app'
     ]
   };
 
