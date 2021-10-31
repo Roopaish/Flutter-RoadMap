@@ -891,6 +891,7 @@ Expanded(
 //Stack()
 // Widgets on top of each other
 Stack(
+  clipBehavior: Clip.none, // overflow will be visible
   children = [
     Widget(),
     Widget(),
@@ -3727,6 +3728,7 @@ Future<void> _takePicture() async {
   final imageFile = await ImagePicker().pickImage(
     source: ImageSource.camera,
     maxWidth: 600,
+    imageQuality: 50, // from 1 to 100
   );
 
   setState(() {
@@ -4385,6 +4387,7 @@ FirebaseFirestore.instance.collection('chat').add({
   'createdAt': Timestamp.now(), // To sort by time, Timestamp is made available by cloud_firestore
   'userId': user!.uid, // To know if the message is send by us or not, so to render UI differently
   'username': userData['username'], // username is stored along with message, so that we can fetch and render username only once, rather than fetching it in a FutureBuilder
+  // 'userImage': userData['image_url'], to show userImage alongside the message
 });
 ```
 
@@ -4422,4 +4425,6 @@ final ref = FirebaseStorage.instance
 if (image != null) {
   await ref.putFile(image).whenComplete(() => null);
 }
+
+final url = await ref.getDownloadURL(); // get a public url for that image
 ```

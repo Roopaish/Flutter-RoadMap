@@ -16,8 +16,11 @@ class _UserImagePickerState extends State<UserImagePicker> {
   ImageProvider<Object>? image;
 
   void _pickImage() async {
-    final pickedImageFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedImageFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+      maxWidth: 150,
+    );
     setState(() {
       if (kIsWeb) {
         image = NetworkImage(pickedImageFile!.path);
