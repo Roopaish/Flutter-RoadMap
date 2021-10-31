@@ -4402,6 +4402,7 @@ FirebaseFirestore.instance.collection('chat').add({
 
 Add Storage in firebase console and setup some rules.  
 bucket is like collection in firestore and paths can be subfolders and files.
+
 ```json
 rules_version = '2';
 service firebase.storage {
@@ -4414,23 +4415,27 @@ service firebase.storage {
 ```
 
 We need to use [firebase storage](https://pub.dev/packages/firebase_storage) for this.
+
 ```html
 <!-- Add this to use firebase_storage in web/index.html -->
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
 ```
 
 ```dart
-// Uploading image
+// Uploading image, image file should be of type XFile? in order to work for web
+// XFile? is available in image_picker package
 // ref will hold a refrence to /user_image/uid.jpg
 final ref = FirebaseStorage.instance
     .ref()
     .child('user_image')
     .child(userCredential.user!.uid + '.jpg');
 
-// putFile will apload the image to above refrence
-// .whenComplete is used just to await, cause .putFile doesn't return a future
+// Converting the image to Bytes and uploading as image/jpg
 if (image != null) {
-  await ref.putFile(image).whenComplete(() => null);
+   if (image != null) {
+    final data = await image.readAsBytes();
+    await ref.putData(data, SettableMetadata(contentType: 'image/jpg'));
+  }
 }
 
 final url = await ref.getDownloadURL(); // get a public url for that image
