@@ -114,20 +114,21 @@
 - [Handling Authentication error](#handling-authentication-error)
 - [Storing token locally(in app)](#storing-token-locallyin-app)
 - [Attaching token to outgoing requests](#attaching-token-to-outgoing-requests)
-- [Setting favorite status per user](#setting-favorite-status-per-user)
-- [Filtering Products by creator](#filtering-products-by-creator)
-- [Logout](#logout)
-- [Auto-login users](#auto-login-users)
+- [Setting Favorite Status per User](#setting-favorite-status-per-user)
+- [Filtering Products by Creator](#filtering-products-by-creator)
+- [Logout Manually/Automatically when Token expires](#logout-manuallyautomatically-when-token-expires)
+- [Auto-login Users | Shared Preferences](#auto-login-users--shared-preferences)
 
 ## 10
 
 [Animations(Shop App)](#animationsshop-app)
 
-- [Manually controlled animation](#manually-controlled-animation)
+- [Manually Controlled Animation](#manually-controlled-animation)
 - [AnimatedBuilder](#animatedbuilder)
 - [AnimatedContainer](#animatedcontainer)
-- [More built-in animation widget](#more-built-in-animation-widget)
-- [Slivers](#slivers)
+- [CurvedAnimation | FadeTransition | SlideTransition | FadeInImage | Hero](#curvedanimation--fadetransition--slidetransition--fadeinimage--hero)
+- [Fancy Scrolling | Slivers](#fancy-scrolling--slivers)
+    >  When scrolled, the image at top will gradually become smaller, until it transforms into an appBar with given title
 - [Custom Route Transition](#custom-route-transition)
 
 ## 11
@@ -135,16 +136,27 @@
 [Using Native Device Features like Camera, Maps, Location(Great Places App)](#using-native-device-features-like-camera-maps-locationgreat-places-app)
 
 - [Place Class](#place-class)
-- [ImagePicker](#imagepicker)
-- [Storing Image on the Filesystem(Memory)](storing-image-on-the-filesystemmemory)
-- [Storing Image in Filesystem using SQLlite(Permanent)](#storingimageinfilesystemusingsqllitepermanent)
-- [Current Location Input](#current-location-input)
-- [Entering Location](#entering-location)
+- [Taking A Photo | ImagePicker](#taking-a-photo--imagepicker)
+- [Storing Image on Memory | Copy File](#storing-image-on-memory--copy-file)
+- [Storing Image in Filesystem using SQLlite](#storing-image-in-filesystem-using-sqllite)
+- [Taking Current Location as Input](#taking-current-location-as-input)
+- [Entering Custom Location](#entering-custom-location)
 - [Saving location to SQLite](#saving-location-to-sqlite)
 
 ## 12
 
 [Firebase, Image Upload, Push Notifications(Chat App)](#firebase-image-upload-push-notificationschat-app)
+
+- [Firebase SDK Setup](#firebase-sdk-setup)
+- [Rendering Firestore data with StreamBuilder()](#rendering-firestore-data-with-streambuilder)
+- [Adding data to Firestore](#adding-data-to-firestore)
+- [Firebase Auth | User Authentication | Signup/Signin](#firebase-auth--user-authentication--signupsignin)
+- [DropdownButton | Logout](#dropdownbutton--logout)
+- [Firebase Firestore Security Rules](#firebase-firestore-security-rules)
+- [Sending/Listening messages to/from Firestore](#sendinglistening-messages-tofrom-firestore)
+- [Firebase Storage | Uploading Image](#firebase-storage--uploading-image)
+- [Firebase Cloud Messaging | On-demand Push Notifications](#firebase-cloud-messaging--on-demand-push-notifications)
+- [Firebase Cloud Functions | Trigger Push Notification by user](#firebase-cloud-functions--trigger-push-notification-by-user)
 
 ## Notes
 
@@ -3126,7 +3138,7 @@ Consumer<Auth>(
 
 **[⬆ Back to Index](#9)**
 
-- ### Attaching token to outgoing requests
+- ### Attaching Token to Outgoing Requests
 
 ```dart
 // Using ChangeNotifierProxyProvider
@@ -3151,7 +3163,7 @@ MultiProvider(
 
 **[⬆ Back to Index](#9)**
 
-- ### Setting favorite status per user
+- ### Setting Favorite Status per User
 
 ```dart
 // Saving favorite status per user
@@ -3197,7 +3209,7 @@ extractedData.forEach((prodId, prodData) {
 
 **[⬆ Back to Index](#9)**
 
-- ### Filtering Products by creator
+- ### Filtering Products by Creator
 
 ```json
 // Attach creatorId to each product when adding to database
@@ -3236,7 +3248,7 @@ await http.get(url);
 
 **[⬆ Back to Index](#9)**
 
-- ### Logout
+- ### Logout Manually/Automatically when Token expires
 
 ```dart
 // Logout manually
@@ -3281,7 +3293,7 @@ void _autoLogout() {
 
 **[⬆ Back to Index](#9)**
 
-- ### Auto-login users
+- ### Auto-login Users | Shared Preferences
 
 [Shared Preference](#https://pub.dev/packages/shared_preferences/install)
 
@@ -3376,7 +3388,7 @@ class ShopApp extends StatelessWidget {
 
 Animations in flutter happens at 60fps changing the UI, so StatefulWidget is required.
 
-- ### Manually controlled animation
+- ### Manually Controlled Animation
 
 ```dart
 // State Class connected to StatefulWidget
@@ -3493,7 +3505,7 @@ AnimatedContainer(
 
 **[⬆ Back to Index](#10)**
 
-- ### More built-in animation widget
+- ### CurvedAnimation | FadeTransition | SlideTransition | FadeInImage | Hero
 
 > Note: Don't use too much animation, it can hamper the performance
 
@@ -3571,7 +3583,7 @@ Hero(
 
 **[⬆ Back to Index](#10)**
 
-- ### Slivers
+- ### Fancy Scrolling | Slivers
 
 ```dart
 // When scrolled, the image at top will gradually become smaller, until it transforms into an appBar with given title
@@ -3733,7 +3745,7 @@ class Place {
 
 **[⬆ Back to Index](#11)**
 
-- ### ImagePicker
+- ### Taking A Photo | ImagePicker
 
 We use [ImagePicker](https://pub.dev/packages/image_picker) package for this.
 
@@ -3792,7 +3804,7 @@ Future<void> _takePicture() async {
 
 **[⬆ Back to Index](#11)**
 
-- ### Storing Image on the Filesystem(Memory)
+- ### Storing Image on Memory | Copy File
 
 Two packages required:  
 [Path Provider](https://pub.dev/packages/path_provider) helps with finding path.  
@@ -3809,7 +3821,7 @@ final fileName = path.basename(imageFile!.path);
 
 final savedImage =
     await File(imageFile.path).copy('${appDir.path}/$fileName');
-// copy imageFile to app directory
+// copy cached imageFile to app directory
 
 // previous location: /data/user/0/com.example.ultimate_flutter_app/cache/image-01.jpg
 // current location: /data/user/0/com.example.ultimate_flutter_app/app_flutter/image-01.jpg
@@ -3817,7 +3829,7 @@ final savedImage =
 
 **[⬆ Back to Index](#11)**
 
-- ### Storing Image in Filesystem using SQLlite(Permanent)
+- ### Storing Image in Filesystem using SQLlite
 
 We use [SQLite plugin for Flutter.](https://pub.dev/packages/sqflite) to work with sql database for android and ios.
 
@@ -3886,7 +3898,7 @@ Future<void> fetchAndSetPlaces() async {
 
 **[⬆ Back to Index](#11)**
 
-- ### Current Location Input
+- ### Taking Current Location as Input
 
 For this, we use [Location](https://pub.dev/packages/location) package.  
 Configurations(for package version 4.2.0):  
@@ -3944,7 +3956,7 @@ final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
 
 **[⬆ Back to Index](#11)**
 
-- ### Entering Location
+- ### Entering Custom Location
 
 Render dynamic maps with Google Maps😑. But I have no credit card -> No Api Key -> Not implementing  
 If you want to implement using Google Maps, you will need [Google Maps Flutter](https://pub.dev/packages/google_maps_flutter) package. There are some configurations to be made, which are explained in README there.
@@ -4166,8 +4178,9 @@ dependencies{
   implementation 'com.android.support:multidex:1.0.3'
 }
 ```
+**[⬆ Back to Index](#12)**
 
-- ### Rendering Firestore stream data with StreamBuilder()
+- ### Rendering Firestore data with StreamBuilder()
 
 ```dart
 StreamBuilder<QuerySnapshot>(
@@ -4198,6 +4211,8 @@ StreamBuilder<QuerySnapshot>(
 
 > Use FutureBuilder with return type DocumentSnapshot to work with firestore. `FutureBuilder<DocumentSnapshot>`
 
+**[⬆ Back to Index](#12)**
+
 - ### Adding data to Firestore
 
 ```dart
@@ -4213,6 +4228,7 @@ FirebaseFirestore.instance
 // Hide the soft keyboard, or shift the focus from inputfields to nothing
 FocusScope.of(context).unfocus();
 ```
+**[⬆ Back to Index](#12)**
 
 - ### Firebase Auth | User Authentication | Signup/Signin
 
@@ -4280,6 +4296,7 @@ void _submitAuthForm(
 
 AuthForm(_submitAuthForm); // Passing refrence to Auth widget
 ```
+**[⬆ Back to Index](#12)**
 
 ```dart
 AuthForm(this.submitFn); // Receiving the fxn refrence
@@ -4302,6 +4319,7 @@ widget.submitFn(
   context, // Passing context to AuthScreen, cause this widget is inside the Scaffold of AuthScreen
 );
 ```
+**[⬆ Back to Index](#12)**
 
 - ### DropdownButton | Logout
 
@@ -4353,6 +4371,7 @@ final Future<FirebaseApp> _initialization = Firebase.initializeApp();
       },
     );
 ```
+**[⬆ Back to Index](#12)**
 
 - ### Firebase Firestore Security Rules
 
@@ -4397,8 +4416,9 @@ service cloud.firestore {
   }
 }
 ```
+**[⬆ Back to Index](#12)**
 
-- ### Sending/Listening messages
+- ### Sending/Listening messages to/from Firestore
 
 ```dart
 // Whenever new doc with text field is added in the chat collection of database
@@ -4439,6 +4459,7 @@ FirebaseFirestore.instance.collection('chat').add({
   // 'userImage': userData['image_url'], to show userImage alongside the message
 });
 ```
+**[⬆ Back to Index](#12)**
 
 - ### Firebase Storage | Uploading Image
 
@@ -4482,6 +4503,7 @@ if (image != null) {
 
 final url = await ref.getDownloadURL(); // get a public url for that image
 ```
+**[⬆ Back to Index](#12)**
 
 > Fixing Image URL of FirebaseStorage to get accessed by any domain
 
@@ -4500,6 +4522,7 @@ Now the imageUrl can be accessed by any domains.
   }
 ]
 ```
+**[⬆ Back to Index](#12)**
 
 - ### Firebase Cloud Messaging | On-demand Push Notifications
 
@@ -4537,8 +4560,11 @@ void initState() {
   super.initState();
 }
 ```
+**[⬆ Back to Index](#12)**
 
 - ### Firebase Cloud Functions | Trigger Push Notification by user
 
 Notifications triggered by user can be done by using Firebase CLoud Functions which requires a billing-account. f...  
 You'll also need node installed.
+
+**[⬆ Back to Index](#12)**
