@@ -4388,4 +4388,38 @@ FirebaseFirestore.instance.collection('chat').add({
 });
 ```
 
-- ### 
+- ### Uploading Image
+
+Add Storage in firebase console and setup some rules.  
+bucket is like collection in firestore and paths can be subfolders and files.
+```json
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read, create: if request.auth != null;
+    }
+  }
+}
+```
+
+We need to use [firebase storage](https://pub.dev/packages/firebase_storage) for this.
+```html
+<!-- Add this to use firebase_storage in web/index.html -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+```
+
+```dart
+// Uploading image
+// ref will hold a refrence to /user_image/uid.jpg
+final ref = FirebaseStorage.instance
+    .ref()
+    .child('user_image')
+    .child(userCredential.user!.uid + '.jpg');
+
+// putFile will apload the image to above refrence
+// .whenComplete is used just to await, cause .putFile doesn't return a future
+if (image != null) {
+  await ref.putFile(image).whenComplete(() => null);
+}
+```
