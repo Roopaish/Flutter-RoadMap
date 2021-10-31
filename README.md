@@ -1060,6 +1060,9 @@ Icon(
 final amountController = TextEditingController();
 
 TextField(
+  // textCapitalization: TextCapitalization.sentences,
+  // autocorrect: true,
+  // enableSuggestions: true,
   decoration: InputDecoration(labelText: 'Amount'), // Placeholder
   // onChanged: (val) => amountInput = val,
   controller: amountController, // watch and store every input inside this TextField
@@ -2328,6 +2331,9 @@ Form(
   child: ListView(
     children: [
       TextFormField(
+        // autocorrect: true,
+        // textCapitalization: TextCapitalization.words,
+        // enableSuggestions: false,
         initialValue: 'Initial text written on the field', // initialValue and controller can't be used simultaneously
         decoration: InputDecoration(labelText: 'Title'), // placeholder + title
         textInputAction: TextInputAction.next, // Adds next key on bottom right corner of soft keyboard
@@ -2910,43 +2916,44 @@ Now for every http request, we should provide token.
 // Configuring Firebase Real time Database rules
 // auth != null tells firebase that, only authenticated users will be able to read/write data
 {
- "rules": {
-  ".read": "auth != null",
-  ".write": "auth != null"
- }
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
 }
 ```
 
 > Do this at last.
+
 ```json
 // Implying full security
 {
- "rules": {
-  "products": {
-  // Read access for only authenticated users
-    ".read": "auth != null",
-  // Specifying a child to index to support ordering and querying.
-    ".indexOn": ["creatorId"],
-  // Giving write access to authenticated users with user id equal to 'creatorId' field, something like: /products/prod-id['creatorId'] == userId
-    "$prodId":{
-      	".write": "root.child('products').child($prodId).child('creatorId').val() === auth.uid"
+  "rules": {
+    "products": {
+      // Read access for only authenticated users
+      ".read": "auth != null",
+      // Specifying a child to index to support ordering and querying.
+      ".indexOn": ["creatorId"],
+      // Giving write access to authenticated users with user id equal to 'creatorId' field, something like: /products/prod-id['creatorId'] == userId
+      "$prodId": {
+        ".write": "root.child('products').child($prodId).child('creatorId').val() === auth.uid"
       }
-   },
-   
-   // Giving read and write access to authenticated users with user id = orders/some-id
-   "orders":{
-     "$uid":{
-       ".read": "$uid === auth.uid",
+    },
+
+    // Giving read and write access to authenticated users with user id = orders/some-id
+    "orders": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
         ".write": "$uid === auth.uid"
       }
     },
-    
-    "userFavorites":{
-      "$uid":{
+
+    "userFavorites": {
+      "$uid": {
         ".read": "$uid === auth.uid",
-         ".write": "$uid === auth.uid"
+        ".write": "$uid === auth.uid"
       }
-    },
+    }
   }
 }
 ```
@@ -3976,7 +3983,7 @@ static Future<List> getPlaceCoordinates(String place) async {
 
 **[⬆ Back to Index](#11)**
 
-- ### Saving location to SQLite
+- ### Saving Location to SQLite
 
 We have to modify our [previous sqlite](#storing-image-in-filesystem-using-sqllitepermanent) in order to accept location.
 
@@ -4052,7 +4059,7 @@ Future<void> fetchAndSetPlaces() async {
 
 ## Firebase, Image Upload, Push Notifications(Chat App)
 
-- ### Firebase Setup
+- ### Firebase SDK Setup
 
 Using Rest API, We can't use all its services efficiently. So firebase, provides us with SDK to make it easier. Behind the scene, sdk manages all the http requests. Find more about firebase with flutter in [here](https://firebase.flutter.dev/docs/overview/).
 
@@ -4160,7 +4167,7 @@ dependencies{
 }
 ```
 
-- ### Rendering stream data with StreamBuilder()
+- ### Rendering Firestore stream data with StreamBuilder()
 
 ```dart
 StreamBuilder<QuerySnapshot>(
@@ -4191,7 +4198,7 @@ StreamBuilder<QuerySnapshot>(
 
 > Use FutureBuilder with return type DocumentSnapshot to work with firestore. `FutureBuilder<DocumentSnapshot>`
 
-- ### Adding data
+- ### Adding data to Firestore
 
 ```dart
 // Adding new documents inside messages collection with text field
@@ -4207,7 +4214,7 @@ FirebaseFirestore.instance
 FocusScope.of(context).unfocus();
 ```
 
-- ### User Authentication
+- ### Firebase Auth | User Authentication | Signup/Signin
 
 We need [firebase_auth](https://pub.dev/packages/firebase_auth/) package for this. Also, In firebase console, go to Authentication and add a sign-in method. I chose Email/Password. As mentioned above in [Firebase Setup](#firebase-setup) for web, add the `firebase-auth` script to index.html.
 
@@ -4296,7 +4303,7 @@ widget.submitFn(
 );
 ```
 
-- ### Logout, DropdownButton
+- ### DropdownButton | Logout
 
 ```dart
 DropdownButton(
@@ -4315,6 +4322,7 @@ DropdownButton(
         ),
       ),
       value: 'logout',
+      underline: Container(), // get rid of underline
     )
   ],
   onChanged: (itemIdentifier) {
@@ -4346,7 +4354,7 @@ final Future<FirebaseApp> _initialization = Firebase.initializeApp();
     );
 ```
 
-- ### Firebase Security Rules
+- ### Firebase Firestore Security Rules
 
 Locking database down to authenticated users.
 
@@ -4432,7 +4440,7 @@ FirebaseFirestore.instance.collection('chat').add({
 });
 ```
 
-- ### Uploading Image
+- ### Firebase Storage | Uploading Image
 
 Add Storage in firebase console and setup some rules.  
 bucket is like collection in firestore and paths can be subfolders and files.
@@ -4474,3 +4482,63 @@ if (image != null) {
 
 final url = await ref.getDownloadURL(); // get a public url for that image
 ```
+
+> Fixing Image URL of FirebaseStorage to get accessed by any domain
+
+1. Open the [GCP console](https://console.cloud.google.com/) and start a cloud terminal session by clicking the >\_ icon button in the top navbar.
+2. Click the pencil icon to open the editor, then create the cors.json file and add the following.
+3. Run `gsutil cors set cors.json gs://your-bucket`
+
+Now the imageUrl can be accessed by any domains.
+
+```json
+[
+  {
+    "origin": ["*"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
+```
+
+- ### Firebase Cloud Messaging | On-demand Push Notifications
+
+[Firebase Cloud Messaging(FCM)](https://firebase.google.com/docs/cloud-messaging)  
+We need [firebase_messaging](https://pub.dev/packages/firebase_messaging/install) package to push notifications.  
+Some configurations to be made for firebase_messaging: [Check Here](https://firebase.flutter.dev/docs/messaging/overview/)  
+Android: No configuration needed of Flutter >= 1.2 (google play services should be available)  
+Web: Add `<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>` to /web/index.html  
+IOS: [Check here](https://firebase.flutter.dev/docs/messaging/apple-integration/)
+
+Now Setup Cloud Messaging in Firebase Console. Click Engage > Cloud Messaging > Send you first message. Write some notification messages you want to send, choose target system and follow ongoing steps and review.  
+This can also be used when you, developer wants to send notifications to app users. The notification will be pushed automatically as you review if the app is in the background.
+
+> Handling Push Notifications
+
+[Message Types](https://firebase.flutter.dev/docs/messaging/usage#message-types)
+
+```dart
+void initState() {
+  // final fbm = FirebaseMessaging.instance; // for IOS
+  // fbm.requestPermission(); // for IOS
+
+  FirebaseMessaging.onMessage.listen((msg) {
+    // called when an incoming FCM payload is received whilst the Flutter instance is in the foreground
+    print(msg);
+  });
+  FirebaseMessaging.onMessageOpenedApp.listen((msg) {
+    // when a user presses a notification message displayed via FCM
+    print(msg);
+  });
+  FirebaseMessaging.onBackgroundMessage((msg) async {
+    // message handler function which is called when the app is in the background or terminated
+    print(msg);
+  });
+  super.initState();
+}
+```
+
+- ### Firebase Cloud Functions | Trigger Push Notification by user
+
+Notifications triggered by user can be done by using Firebase CLoud Functions which requires a billing-account. f...  
+You'll also need node installed.
