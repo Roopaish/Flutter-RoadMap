@@ -8,7 +8,7 @@
 - [Meals App](https://flutter-roadmap.netlify.app/#/meals-app)
 - [Shop App](https://flutter-roadmap.netlify.app/#/shop-app)
 - [Great Places App](https://flutter-roadmap.netlify.app/#/great-places-app)
-- Chat App
+- [Chat App](https://flutter-roadmap.netlify.app/#/chat-app)
 
 ## Index
 
@@ -17,32 +17,40 @@
 [Flutter Basics(Quiz App)](#flutter-basicsquiz-app)
 
 - [Command Line Tools](#command-line-tools)
-- [Files and Folder Structure
-  ](#files-and-folder-structure)
+- [Files and Folder Structure](#files-and-folder-structure)
 - [Dart and Flutter](#dart-and-flutter)
+  > Data Types, Function, Operators, Class, Constructor, Maps, List, ...spread operator, const vs final, getter, string interpolation, String methods, Parsing etc.
 - [Analyze main.dart](#analyze-maindart)
 - [Widgets](#widgets)
+  > MaterialApp, Scaffold, Text, Row, Column, ElevatedButton, TextButton, OutlinedButton
 - [Stateless vs Stateful Widget](#stateless-vs-stateful-widget)
-- [Github Workflow](#github-workflow)
+- [Github Workflow | Build for Web automatically](#github-workflow--build-for-web-automatically)
+- [Adding Custom Assets | Media | Fonts](#adding-custom-assets--media--fonts)
 
 ## 2
 
 [More Widgets, Styling, Adding Logic(Personal Expense App)](#more-widgets-styling-adding-logicpersonal-expense-app)
 
-- [Adding Custom Assets](#adding-custom-assets)
-- [Important Widgets](#important-widgets)
+- [App/Page Widgets](#apppage-widgets)
+- [Layout Widgets | Container | Row | Column](#layout-widgets--container--row--column)
+- [Responsive Widgets | FractionallySizedBox | Flexible | FittedBox | Expanded](#responsive-widgets--fractionallysizedbox--flexible--fittedbox--expanded)
+- [Content Containers | Stack | Card](#content-containers--stack--card)
+- [Repeat Elements Widgets | ListView | GridView](#repeat-elements-widgets--listview--gridview)
+- [Content Type Widgets | Text | Image | Icon](#content-type-widgets--text--image--icon)
+- [User Input Widgets | TextField | Buttons | GestureDetector | InkWell](#user-input-widgets--textfield--buttons--gesturedetector--inkwell)
+- [ThemeData | SizedBox | Divider | CircleAvatar | ClipRRect | Switch](#themedata--sizedbox--divider--circleavatar--cliprrect--switch)
 - [Flutter Methods to show Widgets](#flutter-methods-to-show-widgets)
-- [Access methods of StatefulWidget to connected State Widget](#access-methods-of-statefulwidget-to-connected-state-widget)
-- [More Dart](#more-dart)
+- [Access methods of StatefulWidget from State Widget](#access-methods-of-statefulwidget-from-state-widget)
+- [List/Map Methods | Switch-Case](#listmap-methods--switch-case)
 
 ## 3
 
 [Responsive and Adaptive UI(Personal Expense App)](#responsive-and-adaptive-uipersonal-expense-app)
 
-- [Media Query](#media-query)
-- [Orientation](#orientation)
-- [LayoutBuilder](#layoutbuilder)
-- [Adaptive UI](#adaptive-ui)
+- [Get Device Screen Size | Media Query](#get-device-screen-size--media-query)
+- [Orientation | Portrait | Landscape](#orientation--portrait--landscape)
+- [Know Size given to a specific Widget | LayoutBuilder](#know-size-given-to-a-specific-widget--layoutbuilder)
+- [UI based on Platform | Adaptive UI](#ui-based-on-platform--adaptive-ui)
 
 ## 4
 
@@ -50,11 +58,11 @@
 
 - [Flutter Under the Hood](#flutter-under-the-hood)
 - [Avoid unnecessary Widget rebuild](#avoid-unnecessary-widget-rebuild)
-- [Maintain Widgets](#maintain-widgets)
-- [Widget Lifecycle](#widget-lifecycle)
+- [Extracting Widgets](#extracting-widgets)
+- [Widget Lifecycle | initState | didUpdateWidget | dispose | didChangeDependencies](#widget-lifecycle--initstate--didupdatewidget--dispose--didchangedependencies)
 - [App Lifecycle](#app-lifecycle)
 - [Context](#context)
-- [Key](#key)
+- [Key | Solve List State Problems](#key--solve-list-state-problems)
 
 ## 5
 
@@ -62,58 +70,61 @@
 
 - [Gradient](#gradient)
 - [Navigator](#navigator)
-- [TabBar](#tabbar)
+- [NavigationBar at Top | TabBar](#navigationbar-at-top--tabbar)
 - [BottomNavigationBar](#bottomnavigationbar)
 - [Drawer](#drawer)
 - [Stack of Pages](#stack-of-pages)
-- [SwitchListTile](#switchlisttile)
-- [Pass data through route](#pass-data-through-route)
+- [ListTile with trailing Switch | SwitchListTile](#listtile-with-trailing-switch--switchlisttile)
+- [Pass Data through Route](#pass-data-through-route)
 
 ## 6
 
 [State Management(Shop App)](#state-managementshop-app)
 
-- [Problem with routes](#problem-with-routes)
-- [State Management](#state-management)
+- [Problem with passing Data through Routes](#problem-with-passing-data-through-routes)
+- [State Management | Provider](#state-management--provider)
 - [Inheritance(extends) vs Mixins(with)](#inheritanceextends-vs-mixinswith)
-- [Using nested models and providers](#using-nested-models-and-providers)
-- [Consumer instead of Provider](#consumer-instead-of-provider)
-- [PopupMenuButton()](#popupMenuButton)
+- [Creating provider for a List of items | Provider Constructors](#creating-provider-for-a-list-of-items--provider-constructors)
+- [Using Consumer instead of Provider](#using-consumer-instead-of-provider)
+- [PopupMenuButton](#popupMenuButton)
 - [Some Map Methods](#some-map-methods)
-- [MultiProvider](#multiprovider)
-- [Collision of same class name from different imports](#collision-of-same-class-name-from-different-imports)
-- [Dismissible Widget](#dismissible-widget)
+- [Using multiple Providers | MultiProvider](#using-multiple-providers--multiprovider)
+- [Resolve Collision of same Class Name from different imports](#resolve-collision-of-same-class-name-from-different-imports)
+- [Slide-to-delete | Dismissible Widget](#slide-to-delete--dismissible-widget)
 
 ## 7
 
 [User Inputs and Forms(Shop App)](#user-inputs-and-formsshop-app)
 
-- [Snackbar](#snackbar)
+- [Popup that slides from Bottom | Snackbar](#popup-that-slides-from-bottom--snackbar)
 - [AlertDialog](#alertdialog)
 - [Forms](#forms)
+- [Image Previewer](#image-previewer)
+- [Saving and Validating Form](#saving-and-validating-form)
 
 ## 8
 
 [Sending HTTP Requests(Shop App)](#sending-http-requestsshop-app)
 
 - [Setting up Firebase Realtime Database](#setting-up-firebase-realtime-database)
-- [How to send http requests](#how-to-send-http-requests)
-- [Sending POST Requests](#sending-post-requests)
-- [Future and Async Code](#future-and-async-code)
+- [How to Send http Requests](#how-to-send-http-requests)
+- [Sending data (POST)](#sending-data-post)
+- [Future and Async | try-catch](#future-and-async-code--try-catch)
 - [Fetching Data (GET)](#fetching-data-get)
-- [Pull-to-Refresh](#pull-to-refresh)
+- [Pull-to-Refresh | RefreshIndicator](#pull-to-refresh--refreshindicator)
 - [Updating(PATCH) & Deleting(DELETE) Data](#updatingpatch-&-Deletingdelete-data)
-- [FutureBuilder](#futurebuilder)
+- [Fetch Data every time the State changes | FutureBuilder](#fetch-data-every-time-the-state-changes--futurebuilder)
 
 ## 9
 
 [Authentication(Shop App)](#authenticationshop-app)
 
 - [How Authentication works](#how-authentication-works)
-- [Preparing backend](#preparing-backend)
-- [Handling Authentication error](#handling-authentication-error)
-- [Storing token locally(in app)](#storing-token-locallyin-app)
-- [Attaching token to outgoing requests](#attaching-token-to-outgoing-requests)
+- [Firebase Real Time Database Rules](#firebase-real-time-database-rules)
+- [User SignUp/SignIn | Firebase Auth REST API](#user-signupsignin--firebase-auth-rest-api)
+- [Handling Authentication Error](#handling-authentication-error)
+- [Storing Token Locally | Memory](#storing-token-locally--memory)
+- [Passing Provider as arguments to Another Provider | ChangeNotifierProxyProvider](#passing-provider-as-arguments-to-another-provider--changenotifierproxyprovider)
 - [Setting Favorite Status per User](#setting-favorite-status-per-user)
 - [Filtering Products by Creator](#filtering-products-by-creator)
 - [Logout Manually/Automatically when Token expires](#logout-manuallyautomatically-when-token-expires)
@@ -128,7 +139,7 @@
 - [AnimatedContainer](#animatedcontainer)
 - [CurvedAnimation | FadeTransition | SlideTransition | FadeInImage | Hero](#curvedanimation--fadetransition--slidetransition--fadeinimage--hero)
 - [Fancy Scrolling | Slivers](#fancy-scrolling--slivers)
-    >  When scrolled, the image at top will gradually become smaller, until it transforms into an appBar with given title
+  > When scrolled, the image at top will gradually become smaller, until it transforms into an appBar with given title
 - [Custom Route Transition](#custom-route-transition)
 
 ## 11
@@ -468,6 +479,8 @@ class MyApp extends StatelessWidget {
 
 - ### Widgets
 
+> MaterialApp, Scaffold, Text, Row, Column, ElevatedButton, TextButton, OutlinedButton
+
 ```dart
 // Widgets are classes with Constructor that takes named parameters
 // Widgets(), this is object of Widget Class
@@ -625,7 +638,7 @@ class _QuizState extends State<Quiz> {
 
 **[⬆ Back to Index](#1)**
 
-- ### Github Workflow
+- ### Github Workflow | Build for Web automatically
 
 Use Github Actions to auto build the github-pages as soon as you push to github.
 
@@ -669,7 +682,6 @@ jobs:
 > Note: In case you use custom url or the webpage reside in the root directory of custom url, below steps are not necessary
 
 8. Now finally you have to open 'gh-pages' branch and change 'index.html'
-
 9. Inside head tag find base url
 
 ```html
@@ -694,9 +706,7 @@ jobs:
 
 **[⬆ Back to Index](#1)**
 
-## More Widgets, Styling, Adding Logic(Personal Expense App)
-
-- ### Adding Custom Assets
+- ### Adding Custom Assets | Media | Fonts
 
 Use Custom fonts and images or any multimedia
 
@@ -743,11 +753,11 @@ Text(
 );
 ```
 
-**[⬆ Back to Index](#2)**
+**[⬆ Back to Index](#1)**
 
-- ### Important Widgets
+## More Widgets, Styling, Adding Logic(Personal Expense App)
 
-- App/Page Setup
+- ### App/Page Widgets
 
 ```dart
 // All Widget Wrapper
@@ -760,9 +770,9 @@ CupertinoPageScaffold()
 
 ```
 
-**[⬆ Back to Index](#index)**
+**[⬆ Back to Index](#2)**
 
-- Layout
+- ### Layout Widgets | Container | Row | Column
 
 ```dart
 // Container()
@@ -825,7 +835,7 @@ Column(
 
 **[⬆ Back to Index](#2)**
 
-- Responsive Widgets
+- ### Responsive Widgets | FractionallySizedBox | Flexible | FittedBox | Expanded
 
 ```dart
 // FractionallySizedBox()
@@ -897,7 +907,7 @@ Expanded(
 
 **[⬆ Back to Index](#2)**
 
-- Content Containers
+- ### Content Containers | Stack | Card
 
 ```dart
 //Stack()
@@ -930,7 +940,7 @@ Card(
 
 **[⬆ Back to Index](#2)**
 
-- Repeat Elements
+- ### Repeat Elements Widgets | ListView | GridView
 
 ```dart
 // ListView()
@@ -1022,7 +1032,7 @@ GridView.builder(
 
 **[⬆ Back to Index](#2)**
 
-- Content Types
+- ### Content Type Widgets | Text | Image | Icon
 
 ```dart
 // Text()
@@ -1060,7 +1070,7 @@ Icon(
 
 **[⬆ Back to Index](#2)**
 
-- User Input
+- ### User Input Widgets | TextField | Buttons | GestureDetector | InkWell
 
 ```dart
 // TextField()
@@ -1084,7 +1094,7 @@ TextField(
 amountController.clear(); // To clear the input field
 print(double.parse(amountController.text)); // prints text stored in controller as a double
 
-// Buttons
+// Buttons // Mentioned in above section#1
 RaisedButton()
 FlatButton()
 IconButton()
@@ -1108,7 +1118,7 @@ InkWell(
 
 **[⬆ Back to Index](#2)**
 
-- Extra
+- ### ThemeData | SizedBox | Divider | CircleAvatar | ClipRRect | Switch
 
 ```dart
 // ThemeData()
@@ -1157,7 +1167,7 @@ Text(
 // Empty spaces
 SizedBox(
   height: 4,
-  width: 10,
+  // width: 10,
 ),
 
 // Horizontal line
@@ -1166,7 +1176,9 @@ Divider(),
 // CircleAvatar()
 // Make the child round
 CircleAvatar(
-    child: Image(),
+    backgroundImage: NetworkImage()(userAvatarUrl),
+    child: Text('hello'),
+    // backgroundColor: Colors.red
     radius: 30,
   ),
 
@@ -1215,11 +1227,13 @@ showDatePicker(
   firstDate: DateTime(2021),
   lastDate: DateTime.now(),
 );
+
+// showSnackBar() // in later sections
 ```
 
 **[⬆ Back to Index](#2)**
 
-- ### Access methods of StatefulWidget to connected State Widget
+- ### Access methods of StatefulWidget from State Widget
 
 ```dart
 class NewTransaction extends StatelessWidget {
@@ -1243,7 +1257,9 @@ Widget build(BuildContext context) {
 }
 ```
 
-\*\*[⬆ Back to Index](#23- ### More Dart
+\*\*[⬆ Back to Index](#2)
+
+- ### List/Map Methods | Switch-Case
 
 ```dart
 // fold method reduces a collection to a single value by iteratively combining each element of the collection with an existing value
@@ -1286,7 +1302,9 @@ _favoriteMeals.any((meal) => meal.id == id);
 
 // Returns true if categories list has categoryId
 categories.contains(categoryId)
+```
 
+```dart
 // switch case
 switch (compexity) {
   case Complexity.Simple:
@@ -1307,7 +1325,7 @@ switch (compexity) {
 Responsive for different screen sizes.
 Adaptive for different operating system.
 
-- ### Media Query
+- ### Get Device Screen Size | Media Query
 
 ```dart
 MediaQuery.of(context).size.height // get full height of screen
@@ -1320,7 +1338,7 @@ SafeArea() // Wrap full app body with this to avoid widgets getting in System st
 
 **[⬆ Back to Index](#3)**
 
-- ### Orientation
+- ### Orientation | Portrait | Landscape
 
 ```dart
 // Force portrait mode even if screen is rotated
@@ -1343,7 +1361,7 @@ if(isLandscape)  _usersTransaction.isEmpty ? Widget1() : Widget2() // Render Wid
 
 **[⬆ Back to Index](#3)**
 
-- ### LayoutBuilder
+- ### Know Size given to a specific Widget | LayoutBuilder
 
 To get the space available for a given Widget in the overall app
 
@@ -1361,7 +1379,7 @@ LayoutBuilder(builder: (ctx, constraints) {
 
 **[⬆ Back to Index](#3)**
 
-- ### Adaptive UI
+- ### UI based on Platform | Adaptive UI
 
 ```dart
 Switch.adaptive() // Render switch based on OS
@@ -1421,8 +1439,8 @@ CupertinoButton(
 
 Flutter paints the UI 60fps. If some information is not change flutter takes the old info and paints on the screen which is fast and very efficient when refreshing the UI.
 
-Widget Tree => configuration (rebuilds frequently)  
-ELement Tree => Links widgets' rendered objects (rarely rebuild))  
+Widget Tree => configuration (rebuilds frequently)
+ELement Tree => Links widgets' rendered objects (rarely rebuild))
 Render Tree => Rendered objects on the screen (rarely rebuilds)
 
 Element is a object managed by flutter in memory which holds the reference to Widgets.
@@ -1436,15 +1454,15 @@ Element which hasn't been rendered to the screen yet, is rendered to the screen.
 
 build method is triggered when setState is invoked ,UI refreshes ,MediaQuery changes or softKeyboard appears.
 
-Widgets are objects of classes which have their own build method which is triggered when new instance of Widget Classes are created.  
+Widgets are objects of classes which have their own build method which is triggered when new instance of Widget Classes are created.
 So first constructor is called then build method is invoked when we create new instance of Widgets.
 
 **[⬆ Back to Index](#4)**
 
 - ### Avoid unnecessary Widget rebuild
 
-For bigger apps, it can boost performance.  
-Using const constructors for Widgets which doesn't change(immutable) will not recreate object(Widget) when re-build.  
+For bigger apps, it can boost performance.
+Using const constructors for Widgets which doesn't change(immutable) will not recreate object(Widget) when re-build.
 This doesn't work with dynamic values for Class property.
 
 ```dart
@@ -1454,11 +1472,9 @@ const CharBar(this.label,this.fxn),
 
 **[⬆ Back to Index](#4)**
 
-- ### Maintain Widgets
+- ### Extracting Widgets
 
-Extract Widgets
-
-Extracting Widgets makes the code readable but can also boost some performance in some cases.  
+Extracting Widgets makes the code readable but can also boost some performance in some cases.
 Eg: If certain number of widgets depends on MediaQuery, it is good to make a separate widget containing those widgets.
 
 Builder Methods
@@ -1479,13 +1495,13 @@ if(isLandscape) _buildLandscapeContent(),
 
 **[⬆ Back to Index](#4)**
 
-- ### Widget Lifecycle
+- ### Widget Lifecycle | initState | didUpdateWidget | dispose | didChangeDependencies
 
 Stateless Widget : Constructor() -> build()
 
-Stateful Widget : WidgetConstructor() -> createState() -> StateConstructor() -> initState() -> build(), setState() -> didUpdateWidget() -> build(), dispose()  
-initState() runs when State object is created for the first time  
-didUpdateWidget() in State object is triggered when the widget belonging to this state is updated  
+Stateful Widget : WidgetConstructor() -> createState() -> StateConstructor() -> initState() -> build(), setState() -> didUpdateWidget() -> build(), dispose()
+initState() runs when State object is created for the first time
+didUpdateWidget() in State object is triggered when the widget belonging to this state is updated
 dispose() runs when Widget is destroyed
 
 Only the WidgetConstructor is called when creating new instance of Stateful Widget afterward i.e. createState() -> StateConstructor() -> initState() this does not happen again. It means the State is not recreated when Widget rebuilds automatically instead it sticks around and hold reference of the element which manages the State and is updated to point at the new Widget.
@@ -1532,10 +1548,10 @@ void dispose(){
 
 - ### App Lifecycle
 
-Lifecycle State Name  
-inactive : App is inactive(not in background), no user input received but not fully cleared from memory  
-paused : App is not visible to user but running in background  
-resumed : App is again visible, responds to user inputs  
+Lifecycle State Name
+inactive : App is inactive(not in background), no user input received but not fully cleared from memory
+paused : App is not visible to user but running in background
+resumed : App is again visible, responds to user inputs
 suspending : App is about to be suspended
 
 Listen to App Cycle events
@@ -1574,37 +1590,37 @@ class _Chart extends State<Chart> with WidgetsBindingObserver{
 Every widget has its own context attached to it. Context stores meta information on the Widget and its location in the Widget Tree.
 Skeleton of widget tree.
 
-Context know about each other, they know where Widgets are and what other widgets revolve around them.  
+Context know about each other, they know where Widgets are and what other widgets revolve around them.
 They communicate with each other.
 
 Context has all the information about position of widget, overall Widget tree and establish direct communication between channels behind the scenes to exchange data between Widgets.
 
 **[⬆ Back to Index](#4)**
 
-- ### Key
+- ### Key | Solve List State Problems
 
 Most Widgets don't need a key specially Stateless Widget.
 
-Example where we need it: Lists and Stateful Widgets  
+Example where we need it: Lists and Stateful Widgets
 Widget Tree (Widgets from top to bottom) : ListView(children:[item1, item2])
 
 Element Tree (Reference to above Widgets):
-&ListView(reference to ListView Widget which hold info about its children too)  
-&item1(reference to both item1 StatefulWidget and State Object)  
+&ListView(reference to ListView Widget which hold info about its children too)
+&item1(reference to both item1 StatefulWidget and State Object)
 &item2(reference to both item2 StatefulWidget and State Object)
 
-When item1 is deleted.  
-Flutter checks from top to bottom.  
-First &ListView and ListView are checked. If both present, its items in ListView are checked.  
-Secondly, item is checked in the same level as item1(which is deleted). Since its a list,item2 moves up to the place left by item1. So Flutter answer as yes cause it finds an item where old item was.  
+When item1 is deleted.
+Flutter checks from top to bottom.
+First &ListView and ListView are checked. If both present, its items in ListView are checked.
+Secondly, item is checked in the same level as item1(which is deleted). Since its a list,item2 moves up to the place left by item1. So Flutter answer as yes cause it finds an item where old item was.
 So now &item1 update reference to the item2.
 
 Now &item2 does not find any fitting Widget as item2 move up, so &item2 is deleted along its State.
 
 Solution: Using keys will delete both item1 and &item1 when item1 is deleted.
-TL;DR: Without key, FLutter checks the type of Widget that ELement is referencing to.  
- With key, Flutter checks the Widget with certain key value that is equal to key value of Element.  
- Key helps to identify connected Widget with key value rather than the type of Widget.
+TL;DR: Without key, FLutter checks the type of Widget that ELement is referencing to.
+With key, Flutter checks the Widget with certain key value that is equal to key value of Element.
+Key helps to identify connected Widget with key value rather than the type of Widget.
 
 ```dart
 import 'dart:math'; // for Random class
@@ -1745,7 +1761,7 @@ Navigator.of(context)
 
 **[⬆ Back to Index](#5)**
 
-- ### TabBar
+- ### NavigationBar at Top | TabBar
 
 ```dart
 // The widget can be either stateful or stateless
@@ -1879,10 +1895,9 @@ Navigator.of(context).pushReplacementNamed();
 
 **[⬆ Back to Index](#5)**
 
-- ### SwitchListTile
+- ### ListTile with trailing Switch | SwitchListTile
 
 ```dart
-// ListTile with trailing Switch
 SwitchListTile(
   title: Text('Gluten-free'),
   value: _glutenFree,
@@ -1897,7 +1912,7 @@ SwitchListTile(
 
 **[⬆ Back to Index](#5)**
 
-- ### Pass data through route
+- ### Pass Data through Route
 
 ```dart
 // Passing _setFilter fxn from main app screen to FiltersScreen
@@ -1916,9 +1931,9 @@ FiltersScreen(this.saveFilters)
 
 ## State Management(Shop App)
 
-- ### Problem with routes
+- ### Problem with passing Data through Routes
 
-Passing data through routes created on fly when required can make it hard to manage the project.  
+Passing data through routes created on fly when required can make it hard to manage the project.
 We have to pass data through constructors. So, if page1 has data1 which is transferred to page2 (where data1 is not used) then to page3 (where data1 will be used). So it's not an ideal way of transferring data. It leads to long chain of passing data.
 
 So named routes are ideal.
@@ -1927,18 +1942,17 @@ We need to define all data in top level file (main.dart), so to pass data around
 
 **[⬆ Back to Index](#6)**
 
-- ### State Management
+- ### State Management | Provider
 
-State is data which affects UI(and which might change over time).  
+State is data which affects UI(and which might change over time).
 User interface is function of data(state). If State changes, UI changes.
 
-App-wide State: affects entire app or significant parts of app (like authentication)  
-Widget(Local) State: affects only a widget (like loading spinner)
+App-wide State: affects entire app or significant parts of app (like authentication)Widget(Local) State: affects only a widget (like loading spinner)
 
 - Provider Package (Provided by flutter as a dependency for State management)
 
-A global or central State/Data Provider("Container") is attached to certain Widget. Now all child Widget of that Widget can listen to that provider.  
-Without passing data through constructor, we can add listener to child Widget with of(context).  
+A global or central State/Data Provider("Container") is attached to certain Widget. Now all child Widget of that Widget can listen to that provider.
+Without passing data through constructor, we can add listener to child Widget with of(context).
 Here, only the build() method of child Widget where listener is applied is executed. So, not all Widgets will rebuild.
 
 ```dart
@@ -2034,7 +2048,7 @@ void main(){
 
 **[⬆ Back to Index](#6)**
 
-- ### Using nested models and providers
+- ### Creating provider for a List of items | Provider Constructors
 
 ```dart
 // here products is a list of Product() objects
@@ -2071,14 +2085,14 @@ GridView.builder(
 )
 ```
 
-Best Practices:  
+Best Practices:
 Use .value provider, for list or grid item. See [key](#key) .value constructor solves the issue that key is solving. With create, it can create bugs as soon as we have more items that go outside the screen.
 
 Use create approach when using a object for one time. And use .value approach, when same object is reused again and again for efficiency and avoid bugs.
 
 **[⬆ Back to Index](#6)**
 
-- ### Consumer instead of Provider
+- ### Using Consumer instead of Provider
 
 ```dart
 // With Provider
@@ -2095,11 +2109,10 @@ Widget build(BuildContext context) {
 }
 ```
 
-Provider:  
+Provider:
 When provider.of is used whole build method will re-run whenever data(Product) changes.
 
-Consumer:  
-Only run subpart of Widget tree, which is wrapped in Consumer whenever data(Product) changes.
+Consumer:Only run subpart of Widget tree, which is wrapped in Consumer whenever data(Product) changes.
 
 > Can be used together
 
@@ -2117,7 +2130,7 @@ Widget build(BuildContext context) {
 
 **[⬆ Back to Index](#6)**
 
-- ### PopupMenuButton()
+- ### PopupMenuButton
 
 ```dart
 // Button which when clicked creates a dropdown of PopupMenuItems
@@ -2193,7 +2206,7 @@ _orders.insert(
 
 **[⬆ Back to Index](#6)**
 
-- ### MultiProvider
+- ### Using multiple Providers | MultiProvider
 
 ```dart
 // Providers Products() and Cart() are added to entire child Widget Tree
@@ -2212,7 +2225,7 @@ MultiProvider(
 
 **[⬆ Back to Index](#6)**
 
-- ### Collision of same class name from different imports
+- ### Resolve Collision of same Class Name from different imports
 
 ```dart
 // Here both cart.dart and cart_item.dart has CartItem class defined which are different
@@ -2235,7 +2248,7 @@ import '../widgets/cart_item.dart';
 
 **[⬆ Back to Index](#6)**
 
-- ### Dismissible Widget
+- ### Slide-to-delete | Dismissible Widget
 
 ```dart
 // Swipe a Widget to remove it from screen
@@ -2258,7 +2271,7 @@ Dismissible(
 
 ## User Inputs and Forms(Shop App)
 
-- ### Snackbar
+- ### Popup that slides from Bottom | Snackbar
 
 ```dart
 // Connect to nearest Scaffold
@@ -2375,6 +2388,10 @@ Form(
 ),
 ```
 
+**[⬆ Back to Index](#7)**
+
+- ### Image Previewer
+
 ```dart
 // Image Url field to preview Image after focus is shifted
 
@@ -2447,9 +2464,11 @@ Widget build(BuildContext context) {
 }
 ```
 
-```dart
-// Saving and Validating Form
+**[⬆ Back to Index](#7)**
 
+- ### Saving and Validating Form
+
+```dart
 // defining a global key for Form, so to access Form Widget in the code
 final _form = GlobalKey<FormState>();
 var _editedProduct = Product(
@@ -2515,12 +2534,13 @@ Then we will be presented to a Data screen containing the URL which is used to t
 
 **[⬆ Back to Index](#8)**
 
-- ### How to send http requests
+- ### How to Send http Requests
 
-Typically, we will be communicating with the REST(or RESTful) APIs when working with backend in flutter app. REST is a common way of communicating in most frontend apps.  
+Typically, we will be communicating with the REST(or RESTful) APIs when working with backend in flutter app. REST is a common way of communicating in most frontend apps.
 REST APIs follow a default approach regarding how incoming requests should be structured/set up.
 
-Convention: `Http Endpoint (URL) + Http Verb = Action`  
+Convention:  
+`Http Endpoint (URL) + Http Verb = Action`
 Http Endpoint is the URL which connects to server that we talk to. Http Verb are request methods on data.
 
 Common Request Methods:  
@@ -2537,7 +2557,7 @@ http package throws an error if we receive status code greater or equal to 400.
 
 **[⬆ Back to Index](#8)**
 
-- ### Sending POST Requests
+- ### Sending data (POST)
 
 To make http requests, 'http' package is needed, which is available at pub.dev.
 
@@ -2578,7 +2598,7 @@ http.post(
 
 **[⬆ Back to Index](#8)**
 
-- ### Future and Async Code
+- ### Future and Async Code | try-catch
 
 ```dart
 var result = 1 + 1; // this is immediately available
@@ -2760,7 +2780,7 @@ void didChangedDependencies(){
 
 **[⬆ Back to Index](#8)**
 
-- ### Pull-to-Refresh
+- ### Pull-to-Refresh | RefreshIndicator
 
 ```dart
 // Asynchronous function to fetch data
@@ -2840,7 +2860,7 @@ if (response.statusCode >= 400) {
 
 **[⬆ Back to Index](#8)**
 
-- ### FutureBuilder
+- ### Fetch Data every time the State changes | FutureBuilder
 
 ```dart
 // Use FutureBuilder instead of initState()
@@ -2912,17 +2932,17 @@ FutureBuilder(
 
 In web development, session is created in server to make entry in database that logs user with given id. In browser, we store cookies that identifies that session, so we can check the data in browser and session to know that the user is logged in.
 
-But in flutter and many web apps, it works differently with the help of Stateless RESTful APIs. Stateless means, the server does not care about the individual client connected to it. The server doesn't store anything that tells a certain user or app is authenticated.  
+But in flutter and many web apps, it works differently with the help of Stateless RESTful APIs. Stateless means, the server does not care about the individual client connected to it. The server doesn't store anything that tells a certain user or app is authenticated.
 The API's job is to provide endpoint to send requests and return an answer. We don't care about who is authenticated and who is not.
 
-When an user is logged in, a token is generated on the server and is only known to the server. So token can't be faked. And that token is sent to the app which then is stored in user's device.  
+When an user is logged in, a token is generated on the server and is only known to the server. So token can't be faked. And that token is sent to the app which then is stored in user's device.
 So even if app restarts, we would still be able to log in.
 
 Now for every http request, we should provide token.
 
 **[⬆ Back to Index](#9)**
 
-- ### Preparing backend
+- ### Firebase Real Time Database Rules
 
 ```json
 // Configuring Firebase Real time Database rules
@@ -2935,7 +2955,7 @@ Now for every http request, we should provide token.
 }
 ```
 
-> Do this at last.
+> Do this after setting up everything.
 
 ```json
 // Implying full security
@@ -2974,13 +2994,13 @@ Now in Authentication, choose a sign-in method. For eg: Email/Password and enabl
 
 **[⬆ Back to Index](#9)**
 
-- ### User SignUp/SignIn
+- ### User SignUp/SignIn | Firebase Auth REST API
 
 [Firebase Auth REST API](#https://firebase.google.com/docs/reference/rest/auth)
 
-For Email/Password signUp, we should send request to following url with api_key provided by firebase available in project setting.  
-url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=api_key` to sign up  
-url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=api_key ` to sign in  
+For Email/Password signUp, we should send request to following url with api_key provided by firebase available in project setting.
+url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=api_key` to sign up
+url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=api_key ` to sign in
 It's ok to expose Firebase API_KEY.
 
 ```dart
@@ -3033,8 +3053,8 @@ Future<void> login(String email, String password) async {
 }
 ```
 
-- Using environment variables at run time  
-  `flutter run --dart-define=API_KEY=SOME_VALUE`  
+- Using environment variables at run time
+  `flutter run --dart-define=API_KEY=SOME_VALUE`
   Now it will be replaced here,
 
 ```dart
@@ -3043,7 +3063,7 @@ final API_KEY = String.fromEnvironment('API_KEY', defaultValue: '');
 
 **[⬆ Back to Index](#9)**
 
-- ### Handling Authentication error
+- ### Handling Authentication Error
 
 ```dart
 // sending http request and throwing errors
@@ -3099,7 +3119,7 @@ try {
 
 **[⬆ Back to Index](#9)**
 
-- ### Storing token locally(in app)
+- ### Storing Token Locally | Memory
 
 ```dart
 // defined after http request is successful
@@ -3138,7 +3158,7 @@ Consumer<Auth>(
 
 **[⬆ Back to Index](#9)**
 
-- ### Attaching Token to Outgoing Requests
+- ### Passing Provider as arguments to Another Provider | ChangeNotifierProxyProvider
 
 ```dart
 // Using ChangeNotifierProxyProvider
@@ -3749,9 +3769,9 @@ class Place {
 
 We use [ImagePicker](https://pub.dev/packages/image_picker) package for this.
 
-There are some extra configuration (for version 0.8.4+3) to be made when using it with ios.  
+There are some extra configuration (for version 0.8.4+3) to be made when using it with ios.
 Add following keys to Info.plist located at:
-`<project root>/ios/Runner/Info.plist`  
+`<project root>/ios/Runner/Info.plist`
 `NSMicrophoneUsageDescription` is not required as we are not taking videos.
 
 ```plist
@@ -3806,8 +3826,8 @@ Future<void> _takePicture() async {
 
 - ### Storing Image on Memory | Copy File
 
-Two packages required:  
-[Path Provider](https://pub.dev/packages/path_provider) helps with finding path.  
+Two packages required:
+[Path Provider](https://pub.dev/packages/path_provider) helps with finding path.
 [Path](https://pub.dev/packages/path) helps with constructing path.
 
 ```dart
@@ -3900,8 +3920,8 @@ Future<void> fetchAndSetPlaces() async {
 
 - ### Taking Current Location as Input
 
-For this, we use [Location](https://pub.dev/packages/location) package.  
-Configurations(for package version 4.2.0):  
+For this, we use [Location](https://pub.dev/packages/location) package.
+Configurations(for package version 4.2.0):
 Android: Add the following to AndroidManifest.xml located at: android\app\src\main\AndroidManifest.xml inside of manifest and outside of application
 
 ```xml
@@ -3958,10 +3978,10 @@ final staticMapImageUrl = LocationHelper.generateLocationPreviewImage(
 
 - ### Entering Custom Location
 
-Render dynamic maps with Google Maps😑. But I have no credit card -> No Api Key -> Not implementing  
+Render dynamic maps with Google Maps😑. But I have no credit card -> No Api Key -> Not implementing
 If you want to implement using Google Maps, you will need [Google Maps Flutter](https://pub.dev/packages/google_maps_flutter) package. There are some configurations to be made, which are explained in README there.
 
-Instead I will give the user the choice to input location address or coordinates.  
+Instead I will give the user the choice to input location address or coordinates.
 I'll be using [MapBox](https://www.mapbox.com/) API again to change address to coordinates and vice-versa.
 
 ```dart
@@ -4081,8 +4101,8 @@ Create a new project in [firebase](https://console.firebase.google.com/).
 
 > For [Android](https://firebase.flutter.dev/docs/installation/android):
 
-Add an app, android, fill the form with  
-Android Package Name: com.example.ultimate_flutter_app can be found in android/app/build.gradle and register the app.  
+Add an app, android, fill the form with
+Android Package Name: com.example.ultimate_flutter_app can be found in android/app/build.gradle and register the app.
 Add the provided `google_services.json` file in android/app.
 
 Click continue, Now inside android/build.gradle, add lines as provided. Again in android/app/build.gradle, add the lines provided.
@@ -4091,7 +4111,7 @@ Click continue, Now inside android/build.gradle, add lines as provided. Again in
 
 > For [Web](https://firebase.flutter.dev/docs/installation/web):
 
-Add a web app. Choose config and Copy the given script and go to web/index.html. Paste the code inside body tag before any other script, then initialize firebase using this command `firebase.initializeApp(firebaseConfig);`. Wrap this code with script tag.  
+Add a web app. Choose config and Copy the given script and go to web/index.html. Paste the code inside body tag before any other script, then initialize firebase using this command `firebase.initializeApp(firebaseConfig);`. Wrap this code with script tag.
 Also add firebase cdns with same version before this script. The packages should also be installed through pubspec.yaml to use the cdn.
 
 ```html
@@ -4157,10 +4177,10 @@ FirebaseFirestore.instance
 // If Instance of '_JsonQuerySnapshot' or alike is printed on the debug, then everything is fine
 ```
 
-If you get an error like this in android:  
+If you get an error like this in android:
 `com.android.builder.dexing.DexArchiveMergerException: Error while merging dex archives:`
 
-Go to android/app/build.gradle. Inside defaultConfig, add this line at the end `multiDexEnabled true`.  
+Go to android/app/build.gradle. Inside defaultConfig, add this line at the end `multiDexEnabled true`.
 Also inside dependencies, add this at the end `implementation 'com.android.support:multidex:1.0.3'`. Save and re-run.
 
 ```.gradle
@@ -4178,6 +4198,7 @@ dependencies{
   implementation 'com.android.support:multidex:1.0.3'
 }
 ```
+
 **[⬆ Back to Index](#12)**
 
 - ### Rendering Firestore data with StreamBuilder()
@@ -4228,6 +4249,7 @@ FirebaseFirestore.instance
 // Hide the soft keyboard, or shift the focus from inputfields to nothing
 FocusScope.of(context).unfocus();
 ```
+
 **[⬆ Back to Index](#12)**
 
 - ### Firebase Auth | User Authentication | Signup/Signin
@@ -4296,6 +4318,7 @@ void _submitAuthForm(
 
 AuthForm(_submitAuthForm); // Passing refrence to Auth widget
 ```
+
 **[⬆ Back to Index](#12)**
 
 ```dart
@@ -4319,6 +4342,7 @@ widget.submitFn(
   context, // Passing context to AuthScreen, cause this widget is inside the Scaffold of AuthScreen
 );
 ```
+
 **[⬆ Back to Index](#12)**
 
 - ### DropdownButton | Logout
@@ -4371,6 +4395,7 @@ final Future<FirebaseApp> _initialization = Firebase.initializeApp();
       },
     );
 ```
+
 **[⬆ Back to Index](#12)**
 
 - ### Firebase Firestore Security Rules
@@ -4416,6 +4441,7 @@ service cloud.firestore {
   }
 }
 ```
+
 **[⬆ Back to Index](#12)**
 
 - ### Sending/Listening messages to/from Firestore
@@ -4459,11 +4485,12 @@ FirebaseFirestore.instance.collection('chat').add({
   // 'userImage': userData['image_url'], to show userImage alongside the message
 });
 ```
+
 **[⬆ Back to Index](#12)**
 
 - ### Firebase Storage | Uploading Image
 
-Add Storage in firebase console and setup some rules.  
+Add Storage in firebase console and setup some rules.
 bucket is like collection in firestore and paths can be subfolders and files.
 
 ```json
@@ -4503,6 +4530,7 @@ if (image != null) {
 
 final url = await ref.getDownloadURL(); // get a public url for that image
 ```
+
 **[⬆ Back to Index](#12)**
 
 > Fixing Image URL of FirebaseStorage to get accessed by any domain
@@ -4522,19 +4550,19 @@ Now the imageUrl can be accessed by any domains.
   }
 ]
 ```
+
 **[⬆ Back to Index](#12)**
 
 - ### Firebase Cloud Messaging | On-demand Push Notifications
 
-[Firebase Cloud Messaging(FCM)](https://firebase.google.com/docs/cloud-messaging)  
-We need [firebase_messaging](https://pub.dev/packages/firebase_messaging/install) package to push notifications.  
-Some configurations to be made for firebase_messaging: [Check Here](https://firebase.flutter.dev/docs/messaging/overview/)  
-Android: No configuration needed of Flutter >= 1.2 (google play services should be available)  
-Web: Add `<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>` to /web/index.html  
+[Firebase Cloud Messaging(FCM)](https://firebase.google.com/docs/cloud-messaging)
+We need [firebase_messaging](https://pub.dev/packages/firebase_messaging/install) package to push notifications.
+Some configurations to be made for firebase_messaging: [Check Here](https://firebase.flutter.dev/docs/messaging/overview/)
+Android: No configuration needed of Flutter >= 1.2 (google play services should be available)
+Web: Add `<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-messaging.js"></script>` to /web/index.html
 IOS: [Check here](https://firebase.flutter.dev/docs/messaging/apple-integration/)
 
-Now Setup Cloud Messaging in Firebase Console. Click Engage > Cloud Messaging > Send you first message. Write some notification messages you want to send, choose target system and follow ongoing steps and review.  
-This can also be used when you, developer wants to send notifications to app users. The notification will be pushed automatically as you review if the app is in the background.
+Now Setup Cloud Messaging in Firebase Console. Click Engage > Cloud Messaging > Send you first message. Write some notification messages you want to send, choose target system and follow ongoing steps and review.This can also be used when you, developer wants to send notifications to app users. The notification will be pushed automatically as you review if the app is in the background.
 
 > Handling Push Notifications
 
@@ -4560,11 +4588,12 @@ void initState() {
   super.initState();
 }
 ```
+
 **[⬆ Back to Index](#12)**
 
 - ### Firebase Cloud Functions | Trigger Push Notification by user
 
-Notifications triggered by user can be done by using Firebase CLoud Functions which requires a billing-account. f...  
+Notifications triggered by user can be done by using Firebase CLoud Functions which requires a billing-account. f...
 You'll also need node installed.
 
 **[⬆ Back to Index](#12)**
